@@ -24,7 +24,7 @@ The documentations produced during a demonstrator delivery are managed and store
 ### Roadmap
 
 | Version | Usage Goal | Description | Delivery |
-| :---: | :--- | :--- | ---: |
+|  :---:  |   :---     |    :---     |     ---: |
 | V1 | UI Cockpits Principles POC | Usability tests regarding cockpit principles. Demonstration of CYBNITY wireframe/interactive UI to potential partners' ecosystem | 2022, June |
 | V1 | UI Cockpit Demonstrator | Technologies set for CYBNITY basic features prototyping | 2022, Dec |
 
