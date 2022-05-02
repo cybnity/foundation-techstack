@@ -1,15 +1,7 @@
 ## PURPOSE
-Presentation of the Minimum Prototyping Platform (MPP) project line dedicated to build and deliver CYBNITY demonstrator versions, used to define and deliver versions of an official and maintained technologies stack usable by CYBNITY Foundation project(s).
-The implementation documentation includes many types of support deliverables produced during the software development life cycle.
-You can find documentations relative to demonstrators realization and/or stack maintenance (catalog of technologies) like:
-- MPP technology opportunities identification;
-- Technologies analysis and MPP delivery;
-- Proof Of Concept (POC) execution and conclusions;
-- Technical tests of selected technology sets for validation of required capabilities and benefits justifying to become a new MPP official version;
-- Support to software build process and packaging;
-- Technologies set configuration and usage procedure(s).
+This section develop, document and elaborate detailed designs progressively using agreed-on and rapid agile development techniques, addressing all components (business processes and related automated and manual controls, supporting IT applications, infrastructure services and technology products, and partners/suppliers). Ensure that the detailed design includes internal and external SLAs and OLAs.
 
-This technical documentations are supporting the functional, architectural and/or organizational documentations available on [CYBNITY Universe](https://cybnity.notion.site/CYBNITY-Universe-c707ba2ebc3047c6ad533f18b2e0f9db) public web site about concept, requirements, business/technology/systems architectures...
+This section presents the design specifications about the solutions and technology approved for build.
 
 # LONG TERM GOALS AND REQUIREMENTS
 Presents the standard goals that should be reached and benefits that are targeted to be collected from the official technology stack by CYBNITY projects.
@@ -24,7 +16,30 @@ It's possible that new goals entry enhance the common goals, regarding specific 
 - Status: 
 - Documentation
 
-## STANDARD TECHNOLOGIES SET
+## LAYER ARCHITECTURE
+
+## STANDARD TECHNOLOGIES STACK
+Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
+
+### Application Layer
+
+| Name | Usage | Solution Type | Implementation ID | Technology | Runtime Infrastructure Target |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | |
+
+
+### Infrastructure Layer
+
+| Name | Usage | Solution Type | Implementation ID | Technology | Runtime Infrastructure Target |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | |
+
+
+### Physical Infrastructure Layer
+
+| Name | Usage | Solution Type | Implementation ID | Technology | Runtime Infrastructure Target |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | |
 
 #
 [Back To Home](../README.md)
