@@ -16,22 +16,18 @@ The MPP and demonstrators delivery is a contributor sub-process of the global CY
 # DELIVERABLES
 The documentations produced during a demonstrator delivery are managed and store per version in sub-directory named "demonstrators-line".
 
-## STANDARD TECHNOLOGIES SET
-
-### Current MPP
+## CURRENT MPP OFFICIAL VERSION
 - [Official Technologies Stack](docs/official-technologies-stack.md) for demonstrator developers, testers and managers.
 
-### Futures MPP
+## FUTURE MPPs & DEMONSTRATORS
 See the [future stack releases plan](docs/releases-plan.md).
 
-### Deprecated MPP
-List of previous technologies set out of the maintenance life cycle.
+## MPP PREVIOUS VERSIONS
+List of previous technologies set versions that are deprecated and out of the maintenance life cycle.
 
 | Version | Usage Goal | Description | Delivery |
 |  :---:  |   :---     |    :---     |     ---: |
 |   |  |  |  |
-
-## DEMONSTRATORS
 
 # OTHER RESOURCES
 ## COMMUNICATION CHANNELS

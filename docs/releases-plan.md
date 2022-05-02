@@ -1,7 +1,7 @@
 ## PURPOSE
 Presentation of the releases plan regarding the demonstrators and technologies set versions.
 
-# FUTURE MPP RELEASES PLAN
+# FUTURE MPP DELIVERY PLAN
 According to experiences of CYBNITY stakeholders, or of new technology availability with possible interest regarding hoped benefit for the CYBNITY projects, one or several technologies catalog evolutions can be studied to validate a new future version or the technology set.
 
 | Version | Usage Goal | Description | Delivery |
@@ -12,3 +12,6 @@ According to experiences of CYBNITY stakeholders, or of new technology availabil
 # FUTURE DEMONSTRATORS DELIVERY PLAN
 
 ### Technology Opportunities Identification
+
+#
+[Back To Home](../README.md)
