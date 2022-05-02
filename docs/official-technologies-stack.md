@@ -19,28 +19,12 @@ A set of common requirements is defined as frame of principles need to be mainta
 It's possible that new goals entry enhance the common goals, regarding specific technology and/or implementation layers during a new version development of the standards catalog.
 
 # CURRENT MPP OFFICIAL VERSION
-## SPECIFICATION
-### Standard Goals
-### Standard Requirements
+- Version:
+- Released at:
+- Status: 
+- Documentation
 
-# TECHNOLOGY OPPORTUNITIES
-According to experiences of CYBNITY stakeholders, or of new technology availability with possible interest regarding hoped benefit for the CYBNITY projects, one or several technologies catalog evolutions can be studied to validate a new future version or the technology set.
-
-- MPP v1
-
-# DEMONSTRATORS DELIVERY
-### Technology Opportunities Identification
-
-#### Packages Assembly
-
-## SYSTEMS BUILD & DELIVERY
-
-#### Components & Solutions Development
-
-# DEMONSTRATORS DELIVERY DOCUMENTATIONS
-### Systems Configuration & Deployment
-
-### Applications Operating
+## STANDARD TECHNOLOGIES SET
 
 #
 [Back To Home](../README.md)

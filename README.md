@@ -13,35 +13,25 @@ The MPP and demonstrators delivery is a contributor sub-process of the global CY
 
 ![image](https://user-images.githubusercontent.com/16148082/161949445-0c2ab441-745e-44d4-972b-f24cb7680fbd.png)
 
-# THE DEMONSTRATORS
+# DELIVERABLES
 The documentations produced during a demonstrator delivery are managed and store per version in sub-directory named "demonstrators-line".
 
-## SUPPORT & DOCS
-- [Technical documentations](docs/README.md) for demonstrator developers, testers and managers.
-
-## DELIVERY PLAN
-
-### Roadmap
-
-| Version | Usage Goal | Description | Delivery |
-|  :---:  |   :---     |    :---     |     ---: |
-| V1 | UI Cockpits Principles POC | Usability tests regarding cockpit principles. Demonstration of CYBNITY wireframe/interactive UI to potential partners' ecosystem | 2022, June |
-| V1 | UI Cockpit Demonstrator | Technologies set for CYBNITY basic features prototyping | 2022, Dec |
+## STANDARD TECHNOLOGIES SET
 
 ### Current MPP
-- Version:
-- Released at:
-- Status:
-- Documentation
+- [Official Technologies Stack](docs/official-technologies-stack.md) for demonstrator developers, testers and managers.
 
-### Future MPP
-- Version: 1.0
-- Releasing target:
-- Status: preparation in progress
-- Documentation
+### Futures MPP
+See the [future stack releases plan](docs/releases-plan.md).
 
 ### Deprecated MPP
 List of previous technologies set out of the maintenance life cycle.
+
+| Version | Usage Goal | Description | Delivery |
+|  :---:  |   :---     |    :---     |     ---: |
+|   |  |  |  |
+
+## DEMONSTRATORS
 
 # OTHER RESOURCES
 ## COMMUNICATION CHANNELS
