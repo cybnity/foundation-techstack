@@ -46,8 +46,19 @@ The current status of technology already in the analysis stream give a general v
 
 | Architecture Layer | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
+| UI | Web UI Framework | HTML/Javascript/JQuery | X | | | |
+| UI | Web UI Framework | Struts | X | | | |
+| UI | Web UI Framework | Spring MVC | X | | | |
+| UI | Native UI Framework | JavaFX (native desktop or web application with CSS) | X | | | |
+| APPLICATION | Distribued Stateful Application | Apache Flink | X | | | |
+| APPLICATION | Distribued Stateful Application | Vert.x | X | | | |
 | APPLICATION | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
 | APPLICATION | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
+| APPLICATION | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM,  low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
+| APPLICATION | Java Runtime Environment | AdoptOpenJDK (Eclipse Adoptium, GNU GPL) | X | | | |
+| APPLICATION | Java Runtime Environment | Liberica JDK | X | | | |
+| APPLICATION | Java Runtime Environment | Eclipse OpenJ9 8/11 | X | | | |
+| APPLICATION | Pre-compiled Execution Environment | Oracle GraalVM | X | | | |
 | INFRASTRUCTURE | Secrets In Dynamic infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
 | INFRASTRUCTURE | Networking Distribution | Consul, Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
 | INFRASTRUCTURE | Executable System | Docker Image | X | | | |
@@ -105,6 +116,10 @@ The acceptance level per differentiation criteria is evaluated as:
 | | | | | | | | |
 
 ## STEP 3 - Arbitration of the retained technologies set
-During this step, the 
+During this step, the final selection of the solutions set is performed between the accepted ideal or alternative eligible technologies.
+
+The deliverable is the output official new version of the technologies stack proposed for validation by demonstrator(s).
+See the [technologies stack](v0-technologies-stack.md) page as eligible official new kit.
+
 #
 [Back To Home](README.md)
