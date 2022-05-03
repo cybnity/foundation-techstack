@@ -13,7 +13,18 @@ Definition of a minimal set of components allowing to:
 - build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem.
 
 ## REQUIREMENTS
-### Environments and locations
+
+### Application Layer
+#### Processing and distribution of load
+Should start in a moderate time duration, but should have an acceptable reactivity SLA during the demonstration period allowing to check a realistic behavior of the UI Cockpits principles.
+
+None requirement about support of data volume operated by the demonstrator using the stack (first phase of the CYBNITY project without challenges about the data load performance).
+
+#### Access and usage via Internet
+Should be usable via Internet for remote demonstration through a web browser hosted on a laptop or tablet, connected to Internet over a 4G bandwidth.
+
+### Infrastructure Layer
+#### Environments and locations
 Should support implementation of applications capable to run on several infrastructure environment types (environment profiles):
   - **local**: developer's workstation during unit development activities;
   - **server**: common development server shared between developers collaborative activities and integration tests during unit development of integrated features;
@@ -21,33 +32,38 @@ Should support implementation of applications capable to run on several infrastr
   - **staging**: pre-production server environment (mirror of production environment) that contain next version of applications, used for final integration testing and for test/demonstration of deployment repetition or performance demonstration;
   - **production**: production (live) server environment.
 
-### Processing and distribution of load
-Should start in a moderate time duration, but should have an acceptable reactivity SLA during the demonstration period allowing to check a realistic behavior of the UI Cockpits principles.
-
-None requirement about support of data volume operated by the demonstrator using the stack (first phase of the CYBNITY project without challenges about the data load performance).
-
-### Access and usage via Internet
-Should be usable via Internet for remote demonstration through a web browser hosted on a laptop or tablet, connected to Internet over a 4G bandwidth.
-
-### Hosting, hardware and network specifications
-Should be virtualized allowing an installation on a public cloud host, or an independent laptop without Internet connection.
+#### Hosting and execution platform
+Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop (e.g OS on x64, ARM64 processing unit) without Internet connection.
 
 # STACK DEFINITION CURRENT STATUS
+Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
+The current status of technology already in the analysis stream give a general view which one is always in the race:
+
+- Always in study `X`
+- Discarded `OUT`
+- Opportunity as alternate challenger `ALT`
+- Retained `WIN`
 
 | Architecture Layer | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| APPLICATION | | | | | | |
-| INFRASTRUCTURE | | | | | | |
+| APPLICATION | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
+| APPLICATION | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
+| INFRASTRUCTURE | Secrets In Dynamic infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
+| INFRASTRUCTURE | Networking Distribution | Consul, Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
+| INFRASTRUCTURE | Executable System | Docker Image | X | | | |
+| DELIVERY TOOL | System Images Build | Waypoint (command CLI for publish application docker images with build>deploy>release steps on Kubernetes) | X | | | |
+| INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
+| INFRASTRUCTURE | Operating System | Linux Distribution? (Alpine, Debian, Ubuntu), kernel? | X | | | |
 | PHYSICAL INFRASTRUCTURE | | | | | | |
 
 # IMPLEMENTATION ARCHITECTURE
 Presentation of the retained implementation stack resulting of the analysis steps results.
 
-
-# ANALYSIS STEPS PERFORMED
+# TECHNOLOGY ANALYSIS STREAM
 
 ## STEP 1 - Eligibility Check
 During this step, the candidate technologies are identified and their study is mainly based on their documentations according to the promised announced by their editors/providers.
+The first set of technologies identified like potential interesting candidate is coming from market proposal and/or team members experiences.
 
 The eligibility criteria acceptance level are evaluated as:
 
@@ -63,6 +79,7 @@ The criteria checked about advantages (ADV) are:
 | |
 
 ## STEP 2 - Acceptance check regarding impact on other components required
+Only the technologies set identified as acceptable or good are studied during this phase.
 The goals of the acceptance test are:
 
 - Check real compatibility with other architecture components that could be impacted by the selected candidates, and identify the requirements that will be generated to this components if the technology is selected for implementation;
@@ -87,5 +104,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
 | | | | | | | | |
 
+## STEP 3 - Arbitration of the retained technologies set
+During this step, the 
 #
 [Back To Home](README.md)
