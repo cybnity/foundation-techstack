@@ -13,6 +13,9 @@ Definition of a minimal set of components allowing to:
 - build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem.
 
 ## REQUIREMENTS
+### Architecture
+
+### Design & Demonstrator
 
 ### Application Layer
 #### Processing and distribution of load
@@ -35,6 +38,8 @@ Should support implementation of applications capable to run on several infrastr
 #### Hosting and execution platform
 Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop (e.g OS on x64, ARM64 processing unit) without Internet connection.
 
+### Tooling & Supervision
+
 # STACK DEFINITION CURRENT STATUS
 Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
 The current status of technology already in the analysis stream give a general view which one is always in the race:
@@ -46,26 +51,51 @@ The current status of technology already in the analysis stream give a general v
 
 | Architecture Layer | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| UI | Web UI Framework | HTML/Javascript/JQuery | X | | | |
-| UI | Web UI Framework | Struts | X | | | |
-| UI | Web UI Framework | Spring MVC | X | | | |
-| UI | Native UI Framework | JavaFX (native desktop or web application with CSS) | X | | | |
-| APPLICATION | Distribued Stateful Application | Apache Flink | X | | | |
-| APPLICATION | Distribued Stateful Application | Vert.x | X | | | |
+| UI | Web GUI Framework | HTML/Javascript/JQuery | X | | | |
+| UI | Web GUI Framework | Struts | X | | | |
+| UI | Web GUI Framework | Spring MVC | X | | | |
+| UI | Web GUI Framework | React (javascript) | X | | | |
+| UI | Web GUI Framework | Angular (javascript) | X | | | |
+| UI | Native Graphic Components Library | BootstrapFX (bootstrap components, CSS) | X | | | |
+| UI | Native Graphic Components Library | TileFX (control, dashboard) | X | | | |
+| UI | Native Graphic Components Library | MaterialFX (widget, panels, combo-box, dialogs, fields, pickers) | X | | | |
+| UI | Native GUI Framework | JavaFX (native desktop or web application with CSS) | X | | | |
+| APPLICATION | Distributed Stateful Application | Apache Flink | X | | | |
+| APPLICATION | Distributed Stateful Application | Vert.x | X | | | |
 | APPLICATION | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
 | APPLICATION | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
-| APPLICATION | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM,  low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
+| APPLICATION | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM, low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
 | APPLICATION | Java Runtime Environment | AdoptOpenJDK (Eclipse Adoptium, GNU GPL) | X | | | |
 | APPLICATION | Java Runtime Environment | Liberica JDK | X | | | |
 | APPLICATION | Java Runtime Environment | Eclipse OpenJ9 8/11 | X | | | |
 | APPLICATION | Pre-compiled Execution Environment | Oracle GraalVM | X | | | |
-| INFRASTRUCTURE | Secrets In Dynamic infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
-| INFRASTRUCTURE | Networking Distribution | Consul, Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
+| INFRASTRUCTURE | Remote Services Integration | Netflix Eureka (integration with spring, circuit breaker pattern from web ui, health checking) | X | | | |
+| INFRASTRUCTURE | Secrets In Dynamic Infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
+| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Consul (service registration and discovery, health checking, distributed key-value store, TLS, ACL to data & api, key generation, dynamic load balancing, multi data centers support, data encryption, REST api, CLI, administration web-ui) | X | | | |
+| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Apache Zookeeper | X | | | |
+| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
+| INFRASTRUCTURE | External Systems Integration & APIs Management | API Umbrella | X | | | |
+| INFRASTRUCTURE | External Systems Integration & APIs Management | Gravitee.io | X | | | |
+| INFRASTRUCTURE | External Systems Integration & APIs Management | Apiman.io (async) | X | | | |
+| INFRASTRUCTURE | External Systems Integration & APIs Management | Akana | X | | | |
+| INFRASTRUCTURE | UI / Microservices Integration Middleware | Redis (capabilities / processing events) | X | | | |
+| INFRASTRUCTURE | Microservice / Domain Model Integration Middleware | Kafka (features / domain / data events) in embedded mode | X | | | |
 | INFRASTRUCTURE | Executable System | Docker Image | X | | | |
+| INFRASTRUCTURE | Embedded Memory Database | Redis | X | | | |
+| INFRASTRUCTURE | Embedded Memory Database | Gemfire | X | | | |
+| INFRASTRUCTURE | Distributed Memory Database | Redis | X | | | |
+| INFRASTRUCTURE | Distributed Memory Database | Kafka | X | | | |
+| INFRASTRUCTURE | Distributed Memory Database | Elastic Search | X | | | |
+| INFRASTRUCTURE | Centralized Data Persistence | MongoDB (autonomous dynamic backup/recovery of distributed datas, collection-oriented repository equals to a set of objects) | X | | | |
+| INFRASTRUCTURE | Centralized Data Persistence | Riak (autonomous dynamic backup/recovery of distributed datas, collection-oriented repository equals to a set of objects) | X | | | |
 | DELIVERY TOOL | System Images Build | Waypoint (command CLI for publish application docker images with build>deploy>release steps on Kubernetes) | X | | | |
+| OPERATING TOOL | APIs Monitoring | Kibana | X | | | |
+| OPERATING TOOL | APIs Monitoring | Grafana | X | | | |
+| OPERATING TOOL | APIs Monitoring | Jaeger | X | | | |
 | INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
-| INFRASTRUCTURE | Operating System | Linux Distribution? (Alpine, Debian, Ubuntu), kernel? | X | | | |
-| PHYSICAL INFRASTRUCTURE | | | | | | |
+| INFRASTRUCTURE | Operating System | Linux Distribution (Alpine, Debian, Ubuntu), 64bits kernel? | X | | | |
+| PHYSICAL INFRASTRUCTURE | Processing Unit | X | x86 | | | |
+| PHYSICAL INFRASTRUCTURE | Processing Unit | X | ARM | | | |
 
 # IMPLEMENTATION ARCHITECTURE
 Presentation of the retained implementation stack resulting of the analysis steps results.
@@ -84,10 +114,9 @@ The eligibility criteria acceptance level are evaluated as:
 
 The criteria checked about advantages (ADV) are:
 
-- 
-
-| CANDIDATE TECHNOLOGY |
-| |
+| CANDIDATE TECHNOLOGY | Description | Comments | Acceptance Result |
+| :--- | :--- | :--- | :--- |
+| | | | |
 
 ## STEP 2 - Acceptance check regarding impact on other components required
 Only the technologies set identified as acceptable or good are studied during this phase.
@@ -113,7 +142,8 @@ The acceptance level per differentiation criteria is evaluated as:
 - Usable for target `OK`
 
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
-| | | | | | | | |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | | | | |
 
 ## STEP 3 - Arbitration of the retained technologies set
 During this step, the final selection of the solutions set is performed between the accepted ideal or alternative eligible technologies.
