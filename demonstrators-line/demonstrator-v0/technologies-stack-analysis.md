@@ -142,8 +142,8 @@ The acceptance level per differentiation criteria is evaluated as:
 - Usable for target `OK`
 
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| | | | | | | | | |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | | | |
 
 ## STEP 3 - Arbitration of the retained technologies set
 During this step, the final selection of the solutions set is performed between the accepted ideal or alternative eligible technologies.
