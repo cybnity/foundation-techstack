@@ -114,11 +114,14 @@ The eligibility criteria acceptance level are evaluated as:
 
 The criteria checked about advantages (ADV) are:
 
-- ADV01: open source with large contributors community
+- ADV01: Intellectual Property (IP) dependency and risks coming from supplier/license model or conflict with Apache 2.0;
+- ADV02: virtual infrastructure compatibility, flexibility and/or optimization (e.g ARM, vector calculation, GPU);
+- ADV03: simplicity of build, deployment, maintenance and tooling for developers;
+- ADV04: sustainability and dynamics usage/developers community/project roadmap.
 
-| CANDIDATE TECHNOLOGY | Description | Comments | Acceptance Result |
+| CANDIDATE TECHNOLOGY | Description | Comments | Analysis Result |
 | :--- | :--- | :--- | :--- |
-| Gemfire | | | ADV01: <br> ADV02: |
+| Gemfire | |ADV01: <br>ADV02: <br>ADV03: <br>ADV04: <br>|**Advantage:** <br>**Disadvantage:**|
 | Riak | | | |
 | Jaeger | | | |
 
