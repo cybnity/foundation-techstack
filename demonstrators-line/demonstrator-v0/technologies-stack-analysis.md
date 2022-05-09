@@ -90,8 +90,8 @@ The current status of technology already in the analysis stream give a general v
 | OPERATING TOOL | APIs Monitoring | Jaeger | X | | | |
 | INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
 | INFRASTRUCTURE | Operating System | Linux Distribution (Alpine, Debian, Ubuntu), 64bits kernel | X | | | |
-| PHYSICAL INFRASTRUCTURE | Processing Unit | X | x86 | `WIN` | | |
-| PHYSICAL INFRASTRUCTURE | Processing Unit | X | ARM | `WIN` | | |
+| PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | X | `WIN` | | |
+| PHYSICAL INFRASTRUCTURE | Processing Unit | ARM | X | `WIN` | | |
 
 # IMPLEMENTATION ARCHITECTURE
 Presentation of the retained implementation stack resulting of the analysis steps results.
