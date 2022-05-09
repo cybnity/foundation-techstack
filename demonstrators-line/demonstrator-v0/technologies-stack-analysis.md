@@ -117,9 +117,10 @@ The criteria checked about advantages (ADV) are:
 - ADV01: open source with large contributors community
 
 | CANDIDATE TECHNOLOGY | Description | Comments | Acceptance Result |
-|                      |             |          |ADV01|
 | :--- | :--- | :--- | :--- |
-| | | | |
+| Gemfire | | | ADV01: \\ADV02: |
+| Riak | | | |
+| Jaeger | | | |
 
 ## STEP 2 - Acceptance check regarding impact on other components required
 Only the technologies set identified as acceptable or good are studied during this phase.
