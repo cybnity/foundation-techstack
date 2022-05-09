@@ -118,7 +118,7 @@ The criteria checked about advantages (ADV) are:
 
 | CANDIDATE TECHNOLOGY | Description | Comments | Acceptance Result |
 | :--- | :--- | :--- | :--- |
-| Gemfire | | | ADV01: \\ ADV02: |
+| Gemfire | | | ADV01: <br\> ADV02: |
 | Riak | | | |
 | Jaeger | | | |
 
