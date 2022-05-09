@@ -114,7 +114,10 @@ The eligibility criteria acceptance level are evaluated as:
 
 The criteria checked about advantages (ADV) are:
 
+- ADV01: open source with large contributors community
+
 | CANDIDATE TECHNOLOGY | Description | Comments | Acceptance Result |
+|                      |             |          |ADV01|
 | :--- | :--- | :--- | :--- |
 | | | | |
 
