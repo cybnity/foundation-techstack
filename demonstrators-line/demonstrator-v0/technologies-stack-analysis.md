@@ -48,7 +48,7 @@ The current status of technology already in the analysis stream give a general v
 - Opportunity as alternate challenger `ALT`
 - Retained `WIN`
 
-| Architecture Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
+| Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | UI | Web GUI Framework | HTML/Javascript/JQuery | X | | | |
 | UI | Web GUI Framework | Struts | X | | | |
