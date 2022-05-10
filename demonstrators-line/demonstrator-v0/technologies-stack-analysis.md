@@ -30,7 +30,7 @@ Should be usable via Internet for remote demonstration through a web browser hos
 #### Environments and locations
 Should support implementation of applications capable to run on several infrastructure environment types (environment profiles):
   - **local**: developer's workstation during unit development activities;
-  - **server**: common development server shared between developers collaborative activities and integration tests during unit development of integrated features;
+  - **dev**: common development server shared between developers collaborative activities and integration tests during unit development of integrated features;
   - **test**: server environment (no mirror of production environment) dedicated to quick tests when lot of infrastructure or environment changes are developed;
   - **staging**: pre-production server environment (mirror of production environment) that contain next version of applications, used for final integration testing and for test/demonstration of deployment repetition or performance demonstration;
   - **production**: production (live) server environment.
@@ -48,7 +48,7 @@ The current status of technology already in the analysis stream give a general v
 - Opportunity as alternate challenger `ALT`
 - Retained `WIN`
 
-| Architecture Layer | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
+| Architecture Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | UI | Web GUI Framework | HTML/Javascript/JQuery | X | | | |
 | UI | Web GUI Framework | Struts | X | | | |
@@ -58,43 +58,49 @@ The current status of technology already in the analysis stream give a general v
 | UI | Native Graphic Components Library | BootstrapFX (bootstrap components, CSS) | X | | | |
 | UI | Native Graphic Components Library | TileFX (control, dashboard) | X | | | |
 | UI | Native Graphic Components Library | MaterialFX (widget, panels, combo-box, dialogs, fields, pickers) | X | | | |
-| UI | Native GUI Framework | JavaFX | `WIN` | X | | [APIs, docs](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm) |
-| APPLICATION | Distributed Stateful Application | Apache Flink | X | | | |
-| APPLICATION | Distributed Stateful Application | Vert.x | X | | | |
-| APPLICATION | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
-| APPLICATION | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
-| APPLICATION | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM, low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
-| APPLICATION | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | [Documentation](https://www.eclipse.org/openj9/docs/index.html)|
-| APPLICATION | Java Runtime Environment | Liberica JDK | `ALT` | | | |
-| INFRASTRUCTURE | Remote Services Integration | Netflix Eureka (integration with spring, circuit breaker pattern from web ui, health checking) | X | | | |
-| INFRASTRUCTURE | Secrets In Dynamic Infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
-| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Consul (service registration and discovery, health checking, distributed key-value store, TLS, ACL to data & api, key generation, dynamic load balancing, multi data centers support, data encryption, REST api, CLI, administration web-ui) | X | | | |
-| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Apache Zookeeper | X | | | |
-| INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
-| INFRASTRUCTURE | External Systems Integration & APIs Management | API Umbrella | X | | | |
-| INFRASTRUCTURE | External Systems Integration & APIs Management | Gravitee.io | X | | | |
-| INFRASTRUCTURE | External Systems Integration & APIs Management | Apiman.io (async) | X | | | |
-| INFRASTRUCTURE | External Systems Integration & APIs Management | Akana | X | | | |
-| INFRASTRUCTURE | UI / Microservices Integration Middleware | Redis (capabilities / processing events) | X | | | |
-| INFRASTRUCTURE | Microservice / Domain Model Integration Middleware | Kafka (features / domain / data events) in embedded mode | X | | | |
-| INFRASTRUCTURE | Executable System | Docker Image | X | | | |
-| INFRASTRUCTURE | Embedded Memory Database | Redis | X | | | |
-| INFRASTRUCTURE | Distributed Memory Database | Redis | X | | | |
-| INFRASTRUCTURE | Distributed Memory Database | Kafka | X | | | |
-| INFRASTRUCTURE | Distributed Database Indexing | Elastic Search | X | | | |
-| INFRASTRUCTURE | Distributed Database Indexing | Apache Solr | X | | | |
-| INFRASTRUCTURE | Centralized Data Persistence | MongoDB (autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects) | X | | | |
+| UI | Native GUI Framework | JavaFX | `WIN` | | | [APIs, docs](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm) |
+| APPLICATION/DOMAIN | Distributed Stateful Application | Apache Flink | X | | | |
+| APPLICATION/DOMAIN | Distributed Stateful Application | Vert.x | X | | | |
+| APPLICATION/DOMAIN | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
+| APPLICATION/DOMAIN | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
+| APPLICATION INFRASTRUCTURE | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM, low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
+| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | [Documentation](https://www.eclipse.org/openj9/docs/index.html)|
+| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
+| APLLICATION INFRASTRUCTURE | Secrets In Dynamic Infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
+| APPLICATION INFRASTRUCTURE | UI / Microservices Integration Middleware | Redis (capabilities / processing events) | X | | | |
+| APPLICATION INFRASTRUCTURE | Microservice / Domain Model Integration Middleware | Kafka (features / domain / data events) in embedded mode | X | | | |
+| INTEGRATION INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Consul (service registration and discovery, health checking, distributed key-value store, TLS, ACL to data & api, key generation, dynamic load balancing, multi data centers support, data encryption, REST api, CLI, administration web-ui) | X | | | |
+| INTEGRATION INFRASTRUCTURE | Remote Services Integration | Netflix Eureka (integration with spring, circuit breaker pattern from web ui, health checking) | X | | | |
+| INTEGRATION INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Apache Zookeeper | X | | | |
+| INTEGRATION INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Istio (settings mesh of container urls to maintain service information like security X509, to track/monitor services, load balancing, services discovery and registration) | X | | | |
+| INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | API Umbrella | X | | | |
+| INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | Gravitee.io | X | | | |
+| INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | Apiman.io (async) | X | | | |
+| INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | Akana | X | | | |
+| PERSISTENCE INFRASTRUCTURE | Embedded Memory Database | Redis | X | | | |
+| PERSISTENCE INFRASTRUCTURE | Distributed Memory Database | Redis | X | | | |
+| PERSISTENCE INFRASTRUCTURE | Distributed Memory Database | Kafka | X | | | |
+| PERSISTENCE INFRASTRUCTURE | Centralized Data Persistence | MongoDB (autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects) | X | | | |
+| INDEXING INFRASTRUCTURE | Distributed Database Indexing | Elastic Search | X | | | |
+| INDEXING INFRASTRUCTURE | Distributed Database Indexing | Apache Solr | X | | | |
+| MONITORING INFRASTRUCTURE | APIs Monitoring | Kibana | X | | | |
+| MONITORING INFRASTRUCTURE | APIs Monitoring | Grafana | X | | | |
+| MONITORING INFRASTRUCTURE | APIs Monitoring | Jaeger | X | | | |
+| OPERATING INFRASTRUCTURE | Operating System | Linux Distribution (Alpine, Debian, Ubuntu), 64bits kernel | X | | | |
+| OPERATING INFRASTRUCTURE | Executable System | Docker Image | X | | | |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Minikube (laptop, local dev deployment) | X | | | |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
 | DELIVERY TOOL | System Images Build | Waypoint (command CLI for publish application docker images with build>deploy>release steps on Kubernetes) | X | | | |
-| OPERATING TOOL | APIs Monitoring | Kibana | X | | | |
-| OPERATING TOOL | APIs Monitoring | Grafana | X | | | |
-| OPERATING TOOL | APIs Monitoring | Jaeger | X | | | |
-| INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
-| INFRASTRUCTURE | Operating System | Linux Distribution (Alpine, Debian, Ubuntu), 64bits kernel | X | | | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | `WIN` | | | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | ARM | `WIN` | | | |
 
 # IMPLEMENTATION ARCHITECTURE
 Presentation of the retained implementation stack resulting of the analysis steps results.
+
+| TECHNOLOGY | USABLE ON PLATFORM TYPES | AUTHORIZED ENVIRONMENTS | AUTHORIZED ROLES |
+| :--- | :--- | :--- | :--- |
+| |Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
 
 # TECHNOLOGY ANALYSIS STREAM
 
@@ -117,15 +123,15 @@ The criteria checked about advantages (ADV) are:
 
 | CANDIDATE TECHNOLOGY | Description | Comments | ANALYSIS RESULT |
 | :--- | :--- | :--- | :--- |
-| VMWare Tanzu Gemfire |In-memory data management platform, real-time access to data-intensive applications through cloud architectures, memory/CPU/network resources pooling, dynamic replication, data partitioning, asynchronous event notifications, message delivery guarantee|**Disadvantage:** ex-pivotal project taken by VMWare; focus on compatibility with VMWare server-platform|`KO`|
-| Riak KV | Autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects.<br>Clusterised NoSQL database, key-value data model, real-time big data.<br>**ADV01:** Apache 2; commercial licenses for multi-cluster replication<br>**ADV02:** integration with Redis caching, Solr; Debian, Ubuntu compatible; TLS|**Disadvantage:** low documentation, tools, integration tools |`KO`|
-| [Apache Solr](https://solr.apache.org/) | Scalable, fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration<br>**ADV02:** Docker and Kubernetes compatible | | |
+| [Apache Solr](https://solr.apache.org/) |Scalable, fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration<br>**ADV02:** Docker and Kubernetes compatible| | |
 | Jaeger | | | |
+| VMWare Tanzu Gemfire |In-memory data management platform, real-time access to data-intensive applications through cloud architectures, memory/CPU/network resources pooling, dynamic replication, data partitioning, asynchronous event notifications, message delivery guarantee|**Disadvantage:** ex-pivotal project taken by VMWare; focus on compatibility with VMWare server-platform|`KO`|
+| Riak KV |Autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects.<br>Clusterised NoSQL database, key-value data model, real-time big data.<br>**ADV01:** Apache 2; commercial licenses for multi-cluster replication<br>**ADV02:** integration with Redis caching, Solr; Debian, Ubuntu compatible; TLS|**Disadvantage:** low documentation, tools, integration tools|`KO`|
 | JavaFX |Native desktop or web application with CSS<br>**ADV01:** GPL licensed<br>**ADV02:** compatible with OpenJDK11+, snapcraft package; ARM compatible via [JFX embedded SDK](https://gluonhq.com/products/mobile/javafxports/get/)<br>**ADV03:** Scene Builder for UI design (FXML based interfaces, 2D/3D scenes); WebKit (browser engine supporting HTML5, CSS, JS, DOM, SVG) based component for JFX UI control (WebEngine and WebView); dynamic deployment of JRE from JFX app start over web page (Java webstart, or JS API); [TestFX](https://github.com/TestFX/TestFX/#features) for simulate user interactions and verify expected states of scene-graph nodes; [visual components and libraries](https://openjfx.io/); [Snapcraft project](https://github.com/jgneff/openjfx) about OpenJFX |**Advantage:** Webkit engine for web contents interpretation; reused OS native graphic stack via Glass WT|`OK`|
 | Eclipse OpenJ9 8/11 |**ADV01:** Apache license 2.0, [Eclipse Public License 2.0](https://github.com/eclipse-openj9/openj9-docs/blob/master/LICENSE.md)<br>**ADV02:** compatible with AArch64 (v8-A) OpenJDK11/16 for ARM 64bits (Ubuntu 18.04/20.04); comparing to HotSpot, OpenJ9 features quicker start-up times and lower memory consumption; several OpenJDKs (11, 16, 17) supported by OpenJ8 JVM<br>**ADV03:** [Developer tooling](https://www.eclipse.org/openj9/docs/tool_migration/)<br>**ADV04:** runtime engine for many IBM’s enterprise products; new release delivered every quarter|**Advantage:** OpenJDK 11 [performance transparency](https://github.com/eclipse-openj9/openj9-website/blob/master/benchmark/openjdk11-daytrader7.md); Eclipse OMR supporting other languages (e.g JavaScript);Performance optimizations for footprint and startup time|`COOL`|
 | AdoptOpenJDK (Eclipse Adoptium)| GNU GPL license|**Advantage:** quality program and tools for build and maintain JDK platform supported by a open source community; Tool that make sense for Linux binary usage regarding an OpenJDK compiler used by T21 project; OpenJDK for specification build during development phase; OpenJ9 JVM for runtime to avoid risk linked to OpenJDK in case of conflict between AdoptOpenJDK project and Oracle about sub-license<br>**Disadvantage:** AdoptOpenJDK team need to negotiate with Oracle to maintain compatibility with Java SE for license contract OpenJDK Community TCK. In July 2021, none success discussion with Oracle. Migration to [Eclipse Foundation Adoptium](https://adoptium.net/); what competition with OpenJ9 project could arrive into Eclipse context?|`KO`|
 | Liberica JDK |**ADV01:** JDK 100% open source license, no filed of use restrictions; liberica [NIK end user license agreement](https://bell-sw.com/liberica_nik_eula/); long-term support and guarantee of 8 years Liberica JDK lifetime<br>**ADV02:** ARM 64/32 bit (V8 AArch64); Linux, Debian and Ubuntu (from 12.04 LTS to 20.04 LTS) compatible; OpenJFX supported via LibericalFX (part of JDK and JRE bundles) for Windows, macOS, Linux (libavcodec and libavformat packages (available in Ubuntu 16.04+) are required for Media functionality); smallest Alpine images (lightweight JDK Alpine musl-based images of 41.5 MB) for deploying Docker containers and microservices<br>**ADV03:** tools for monitoring (Java Flight Recorder, Mission Control) by [Bellsoft for free](https://bell-sw.com/announcements/2020/06/24/Java-Flight-Recorder-a-gem-hidden-in-OpenJDK/)(Liberica Mission Control is GPL)<br>**ADV04:** [Java 8 (LTS) to Java 16 supported roadmap](https://bell-sw.com/pages/roadmap/); Unified Java Runtime approach for cloud, server, desktop; Supported HotSpot [JVMs features](https://bell-sw.com/pages/supported-configurations/); Binaries verified with TCK; 6 releases per yer concurrently with Oracle JDK; 30+ team members in San Jose, Boston, St-Petersburg; 7 members are OpenJDK contributors and 3 are OpenJDK reviewers|**Advantage:** diversity of supported Java versions runtime by JDK; Control and care of license topics (e.g sub-GPL contamination risks) by Bellsoft skills|`COOL`|
-| Oracle GraalVM | Compilation of a OpenJFX application and a JVM into one native image ready for deployment like an integrated app/vm |**Disadvantage:** unknown Oracle licensing politic evolution; Oracle effort focused on server-side|`KO`|
+| Oracle GraalVM |Compilation of a OpenJFX application and a JVM into one native image ready for deployment like an integrated app/vm |**Disadvantage:** unknown Oracle licensing politic evolution; Oracle effort focused on server-side|`KO`|
 
 ## STEP 2 - Acceptance check regarding impact on other components required
 Only the technologies set identified as acceptable or good are studied during this phase.
