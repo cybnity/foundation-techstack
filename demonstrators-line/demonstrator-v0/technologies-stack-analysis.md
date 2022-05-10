@@ -40,7 +40,14 @@ Should be virtualizable (e.g Docker containerized) allowing an installation/exec
 
 ### Tooling & Supervision
 
-# STACK DEFINITION CURRENT STATUS
+# SELECTED IMPLEMENTATION ARCHITECTURE
+Presentation of the retained implementation stack resulting of the analysis steps result and stack definition.
+
+| TECHNOLOGY | USABLE ON PLATFORM TYPES | AUTHORIZED ENVIRONMENTS | AUTHORIZED ROLES |
+| :--- | :--- | :--- | :--- |
+| |Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
+
+# STACK DEFINITION PROCESS CURRENT STATUS
 Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
 The current status of technology already in the analysis stream give a general view which one is always in the race:
 
@@ -94,13 +101,6 @@ The current status of technology already in the analysis stream give a general v
 | DELIVERY TOOL | System Images Build | Waypoint (command CLI for publish application docker images with build>deploy>release steps on Kubernetes) | X | | | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | `WIN` | | | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | ARM | `WIN` | | | |
-
-# IMPLEMENTATION ARCHITECTURE
-Presentation of the retained implementation stack resulting of the analysis steps results.
-
-| TECHNOLOGY | USABLE ON PLATFORM TYPES | AUTHORIZED ENVIRONMENTS | AUTHORIZED ROLES |
-| :--- | :--- | :--- | :--- |
-| |Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
 
 # TECHNOLOGY ANALYSIS STREAM
 
