@@ -59,10 +59,10 @@ The current status of technology already in the analysis stream give a general v
 | UI | Native Graphic Components Library | TileFX (control, dashboard) | X | | | |
 | UI | Native Graphic Components Library | MaterialFX (widget, panels, combo-box, dialogs, fields, pickers) | X | | | |
 | UI | Native GUI Framework | JavaFX | `WIN` | | | [APIs, docs](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm) |
-| APPLICATION/DOMAIN | Distributed Stateful Application | Apache Flink | X | | | |
-| APPLICATION/DOMAIN | Distributed Stateful Application | Vert.x | X | | | |
-| APPLICATION/DOMAIN | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
-| APPLICATION/DOMAIN | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
+| APPLICATION / DOMAIN | Distributed Stateful Application | Apache Flink | X | | | |
+| APPLICATION / DOMAIN | Distributed Stateful Application | Vert.x | X | | | |
+| APPLICATION / DOMAIN | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
+| APPLICATION / DOMAIN | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
 | APPLICATION INFRASTRUCTURE | Application Execution Container | Quarkus (Kubernetes native java stack for GraalVM and Hotspot JVM, low memory footprint than Spring Boot, plugins for IoC with Redis/Kafka/Vault...) | X | | | |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | [Documentation](https://www.eclipse.org/openj9/docs/index.html)|
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
