@@ -55,29 +55,33 @@ The current status of technology already in the analysis stream give a general v
 - Opportunity as alternate challenger `ALT`
 - Retained `WIN`
 
-| Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments, rejection cause on observations made |
+| Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| UI | Web GUI Framework | HTML/Javascript/JQuery | X | | | |
-| UI | Web GUI Framework | Struts | X | | | |
-| UI | Web GUI Framework | Spring MVC (Servlet API and Servlet containers, synchronous blocking I/O architecture with a one-request-per threat model) | X | | | |
-| UI | Web GUI Framework | Spring WebFlux (Reactive-stack streams API to changes (i/o events, UI controller mouse events with concurrent connections), Spring Security Reactive, Spring Data Reactive Repositories (e.g Redis, Mongo) used over Reactive Stream Adapters and Netty, Servlet 3.1+ containers | X | | | |
-| UI | Web GUI Framework | React (javascript) | X | | | |
-| UI | Web GUI Framework | Angular (javascript, view templates, components, services to server-side REST services) | X | | | |
-| UI | Native Graphic Components Library | BootstrapFX (bootstrap components, CSS) | X | | | |
-| UI | Native Graphic Components Library | TileFX (control, dashboard) | X | | | |
-| UI | Native Graphic Components Library | MaterialFX (widget, panels, combo-box, dialogs, fields, pickers) | X | | | |
+| UI | Web GUI Graphic Components Library | Bootstrap | X | | | |
+| UI | Web GUI Reactive Frontend Library | Vert.x SockJS Gateway | `WIN` | | | JavaScript event bus bridge to Vert.x server-side reactive services |
+| UI | Client-Side Reactive View Library | ReactJS | `WIN` | | | View components based with data changes auto-refresh, requiring complementary (M)v(C) framework |
+| UI | Web GUI Reactive Frontend Framework | Angular | `ALT` | | | HTML/CSS/TypeScript for MVC on client side |
+| UI | Native Graphic Components Library | BootstrapFX | X | | | Bootstrap graphical widgets, CSS |
+| UI | Native Graphic Components Library | TileFX | X | | | Control and dashboard graphical widgets |
+| UI | Native Graphic Components Library | MaterialFX | X | | | Common widget, panels, combo-box, dialogs, fields, pickers graphical components |
+| UI | Native GUI Integration Library | Vert.x Java Bridge | `WIN` | | | Java event bus bridge to Vert.x server-side reactive services |
+| UI | Native GUI Object Mapping | JSON/POJO Mapping | X | | | Data and events mapper between JSON (e.g server-side service messages) and POJO |
 | UI | Native GUI Framework | JavaFX | `WIN` | | | [APIs, docs](https://docs.oracle.com/javase/8/javase-clienttechnologies.htm) |
-| APPLICATION / DOMAIN | Real-Time Data Stream Computation | Apache Flink | `WIN` | | | Statefull data processing, CEP, data pipelining |
-| APPLICATION / DOMAIN | Reactive Application | Eclipse Vert.x | `WIN` | | | Rich integration between client (e.g JS, Java) and server-side components |
-| APPLICATION / DOMAIN | Spring Integration Extensions | Spring Framework (OpenAPI 3, automatic i/o json and yaml formats documentation with springdoc-openapi Maven plugin supporting JSR-303 Bean Validation) | X | | | |
-| APPLICATION / DOMAIN | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
-| APPLICATION / DOMAIN | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
+| UI | Client-Side Transport Data Format | JSON | `WIN` | | | Data and events (e.g Data Transform Object, domain events) |
+| UI | Server-Side Reactive Orchestration | Eclipse Vert.x | `WIN` | | | UI reactive controllers (e.g UI capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Redis client) with application(s) services layer via Application Domains Access Hub |
+| UI | Server-Side Reactive Service | Spring WebFlux | `ALT` | | | |
+| UI | Spring Integration Extensions | Spring Framework (OpenAPI 3, automatic i/o json and yaml formats documentation with springdoc-openapi Maven plugin supporting JSR-303 Bean Validation) | X | | | |
+| APPLICATION INFRASTRUCTURE | Application Domains Access Hub | Redis | `WIN` | | | Async ports and protocol for application exchanges (e.g domain events and requests) |
+| APPLICATION / DOMAIN | Application Services Layer | Eclipse Vert.x | `WIN` | | | Anti-Corruption Layer, remote proxy, input/output ports|
+
+| APPLICATION / DOMAIN | Real-Time Data Stream Computation | Apache Flink | `WIN` | | | Stateful data processing, CEP, data pipeline |
+| APPLICATION INFRASTRUCTURE | Application Services / Domain Model Integration Middleware | Kafka (features / domain / data events) in embedded mode | X | | | |
 | APPLICATION INFRASTRUCTURE | Application Execution Container | Spring Boot | `WIN` | | | |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | [Documentation](https://www.eclipse.org/openj9/docs/index.html)|
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
+| APPLICATION INFRASTRUCTURE | Single-Sign-On | Keycloack (SAML2.0 protocol for user authentication with SSO) | X | | | |
+| APPLICATION INFRASTRUCTURE | UIAM | Identity/Access Mgt (federation, RBAC or ABAC based on attributes); SPML ? (to create users/permissions as access provisioning) | X | | | |
 | APLLICATION INFRASTRUCTURE | Secrets In Dynamic Infrastructure | Vault (pki, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token) for partners API integration/connectors | X | | | |
-| APPLICATION INFRASTRUCTURE | UI / Microservices Integration Middleware | Redis (capabilities / processing events) | X | | | |
-| APPLICATION INFRASTRUCTURE | Microservice / Domain Model Integration Middleware | Kafka (features / domain / data events) in embedded mode | X | | | |
 | INTEGRATION INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Consul (service registration and discovery, health checking, distributed key-value store, TLS, ACL to data & api, key generation, dynamic load balancing, multi data centers support, data encryption, REST api, CLI, administration web-ui) | X | | | |
 | INTEGRATION INFRASTRUCTURE | Remote Services Integration | Netflix Eureka (integration with spring, circuit breaker pattern from web ui, health checking) | X | | | |
 | INTEGRATION INFRASTRUCTURE | Service Registry/Discovery & Configuration Management | Apache Zookeeper | X | | | |
@@ -87,7 +91,6 @@ The current status of technology already in the analysis stream give a general v
 | INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | Apiman.io (async) | X | | | |
 | INTEGRATION INFRASTRUCTURE | External Systems Integration & APIs Management | Akana | X | | | |
 | PERSISTENCE INFRASTRUCTURE | Embedded Memory Database | Redis | X | | | |
-| PERSISTENCE INFRASTRUCTURE | Distributed Memory Database | Redis | X | | | |
 | PERSISTENCE INFRASTRUCTURE | Distributed Memory Database | Kafka | X | | | |
 | PERSISTENCE INFRASTRUCTURE | Centralized Data Persistence | MongoDB (autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects) | X | | | |
 | INDEXING INFRASTRUCTURE | Distributed Database Indexing | Elastic Search | X | | | |
@@ -127,6 +130,10 @@ The criteria checked about advantages (ADV) are:
 | :--- | :--- | :--- | :--- |
 | [Apache Solr](https://solr.apache.org/) |Scalable, fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration<br>**ADV02:** Docker and Kubernetes compatible| | |
 | Jaeger | | | |
+| [ReactJS](https://reactjs.org/) |Focused on View creation based on JS; update and render just the right components when the data changes (direct link between data state to UI); Declarative views; Build encapsulated components that manage their own state, then compose them; component logic is written in JavaScript<br>**ADV02:** usage of virtual DOM object (better performance than direct read of DOM); rendering on client or server side<br>**ADV03:** [ReactNative](https://reactnative.dev/) for native Android/iOS applications frontend; XML-like syntax called JSX; maintain internal state data; customizable rendering by components; maven plugin<br>**ADV04:** Facebook project/sponsor; in 2020, React had 1,390 contributions with Angular possessing 1,129 contributions|**Advantage:** data state stored in client side's memory; 10x faster than Angular for view refresh (thanks virtual DOM); data binding capabilities is better for large interactions and rich gui; large support community<br>**Disadvantage:** focused on view rendering, it require integration with a MVC framework|`OK`|
+| Angular |MVC with JavaScript, view templates, components, services to server-side REST services; link of data in double ways<br>**ADV01:** MIT license<br>Front end framework<br>**ADV02:** usage of direct DOM object for rendering (less performante than ReactJS); rendering on client or server side<br>**ADV03:** [documentation](https://angular.io/guide/understanding-angular-overview); Single Page Application(SPA) including HTML template for page rendering, TypeScript classes for behavior as directives, CSS styling<br>**ADV04:** managed by Google team; open source community and popular from web developers|**Advantage:** integration with Vert.x, support for frontend in web/mobile/native desktop UI<br>**Disadvantage:** low performance with page contain interactive elements|`OK`|
+| Spring WebFlux |Reactive-stack streams API to changes (i/o events, UI controller mouse events with concurrent connections); Spring Security Reactive; Spring Data Reactive Repositories (e.g Redis, Mongo) used over Reactive Stream Adapters and Netty, Servlet 3.1+ containers|**Advantage:** alternative to Vert.x for server-side reactive services into SpringBoot context|`OK`|
+| Spring MVC |Servlet API and Servlet containers, synchronous blocking I/O architecture with a one-request-per threat model|**Disadvantage:** Synchronous blocking i/o less performant than react architecture|`KO`|
 | Apache Flink |Stateful computations over data streams (e.g stream/batch processing, state mgt, event-time processing, live stream processing of data) for event-driven applications, data analytics or pipeline applications, stateful functions<br>**ADV02:** stand-alone cluster on bare-metal hardware, or deployment on YARN/Apache Mesos/Kubernetes; optimized for streaming than for batch processing (e.g better than Apache Spark for real-time processing)<br>**ADV03:** docker image; Flink web UI; detailed documentation; FlinkCEP; several connectors (e.g Kafka, ElasticSearch, RabbitMQ); Machine Learning (ML) library for ML pipelines; Maven support|**Advantage:** better than Apache Storm for real-time, and good complement to Apache Spark for large data volume processing<br>**Disadvantage:** Eclipse IDe not supported; IntelliJ recommended|`OK`|
 | Eclipse Vert.x |**ADV01:** Eclipse Public License 2.0, Apache 2.0<br>Toolkit (not framework) for reactive applications on the JVM<br>**ADV03**: SockJS event bus (JavaScript client library) bridge to Vert.x; event bus bridge Java client library over TCP/WebSocket transport with Jackson/Gson codecs; Web Client asynchronous HTTP client for interactions with a web server; support of OAuth2, auth, JWT (JSON web tokens), OTP (multi-factor authentication), FIDO2 WebAuth (password less), SQL client auth, MongoDB auth, LDAP; Redis/MongoDB/Cassandra NoSQL, Kafka, MQTT, RabbitMQ, SMTP mail, Consul clients; monitoring/service discovery/config/circuit breaker clients|**Advantage:** event-driven microservice architecture optimized; application execution container (e.g web server) is not need; lot of plugings for reactive implementation with other systems; can be executed on any sub-container or direct JVM|`COOL`|
 | Micronaut | Natively designed for cloud microservices<br>**ADV03:** run on Netty-based http server with possible swicth to Tomcat, Jetty or Undertow; messaging support for Apache Kafka, RabbitMQ, Nats.io; authorization strategies (basic, form login, JWT, LDAP); OAuth2 support; handle for distributed configuration, service discovery, client-side load balancing, distributed tracing, serverless functions<br>|**Disadvantage:** No support of SAML|`KO`|
