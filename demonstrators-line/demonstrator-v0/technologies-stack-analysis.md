@@ -17,6 +17,16 @@ Definition of a minimal set of components allowing to:
 
 ### Design & Demonstrator
 
+### User Interface Layer
+#### Dynamics
+Should be real-time: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-tim between several CYBNITY users connected via their CYBNITY cockpits).
+
+#### Context and local persistence
+Should proposed personal management of real-time data dedicated to the connected user in dedicated space (e.g session during cockpit access, when a user prepare a draft of a security information before to commit it in a transaction mode to a CYBNITY domain).
+
+#### Integration with domains
+Should be integrated in real-time with domain over bridge to event bus and data spaces shared with security domains (e.g centralized), in a standard mode allowing scalable backend/frontend services, but with a standard integration to the domain applications (e.g application components) via middleware platform (e.g Redis).
+
 ### Application Layer
 #### Processing and distribution of load
 Should start in a moderate time duration, but should have an acceptable reactivity SLA during the demonstration period allowing to check a realistic behavior of the UI Cockpits principles.
@@ -92,7 +102,7 @@ The current status of technology already in the analysis stream give a general v
 | MONITORING INFRASTRUCTURE | APIs Monitoring | Grafana | X | | | |
 | MONITORING INFRASTRUCTURE | APIs Monitoring | Jaeger | X | | | |
 | OPERATING INFRASTRUCTURE | Operating System | Linux Distribution (Alpine, Debian, Ubuntu), 64bits kernel | X | | | |
-| OPERATING INFRASTRUCTURE | Executable System | Docker Image | X | | | |
+| OPERATING INFRASTRUCTURE | Executable System | Docker Image | `WIN` | | | |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Minikube (laptop, local dev deployment) | X | | | |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator (server deployment); Kubernetes (server deployment) or Microk8s (laptop, local dev deployment) compatible with Quarkus (server side) | X | | | |
@@ -136,7 +146,7 @@ The criteria checked about advantages (ADV) are:
 | Riak KV |Autonomous dynamic backup/recovery of distributed data, collection-oriented repository equals to a set of objects.<br>Clusterised NoSQL database, key-value data model, real-time big data.<br>**ADV01:** Apache 2.0; commercial licenses for multi-cluster replication<br>**ADV02:** integration with Redis caching, Solr; Debian, Ubuntu compatible; TLS|**Disadvantage:** low documentation, tools, integration tools|`KO`|
 | JavaFX |Native desktop or web application with CSS<br>**ADV01:** GPL licensed<br>**ADV02:** compatible with OpenJDK11+, snapcraft package; ARM compatible via [JFX embedded SDK](https://gluonhq.com/products/mobile/javafxports/get/)<br>**ADV03:** Scene Builder for UI design (FXML based interfaces, 2D/3D scenes); WebKit (browser engine supporting HTML5, CSS, JS, DOM, SVG) based component for JFX UI control (WebEngine and WebView); dynamic deployment of JRE from JFX app start over web page (Java webstart, or JS API); [TestFX](https://github.com/TestFX/TestFX/#features) for simulate user interactions and verify expected states of scene-graph nodes; [visual components and libraries](https://openjfx.io/); [Snapcraft project](https://github.com/jgneff/openjfx) about OpenJFX; [JafaFX framework](https://github.com/topics/javafx-frameworks)|**Advantage:** Webkit engine for web contents interpretation; reused OS native graphic stack via Glass WT|`OK`|
 | Eclipse OpenJ9 8/11 |**ADV01:** Apache license 2.0, [Eclipse Public License 2.0](https://github.com/eclipse-openj9/openj9-docs/blob/master/LICENSE.md)<br>**ADV02:** compatible with AArch64 (v8-A) OpenJDK11/16 for ARM 64bits (Ubuntu 18.04/20.04); comparing to HotSpot, OpenJ9 features quicker start-up times and lower memory consumption; several OpenJDKs (11, 16, 17) supported by OpenJ8 JVM<br>**ADV03:** [Developer tooling](https://www.eclipse.org/openj9/docs/tool_migration/)<br>**ADV04:** runtime engine for many IBM’s enterprise products; new release delivered every quarter|**Advantage:** OpenJDK 11 [performance transparency](https://github.com/eclipse-openj9/openj9-website/blob/master/benchmark/openjdk11-daytrader7.md); Eclipse OMR supporting other languages (e.g JavaScript);Performance optimizations for footprint and startup time|`COOL`|
-| AdoptOpenJDK (Eclipse Adoptium)| GNU GPL license|**Advantage:** quality program and tools for build and maintain JDK platform supported by a open source community; Tool that make sense for Linux binary usage regarding an OpenJDK compiler used by T21 project; OpenJDK for specification build during development phase; OpenJ9 JVM for runtime to avoid risk linked to OpenJDK in case of conflict between AdoptOpenJDK project and Oracle about sub-license<br>**Disadvantage:** AdoptOpenJDK team need to negotiate with Oracle to maintain compatibility with Java SE for license contract OpenJDK Community TCK. In July 2021, none success discussion with Oracle. Migration to [Eclipse Foundation Adoptium](https://adoptium.net/); what competition with OpenJ9 project could arrive into Eclipse context?|`KO`|
+| AdoptOpenJDK (Eclipse Adoptium)|**ADV01:** GNU GPL license|**Advantage:** quality program and tools for build and maintain JDK platform supported by a open source community; Tool that make sense for Linux binary usage regarding an OpenJDK compiler used by T21 project; OpenJDK for specification build during development phase; OpenJ9 JVM for runtime to avoid risk linked to OpenJDK in case of conflict between AdoptOpenJDK project and Oracle about sub-license<br>**Disadvantage:** AdoptOpenJDK team need to negotiate with Oracle to maintain compatibility with Java SE for license contract OpenJDK Community TCK. In July 2021, none success discussion with Oracle. Migration to [Eclipse Foundation Adoptium](https://adoptium.net/); what competition with OpenJ9 project could arrive into Eclipse context?|`KO`|
 | Liberica JDK |**ADV01:** JDK 100% open source license, no filed of use restrictions; liberica [NIK end user license agreement](https://bell-sw.com/liberica_nik_eula/); long-term support and guarantee of 8 years Liberica JDK lifetime<br>**ADV02:** ARM 64/32 bit (V8 AArch64); Linux, Debian and Ubuntu (from 12.04 LTS to 20.04 LTS) compatible; OpenJFX supported via LibericalFX (part of JDK and JRE bundles) for Windows, macOS, Linux (libavcodec and libavformat packages (available in Ubuntu 16.04+) are required for Media functionality); smallest Alpine images (lightweight JDK Alpine musl-based images of 41.5 MB) for deploying Docker containers and microservices<br>**ADV03:** tools for monitoring (Java Flight Recorder, Mission Control) by [Bellsoft for free](https://bell-sw.com/announcements/2020/06/24/Java-Flight-Recorder-a-gem-hidden-in-OpenJDK/)(Liberica Mission Control is GPL)<br>**ADV04:** [Java 8 (LTS) to Java 16 supported roadmap](https://bell-sw.com/pages/roadmap/); Unified Java Runtime approach for cloud, server, desktop; Supported HotSpot [JVMs features](https://bell-sw.com/pages/supported-configurations/); Binaries verified with TCK; 6 releases per yer concurrently with Oracle JDK; 30+ team members in San Jose, Boston, St-Petersburg; 7 members are OpenJDK contributors and 3 are OpenJDK reviewers|**Advantage:** diversity of supported Java versions runtime by JDK; Control and care of license topics (e.g sub-GPL contamination risks) by Bellsoft skills|`COOL`|
 | Oracle GraalVM |Compilation of a OpenJFX application and a JVM into one native image ready for deployment like an integrated app/vm |**Disadvantage:** unknown Oracle licensing politic evolution; Oracle effort focused on server-side|`KO`|
 
@@ -165,7 +175,13 @@ The acceptance level per differentiation criteria is evaluated as:
 
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| | | | | | | | |
+| Eclipse Vert.x SockJS Client | | | | | | | |
+| ReactJS | | | | | | | |
+| Eclipse Vert.x Core | | | | | | | |
+| Eclipse Vert.x Web | | | | | | | |
+| Redis | | | | | | | |
+| Eclipse OpenJ9 8/11 | | | | | | | |
+| Docker | | | | | | | |
 
 ## STEP 3 - Arbitration of the retained technologies set
 During this step, the final selection of the solutions set is performed between the accepted ideal or alternative eligible technologies.
