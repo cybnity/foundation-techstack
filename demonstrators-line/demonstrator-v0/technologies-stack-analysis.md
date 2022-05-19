@@ -57,7 +57,12 @@ Presentation of the retained implementation stack resulting of the analysis step
 | :--- | :--- | :--- | :--- |
 | |Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
 
-![image](mpp-ui-technology-stack.png)
+## UI Layer
+![image](mpp-ui-technology-stack.jpg)
+![image](mpp-ui-systems-stack.png)
+## Application Layer
+![image](mpp-app-technology-stack.png)
+![image](mpp-app-systems-stack.png)
 
 # STACK DEFINITION PROCESS CURRENT STATUS
 Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
