@@ -19,8 +19,6 @@ It's possible that new goals entry enhance the common goals, regarding specific 
 
 ## LAYER ARCHITECTURE
 
-![image](mpp-ui-technology-stack.jpg)
-
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
 
