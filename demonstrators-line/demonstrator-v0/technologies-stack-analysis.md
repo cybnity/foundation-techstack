@@ -14,8 +14,10 @@ Definition of a minimal set of components allowing to:
 
 ## REQUIREMENTS
 ### Architecture
+Should allow build of a first implementation architecture respecting the target architecture defined by Foundation project ready for deployment as an Internet platform usable for demonstration and motivation of partnerships.
 
 ### Design & Demonstrator
+Should provide basic technologies set allowing the development of a first prototype aligned with the visual demonstrator of Cockpits concept.
 
 ### User Interface Layer
 #### Dynamics
@@ -49,6 +51,9 @@ Should support implementation of applications capable to run on several infrastr
 Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop (e.g OS on x64, ARM64 processing unit) without Internet connection.
 
 ### Tooling & Supervision
+Should allow definition and test of basic software factory implementation allowing to deliver Dockerized systems.
+
+None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # SELECTED IMPLEMENTATION ARCHITECTURE
 Presentation of the retained implementation stack resulting of the analysis steps result and stack definition.
