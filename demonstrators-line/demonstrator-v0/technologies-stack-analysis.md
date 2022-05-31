@@ -85,10 +85,10 @@ The current status of technology already in the analysis stream give a general v
 
 | Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| UI | Web GUI Graphic Components Library | ReactBootstrap | `WIN` | | | UI widgets foundation, re-written bootstrap components in React [documentation](https://react-bootstrap.github.io/), 445 contributors |
+| UI | Web GUI Graphic Components Library | [ReactBootstrap](https://react-bootstrap.github.io/) | `WIN` | | | UI widgets foundation, re-written bootstrap components in React, 445 contributors |
 | UI | Web GUI CSS Components Library | [MaterializeCSS](https://github.com/Dogfalo/materialize) | `ALT 1` | | | UI widgets usable [with ReactJS](http://fullstackhybrid.com/using-materializecss-with-reactjs/) based on Google's Material Design that incorporates custom components to provide default stylings, 261 contributors |
 | UI | Web GUI CSS Components Library | [Pure CSS](https://github.com/pure-css/pure) | `ALT 2` | | | UI widget based on CSS as a set of small responsive CSS modules (minimalism and small size); can be integrated with bootstrap components, 66 contributors |
-| UI | Web GUI CSS Components Library | Ulkit | `ALT 3` | | | UI widget based on CSS [usable with reactive JS framework](https://getuikit.com/docs/javascript), MIT license, [github project](https://github.com/uikit/uikit), 34 contributors |
+| UI | Web GUI CSS Components Library | [Ulkit](https://github.com/uikit/uikit) | `ALT 3` | | | UI widget based on CSS [usable with reactive JS framework](https://getuikit.com/docs/javascript), MIT license, 34 contributors |
 | UI | Web GUI Reactive Frontend Library | [Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) | `WIN` | | | JavaScript event bus bridge to Vert.x server-side reactive services |
 | UI | Web GUI Reactive Frontend Library | ReactJS | `WIN` | | | HTML/CSS view from rendering components based with data changes auto-refresh, according to a View / Presenter pattern approach |
 | UI | Client-Side Data Model Format | JSON | `WIN` | | | Data and command events (e.g Data Transform Object, domain events) |
