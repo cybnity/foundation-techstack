@@ -228,6 +228,7 @@ The acceptance level per differentiation criteria is evaluated as:
 
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| ReactBootstrap | | | | | | | |
 | Eclipse Vert.x SockJS Client | | | | | | | |
 | ReactJS | | | | | | | |
 | Eclipse Vert.x Core | | | | | | | |
