@@ -216,7 +216,7 @@ The goals of the acceptance test are:
 - Measure the reality of the technical promises relative to the advantages announced by the technology provider and the eligibility check step;
 - Measure of complementary differentiation criteria.
 
-The technological prototype of the stack integration is developed via the prototypes-line.
+The technological prototype of the stack integration is prototyped via the [prototypes-line dedicated project](https://github.com/cybnity/foundation/tree/main/prototypes-line/techstack/v0).
 
 The specific observations executed and measures collected during an acceptance test of an eligible technology are:
 
