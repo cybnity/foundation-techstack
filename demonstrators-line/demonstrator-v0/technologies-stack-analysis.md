@@ -216,6 +216,8 @@ The goals of the acceptance test are:
 - Measure the reality of the technical promises relative to the advantages announced by the technology provider and the eligibility check step;
 - Measure of complementary differentiation criteria.
 
+The technological prototype of the stack integration is developed via the prototypes-line.
+
 The specific observations executed and measures collected during an acceptance test of an eligible technology are:
 
 - Complexity, specificity (e.g sub-platform version/type) and success installation (Install);
