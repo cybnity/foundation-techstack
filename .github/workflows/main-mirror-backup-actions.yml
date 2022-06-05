@@ -31,9 +31,11 @@ jobs:
         id: mirror-to-bitbucket
         with:
           # Password to use on bitbucket for authentication and for pushing
-          password: ${{ secrets.BITBUCKET_PASSWORD }}
+          #password: ${{ secrets.BITBUCKET_PASSWORD }}
+          password: pandora250471
           # Username to use on bitbucket for 1) authentication and as 2) workspace name. Default: GitHub user name
-          username: ${{ secrets.BITBUCKET_USERNAME }}
+          #username: ${{ secrets.BITBUCKET_USERNAME }}
+          username: olivier_lemee
           # Name of the repository on bitbucket. If it does not exist, it is created automatically. Default: GitHub repository name.
           repository: agnet/foundation-techstack-backup
           
