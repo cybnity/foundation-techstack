@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0 # <-- clone with complete history
       - name: Push
         uses: ./ # Uses an action in the root directory
-        id: mirror-to bitbucket
+        id: mirror-to-bitbucket
         with:
           # Password to use on bitbucket for authentication and for pushing
           password: ${{ secrets.BITBUCKET_PASSWORD }}
