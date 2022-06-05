@@ -38,4 +38,4 @@ jobs:
           # Username to use on bitbucket for 1) authentication and as 2) workspace name. Default: GitHub user name
           username: ${{ secrets.BITBUCKET_USERNAME }}
           # Name of the repository on bitbucket. If it does not exist, it is created automatically. Default: GitHub repository name.
-          repository: foundation-techstack-backup
+          repository: agnet/foundation-techstack-backup
