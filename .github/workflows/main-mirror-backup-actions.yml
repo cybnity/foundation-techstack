@@ -1,6 +1,6 @@
-# This is a basic workflow to backup repository to BitBucket remote backup space
+# This is a basic workflow to backup repository to BitBucket remote backup space (https://github.com/marketplace/actions/mirror-to-bitbucket-github-action)
 
-name: Mirror to BitBucket GitHub Action
+name: Mirror main branch to BitBucket
 
 # Controls when the workflow will run
 on:
@@ -17,7 +17,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a set of commands using the runners shell
@@ -27,7 +26,8 @@ jobs:
           ref: main
           fetch-depth: 0 # <-- clone with complete history
       - name: Push
-        uses: ./ # Uses an action in the root directory
+        #uses: ./ # Uses an action in the root directory
+        uses: heussd/mirror-to-bitbucket-github-action@v1
         id: mirror-to-bitbucket
         with:
           # Password to use on bitbucket for authentication and for pushing
@@ -36,3 +36,16 @@ jobs:
           username: ${{ secrets.BITBUCKET_USERNAME }}
           # Name of the repository on bitbucket. If it does not exist, it is created automatically. Default: GitHub repository name.
           repository: agnet/foundation-techstack-backup
+          
+#name: Sync main branch to Bitbucket (https://github.com/marketplace/actions/sync-git-branch-action)
+#on: [push, delete, create]
+#jobs:
+#  git-mirror:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: zent-contrib/git-branch-sync-action@v1
+#        env:
+#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#        with:
+#          source-branch: main
+#          destination-repo: "git@bitbucket.org:<org>/<repo>.git"
