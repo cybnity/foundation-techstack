@@ -21,5 +21,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a set of commands using the runners shell
-      - name: Mirror to BitBucket GitHub Action
-        uses: heussd/mirror-to-bitbucket-github-action@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # <-- clone with complete history
+      - name: Push
+        uses: ./ # Uses an action in the root directory
+        id: mirror-to bitbucket
+        with:
+          # Password to use on bitbucket for authentication and for pushing
+          password: ${{ secrets.BITBUCKET_PASSWORD }}
+          # Username to use on bitbucket for 1) authentication and as 2) workspace name. Default: GitHub user name
+          username: ${{ secrets.BITBUCKET_USERNAME }}
+          # Name of the repository on bitbucket. If it does not exist, it is created automatically. Default: GitHub repository name.
+          repository: foundation-techstack-backup
