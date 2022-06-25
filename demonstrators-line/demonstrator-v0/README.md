@@ -1,3 +1,2 @@
 ## PURPOSE
-Discover the design and implementation informations regarding the MPP initial version.
-
+Discover the design and implementation informations regarding the technology stack MPP initial version.

@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
-	<artifactId>mpp</artifactId>
+	<artifactId>techstack</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
-	<name>CYBNITY demonstrators of official technologies stack</name>
+	<name>CYBNITY official technologies stack</name>
 	<properties>
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
@@ -26,7 +26,7 @@
 
 	<modules>
 		<!-- Technology stack implementation sub-project (e.g framework, customized open source dependency...) -->
-		
+		<module>prototypes-line</module>
 	</modules>
 
 	<organization>
@@ -228,7 +228,7 @@
                 <executions>
                     <execution>
                         Default configuration for running
-                        Usage: mvn clean javafx:run 
+                        Usage: mvn clean javafx:run
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>com.cybnity.ui.App</mainClass>
