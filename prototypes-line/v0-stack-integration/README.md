@@ -1,6 +1,6 @@
 ## PURPOSE
 This project space is dedicated to the prototyping of Foundation TechStack initial version.
-Main goal is to validate the compatibility of technologies set assembly, their promises reality and to support the acceptance step (step 2) of the [demonstrator V0](https://github.com/cybnity/foundation-techstack/blob/0aa4d70e4b1c880e1ebec00f51ea7dd7947fee4d/demonstrators-line/demonstrator-v0/technologies-stack-analysis.md)
+Main goal is to validate the compatibility of technologies set assembly, their promises reality and to support the acceptance step (step 2) of the [demonstrator V0](../../demonstrators-line/demonstrator-v0/technologies-stack-analysis.md)
 
 # PROTOTYPE PERIMETER
 ## EVALUATED SET
@@ -77,7 +77,7 @@ flowchart LR
     uispace -.-> logging;
     gateway --> uispace;
     domain:::area -.-> infrastructure:::area;
-    
+
 	classDef system fill:#3a5572,stroke:#3a5572,color:#fff;
 	classDef techcomp fill:#fff,stroke:#3a5572,color:#3a5572;
 	classDef techsys fill:#e5302a,stroke:#e5302a,color:#fff;
