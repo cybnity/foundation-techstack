@@ -6,7 +6,7 @@ According to experiences of CYBNITY stakeholders, or of new technology availabil
 
 | Version | Usage Goal | Description | Delivery | Technology Stack | Demonstrator |
 |  :---:  |   :---     |    :---     |     ---: |      :---        |     :---     |
-| V0 | UI Principles usability  | Usability tests regarding cockpit principles. Demonstration of CYBNITY wireframe/interactive UI to potential partners' ecosystem | 2022, June | [Tech stack](../demonstrators-line/demonstrator-v0/technologies-stack-analysis.md) | [Demonstrator](../demonstrators-line/demonstrator-v0/README.md) |
+| V0 | Tech stack for UI Principles usability development  | Initial technologies set for development of usability tests regarding cockpit principles via demonstration of CYBNITY wireframe/interactive UI to potential partners' ecosystem | 2022, Oct | [Opportunities analysis and stack definition](../demonstrators-line/demonstrator-v0/technologies-stack-analysis.md) | - [V0 Techstack Integration Demonstrator](../prototypes-line/v0-stack-integration/README.md)<br>- UI demonstrator |
 | V1 | Ecosystem positioning validation | Technologies set for CYBNITY basic features prototyping | 2022, Dec | | |
 
 #
