@@ -24,7 +24,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | Spring Core | | |- [Core documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html)<br>- [Spring Vault](https://spring.io/projects/spring-vault)<br>- [Accessing Vault](https://spring.io/guides/gs/accessing-vault/)<br>- [Valut configuration](https://spring.io/guides/gs/vault-config/)<br>- [Spring Kafka](https://spring.io/projects/spring-kafka)<br>- [Messaging with Redis](https://spring.io/guides/gs/messaging-redis/)|
 | [Spring Boot](https://spring.io/projects/spring-boot) | | |- [SpringBoot with Docker](https://spring.io/guides/gs/spring-boot-docker/)|
 | [Apache Zookeeper](https://zookeeper.apache.org) | | |- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
-| Eclipse OpenJ9 8/11 JRE | | |- [Documentation](https://www.eclipse.org/openj9/docs/index.html)<br>- [Developer tooling](https://www.eclipse.org/openj9/docs/tool_migration/)|
+| Eclipse OpenJ9 8/11 JRE | | |- [Documentation](https://www.eclipse.org/openj9/docs/index.html)<br>- [Developer tooling](https://www.eclipse.org/openj9/docs/tool_migration/)<br>- JDK/JRE versions [downloads](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/)<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)|
 | Linux Ubuntu LTS (minimal for Docker)| | | |
 | Docker | | |- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
