@@ -25,7 +25,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | [Spring Boot](https://spring.io/projects/spring-boot) | | |- [SpringBoot with Docker](https://spring.io/guides/gs/spring-boot-docker/)|
 | [Apache Zookeeper](https://zookeeper.apache.org) | | |- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
 | Eclipse Temurin JRE |JDK/JRE 11.0.15| |- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium|
-| Linux Alpine OS | | | |
+| Linux Alpine OS |3.16.0| | |
 | Docker | | |- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
 

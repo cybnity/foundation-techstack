@@ -5,6 +5,10 @@ docker-compose build --force-rm
 
 # Build dockerfile (without docker-compose help) from directory
 docker build -t agnet/cybnity-javaruntime-distribution .
+
+# Scan image vulnerabilities
+docker scan agnet/cybnity-javaruntime-distribution
+
 # Run it
 docker run -it --rm agnet/cybnity-javaruntime-distribution
 
