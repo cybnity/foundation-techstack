@@ -1,0 +1,29 @@
+# FROM PROJECT DIRECTORY
+
+# Build a Docker image of Linux/Java runtime environment container from shell command (including force remove of intermediary container)
+docker-compose build --force-rm
+
+# Build dockerfile (without docker-compose help) from directory
+docker build -t agnet/cybnity-javaruntime-distribution .
+# Run it
+docker run -it --rm agnet/cybnity-javaruntime-distribution
+
+# Run a docker container without shell console (as a daemon without interaction) or without -d argument to maintain shell console opened
+docker-compose up -d
+
+# Check that the container is running
+docker ps
+
+# Read logs
+docker-compose logs -f
+
+# Kill container
+docker-compose kill
+# or
+docker kill agnet/cybnity-javaruntime-distribution
+
+# Create tag for built java container distribution specific to CYBNITY technology
+docker tag cybnity-javaruntime-distribution agnet/cybnity-javaruntime-distribution:latest
+
+# Push docker image to online CYBNITY private Docker repository
+docker push agnet/cybnity-javaruntime-distribution:latest
