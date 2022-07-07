@@ -20,7 +20,7 @@
 		<vertx.version>4.3.2</vertx.version>
 		<junit-jupiter.version>5.7.0</junit-jupiter.version>
 
-		<main.verticle>org.cybnity.application.asset_control.ui.system.MainVerticle</main.verticle>
+		<main.verticle>org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServer</main.verticle>
 		<launcher.class>io.vertx.core.Launcher</launcher.class>
 	</properties>
 	<dependencies>
