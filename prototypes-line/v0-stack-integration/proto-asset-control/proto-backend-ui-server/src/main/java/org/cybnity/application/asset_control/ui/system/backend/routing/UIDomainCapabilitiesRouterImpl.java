@@ -11,11 +11,11 @@ import io.vertx.ext.web.impl.RouterImpl;
 
 /**
  * Router implementation which define the list of routes supported by a UI
- * capability domain.
+ * domain regarding its capabilities.
  */
-public class UICapabilitiesDomainRouterImpl extends RouterImpl {
+public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
-	public UICapabilitiesDomainRouterImpl(Vertx vertx) {
+	public UIDomainCapabilitiesRouterImpl(Vertx vertx) {
 		super(vertx);
 		initRoutes(vertx);
 	}
@@ -32,7 +32,7 @@ public class UICapabilitiesDomainRouterImpl extends RouterImpl {
 	private AuthenticationProvider authProvider() {
 		AuthenticationProvider provider = null;
 		// TODO créer le procider de demo d'authorization et décommenter l'assignation
-		// de requiredAuthority pour place_orders dans les permittedoptions
+		// de requiredAuthority pour place_cqrs dans les permittedoptions
 
 		return provider;
 	}
@@ -55,21 +55,21 @@ public class UICapabilitiesDomainRouterImpl extends RouterImpl {
 
 		// --- DEFINE PERMITTED INPUT EVENT TYPES (will look through inbound permitted
 		// matches when it is received from client side Javascript to the server) ---
-		// Let through any message sent to 'assetcontrol.orderMgr' from the client side
-		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.orderMgr");
-
-		// But only if the user is logged in and has the authority "place_orders" (the
-		// user must be first logged in and secondly have the required authority)
-		// inboundPermitted1.setRequiredAuthority("place_orders");
+		// Let through any message sent to 'assetcontrol.asset.isAlive' from the client
+		// side
+		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.asset.isAlive");
 
 		// Allow calls to the address 'assetcontrol.cqrs' from the client as long as the
 		// messages have an action filed with value 'find'
 		// and a a collection field with value 'assets'
 		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.cqrs")
 				.setMatch(new JsonObject().put("action", "find").put("collection", "assets"));
+		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.cqrs")
+				.setMatch(new JsonObject().put("action", "read").put("string", "id123"));
 
-		// Allow calls to the address 'otherdomain.orderMgr' from the client side
-		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("otherdomain.orderMgr");
+		// But only if the user is logged in and has the authority "place_cqrs" (the
+		// user must be first logged in and secondly have the required authority)
+		// inboundPermitted2.setRequiredAuthority("place_cqrs");
 
 		// --- DEFINE PERMITTED OUTPUT EVENT TYPES (will look through outbound permitted
 		// matches before it is sent to the client Vert.x-Web) ---
@@ -78,9 +78,9 @@ public class UICapabilitiesDomainRouterImpl extends RouterImpl {
 		// Let through any message coming from address 'assetcontrol.cqrs_response'
 		PermittedOptions outboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.cqrs_response");
 
-		// Let through any messages from addresses starting with 'news.' (e.g
-		// news.assetcontrol, news.otherdomain, etc)
-		PermittedOptions outboundPermitted2 = new PermittedOptions().setAddressRegex("news\\..+");
+		// Let through any messages from addresses starting with 'assets.' (e.g
+		// assets.updated, assets.news, etc)
+		PermittedOptions outboundPermitted2 = new PermittedOptions().setAddressRegex("assets\\..+");
 
 		// --- DEFINE WHAT WE'RE GOING TO ALLOW FROM CLIENT -> SERVER
 		SockJSBridgeOptions options = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted1)

@@ -22,6 +22,6 @@ public interface CapabilityRouter extends Router {
 	 * @return A router including routes with SockJS handlers.
 	 */
 	static Router sockjsRouter(Vertx vertx) {
-		return new UICapabilitiesDomainRouterImpl(vertx);
+		return new UIDomainCapabilitiesRouterImpl(vertx);
 	}
 }
