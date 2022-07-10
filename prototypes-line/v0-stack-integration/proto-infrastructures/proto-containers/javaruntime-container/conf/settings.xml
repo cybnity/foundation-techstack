@@ -8,12 +8,6 @@
 			<mirrorOf>central</mirrorOf>
 		</mirror>
 		<mirror>
-			<mirrorOf>central</mirrorOf>
-			<name>remote-repos</name>
-			<url>http://repo.workshapp.com/remote-repos</url>
-			<id>remote-repos</id>
-		</mirror>
-		<mirror>
 			<id>ibiblio.org</id>
 			<name>ibiblio Mirror of http://repo1.maven.org/maven2/</name>
 			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
@@ -42,27 +36,4 @@
 		</mirror>
 	</mirrors>
 
-	<servers>
-		<server>
-			<!-- Nexus Releases external libraries and AGnet deliveries -->
-			<id>public</id>
-			<username>olemee</username>
-			<password>pandora</password>
-		</server>
-		<server>
-			<!-- Nexus Releases AGnet deliveries -->
-			<id>releases</id>
-			<username>olemee</username>
-			<password>pandora</password>
-			<filePermissions>664</filePermissions>
-			<directoryPermissions>775</directoryPermissions>
-			<configuration></configuration>
-		</server>
-		<server>
-			<!-- Snapshots AGnet deliveries -->
-			<id>snapshots</id>
-			<username>olemee</username>
-			<password>pandora</password>
-		</server>
-	</servers>
 </settings>
