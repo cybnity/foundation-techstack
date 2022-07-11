@@ -2,7 +2,9 @@ package org.cybnity.application.asset_control.ui.system.backend.routing;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.impl.RouterImpl;
 
@@ -14,23 +16,23 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 
 	public UICapabilitiesHTTPRouterImpl(Vertx vertx) {
 		super(vertx);
-		initRoutes();
+		initRoutes(this);
 	}
 
 	/**
 	 * Initialize all the routes supported by this routing service.
 	 */
-	private void initRoutes() {
+	static public void initRoutes(Router router) {
 		// Mount the handlers for all incoming requests at every path and HTTP method
 		// via creation of the several routes supported
 
-		get("/assetcontrol/").handler(context -> {
+		router.get("/assetcontrol/").produces("application/json").handler(context -> {
 			// This handler is called for any GET request to a path starting with
 			// /assetcontrol/
 			sendJSONUICapabilityResponse(context, "assetcontrol");
 		});
 
-		get().handler(context -> {
+		router.get().produces("application/json").handler(context -> {
 			// This handler is called for any GET request
 			sendJSONUICapabilityResponse(context, "undefined");
 		});
@@ -43,7 +45,7 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 	 * @param context
 	 * @param calledResourceName
 	 */
-	private void sendJSONUICapabilityResponse(RoutingContext context, String calledResourceName) {
+	static public void sendJSONUICapabilityResponse(RoutingContext context, String calledResourceName) {
 		// Get the address of the request
 		String address = context.request().connection().remoteAddress().toString();
 		// Get the query parameter "name"
@@ -51,8 +53,11 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 		String name = queryParams.contains("name") ? queryParams.get("name") : "unknown";
 		// Write a json response (re­turns a JSON ob­ject con­tain­ing the ad­dress of
 		// the re­quest, the query pa­ra­me­ter name, and a greet­ing mes­sage)
-		context.json(new JsonObject().put("name", name).put("address", address).put("message",
+		String json = new JsonObject().put("name", name).put("address", address).put("message",
 				"Hello " + name + " (connected from " + address) + "), welcome on the called resource ("
-				+ calledResourceName + ")");
+				+ calledResourceName + ")";
+		HttpServerResponse response = context.response();
+		response.putHeader("content-type", "application/json");
+		response.end(json);
 	}
 }

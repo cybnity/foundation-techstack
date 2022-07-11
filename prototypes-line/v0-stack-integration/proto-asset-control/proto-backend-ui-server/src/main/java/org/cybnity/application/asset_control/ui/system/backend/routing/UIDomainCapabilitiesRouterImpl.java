@@ -5,6 +5,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.auth.authentication.AuthenticationProvider;
 import io.vertx.ext.bridge.PermittedOptions;
+import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.impl.RouterImpl;
@@ -94,10 +95,26 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Create Vert.x application data store
 		SharedData sessionStore = vertx.sharedData();
+
 		// Add the several control capabilities supported by the bridge on the router's
-		// routes
+		// routes about event bus
 		route("/eventbus/*")
 				.subRouter(sockJSHandler.bridge(options, new UICapabilityHandler(vertx.eventBus(), sessionStore)));
+
+		// Add the UI static contents route supported by the HTTP layer about url path
+		// and static contents directory
+		StaticHandler staticWebContentsHandler = StaticHandler.create("static");
+		// Configure the static files delivery
+		staticWebContentsHandler.setCachingEnabled(false);
+		staticWebContentsHandler.setDefaultContentEncoding("UTF-8");
+		staticWebContentsHandler.setIndexPage("index.html");
+		staticWebContentsHandler.setIncludeHidden(false);
+		staticWebContentsHandler.setDirectoryListing(false);
+		// Handle static resources
+		route("/static/*").handler(staticWebContentsHandler);
+
+		// Add possible API routes supported by the HTTP layer as a JSON api
+		UICapabilitiesHTTPRouterImpl.initRoutes(this);
 	}
 
 }
