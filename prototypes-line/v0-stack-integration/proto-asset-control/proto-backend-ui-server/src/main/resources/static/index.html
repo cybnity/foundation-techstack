@@ -50,7 +50,7 @@
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
 	 eb.send('assetcontrol.cqrs', {action: 'find', collection: 'assets'});
-	 //eb.send('assetcontrol.cqrs', {action: 'read', uid: '123'});
+	 eb.send('assetcontrol.cqrs', {action: 'read', uid: '123'});
 	}
 
     </script>

@@ -36,9 +36,12 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 			// This even will occur when SockJS socket is on idle for longer period of time
 			// than initially configured
 			System.out.println("Socket IDLE occured");
+		} else if (event.type() == BridgeEventType.SOCKET_CREATED) {
+			// This event will occur when a SockJS socket is created
+			// System.out.println("Socket is created");
 		} else if (event.type() == BridgeEventType.SOCKET_CLOSED) {
 			// This event will occur when a SockJS socket is closed
-			System.out.println("Socket is closed");
+			// System.out.println("Socket is closed");
 		} else if (event.type() == BridgeEventType.SOCKET_ERROR) {
 			// This event will occur when an underlying transport errors
 			System.out.println("Socket error occured: " + event.getRawMessage().encode());
@@ -55,7 +58,7 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 			if (event.type() == BridgeEventType.RECEIVE) {
 				// a message is attempted to be delivered from the server to the client
 				// Add security tracking about event transmitted to client side
-				System.out.println("Event delivered from server to client side");
+				// System.out.println("Event delivered from server to client side");
 			}
 		}
 

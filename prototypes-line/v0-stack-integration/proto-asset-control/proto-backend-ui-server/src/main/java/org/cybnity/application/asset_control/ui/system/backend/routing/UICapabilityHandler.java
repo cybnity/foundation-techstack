@@ -26,26 +26,30 @@ public class UICapabilityHandler extends EventBusBridgeHandler {
 		// regarding ui-event, domain-event, command-event, etc. as CYBNITY bridge
 
 		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
-		// Manage :
-		// - quality of event received and integrity
-		// - translation into supported event types by the UI interactions layer (Redis
-		// space)
-		// - the identification of channel of space where to push the event to process
-		// - the push of event to space for processing by Application layer
+		JsonObject message = event.getRawMessage();
+		if (message != null) {
+			System.out.println("Requested CQRS: " + message);
+			// Manage :
+			// - quality of event received and integrity
+			// - translation into supported event types by the UI interactions layer (Redis
+			// space)
+			// - the identification of channel of space where to push the event to process
+			// - the push of event to space for processing by Application layer
 
-		// Read the event and contents
+			// Read the event and contents
 
-		// Manage the treatment to execute
+			// Manage the treatment to execute
 
-		// Publish result/callback event in event bus's channel
-		bus().send(cqrsResponseChannel, new JsonObject().put("key", "value"));
+			// Publish result/callback event in event bus's channel
+			bus().send(cqrsResponseChannel, new JsonObject().put("key", "value"));
 
-		/*
-		 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
-		 * Integer value = counter.get() + 1; repository.update(value);
-		 * eventBus.publish("out", value); } else { Integer value = 1;
-		 * repository.update(value); eventBus.publish("out", value); }
-		 */
+			/*
+			 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
+			 * Integer value = counter.get() + 1; repository.update(value);
+			 * eventBus.publish("out", value); } else { Integer value = 1;
+			 * repository.update(value); eventBus.publish("out", value); }
+			 */
+		}
 	}
 
 }
