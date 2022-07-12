@@ -1,6 +1,7 @@
 package org.cybnity.application.asset_control.ui.system.backend.routing;
 
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.web.handler.sockjs.BridgeEvent;
 
@@ -9,8 +10,11 @@ import io.vertx.ext.web.handler.sockjs.BridgeEvent;
  */
 public class UICapabilityHandler extends EventBusBridgeHandler {
 
-	public UICapabilityHandler(EventBus eventBus, SharedData sessionStore) {
+	private String cqrsResponseChannel;
+
+	public UICapabilityHandler(EventBus eventBus, SharedData sessionStore, String cqrsResponseChannel) {
 		super(eventBus, sessionStore);
+		this.cqrsResponseChannel = cqrsResponseChannel;
 	}
 
 	/**
@@ -33,8 +37,8 @@ public class UICapabilityHandler extends EventBusBridgeHandler {
 
 		// Manage the treatment to execute
 
-		// Publish result/callback event in event bus
-		// eventBus.publish("out", "result");
+		// Publish result/callback event in event bus's channel
+		bus().send(cqrsResponseChannel, new JsonObject().put("key", "value"));
 
 		/*
 		 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {

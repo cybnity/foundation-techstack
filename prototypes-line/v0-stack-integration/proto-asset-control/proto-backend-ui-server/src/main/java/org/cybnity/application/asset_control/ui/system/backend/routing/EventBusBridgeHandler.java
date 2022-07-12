@@ -2,6 +2,7 @@ package org.cybnity.application.asset_control.ui.system.backend.routing;
 
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.bridge.BridgeEventType;
 import io.vertx.ext.web.handler.sockjs.BridgeEvent;
@@ -18,8 +19,19 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 		this.sessionStore = sessionStore;
 	}
 
+	/**
+	 * Get the connected event bus.
+	 * 
+	 * @return A bus.
+	 */
+	protected EventBus bus() {
+		return this.bus;
+	}
+
 	@Override
 	public void handle(BridgeEvent event) {
+		JsonObject message = event.getRawMessage();
+
 		if (event.type() == BridgeEventType.SOCKET_IDLE) {
 			// This even will occur when SockJS socket is on idle for longer period of time
 			// than initially configured
@@ -33,7 +45,7 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 		}
 
 		if (event.type() == BridgeEventType.PUBLISH || event.type() == BridgeEventType.RECEIVE) {
-			if (event.getRawMessage().getString("body").contentEquals("violation")) {
+			if (message.getString("body") != null && message.getString("body").contentEquals("violation")) {
 				// Reject event where a specific word exist in body (e.g security, conformity
 				// violation)
 				System.out.println("Event rejected caused by content violation");
@@ -55,8 +67,7 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 		}
 
 		// Complete the event delegation status
-		if (!event.tryComplete())
-			event.complete(true);
+		event.complete(true);
 	}
 
 	/**

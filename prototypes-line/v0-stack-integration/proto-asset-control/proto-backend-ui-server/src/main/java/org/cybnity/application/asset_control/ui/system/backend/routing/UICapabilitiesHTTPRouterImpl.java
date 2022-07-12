@@ -30,13 +30,9 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 			// This handler is called for any GET request to a path starting with
 			// /assetcontrol/
 			sendJSONUICapabilityResponse(context, "assetcontrol");
+		}).failureHandler(failure -> {
+			System.out.println("http route failure: " + failure.toString());
 		});
-
-		router.get().produces("application/json").handler(context -> {
-			// This handler is called for any GET request
-			sendJSONUICapabilityResponse(context, "undefined");
-		});
-
 	}
 
 	/**

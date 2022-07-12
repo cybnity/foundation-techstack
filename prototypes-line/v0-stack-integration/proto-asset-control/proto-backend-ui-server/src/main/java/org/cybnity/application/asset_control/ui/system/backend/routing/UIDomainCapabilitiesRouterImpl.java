@@ -27,7 +27,7 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 	private void initRoutes(Vertx vertx) {
 		// Mount the bridge for all incoming requests
 		// according to the channels permitted and authorizations
-		init(vertx);
+		createRoutes(vertx);
 	}
 
 	private AuthenticationProvider authProvider() {
@@ -45,9 +45,7 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 	 * @param vertx
 	 * @return
 	 */
-	private void init(Vertx vertx) {
-		SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
-
+	private void createRoutes(Vertx vertx) {
 		// --- DEFINE BASIC AUTH HANDLING ---
 		// route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 		// AuthenticationHandler basicAuthHandler =
@@ -62,22 +60,40 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Allow calls to the address 'assetcontrol.cqrs' from the client as long as the
 		// messages have an action filed with value 'find'
-		// and a a collection field with value 'assets'
+		// and collection field with value 'assets'
 		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.cqrs")
 				.setMatch(new JsonObject().put("action", "find").put("collection", "assets"));
 		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.cqrs")
-				.setMatch(new JsonObject().put("action", "read").put("string", "id123"));
+				.setMatch(new JsonObject().put("action", "read").put("uid", "123"));
 
 		// But only if the user is logged in and has the authority "place_cqrs" (the
 		// user must be first logged in and secondly have the required authority)
 		// inboundPermitted2.setRequiredAuthority("place_cqrs");
+
+		// Add the UI static contents route supported by the HTTP layer about url path
+		// and static contents directory
+		StaticHandler staticWebContentsHandler = StaticHandler.create("static");
+		// Configure the static files delivery
+		staticWebContentsHandler.setCachingEnabled(false);
+		staticWebContentsHandler.setDefaultContentEncoding("UTF-8");
+		staticWebContentsHandler.setIndexPage("index.html");
+		staticWebContentsHandler.setIncludeHidden(false);
+		staticWebContentsHandler.setDirectoryListing(false);
+		// Handle static resources
+		route("/static/*").handler(staticWebContentsHandler).failureHandler(failure -> {
+			System.out.println("static route failure: " + failure.toString());
+		});
+
+		// Add possible API routes supported by the HTTP layer as a JSON api
+		UICapabilitiesHTTPRouterImpl.initRoutes(this);
 
 		// --- DEFINE PERMITTED OUTPUT EVENT TYPES (will look through outbound permitted
 		// matches before it is sent to the client Vert.x-Web) ---
 
 		// Define what we're going to allow from server -> client
 		// Let through any message coming from address 'assetcontrol.cqrs_response'
-		PermittedOptions outboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.cqrs_response");
+		String cqrsResponseChannel = "assetcontrol.cqrs_response";
+		PermittedOptions outboundPermitted1 = new PermittedOptions().setAddress(cqrsResponseChannel);
 
 		// Let through any messages from addresses starting with 'assets.' (e.g
 		// assets.updated, assets.news, etc)
@@ -98,23 +114,10 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Add the several control capabilities supported by the bridge on the router's
 		// routes about event bus
-		route("/eventbus/*")
-				.subRouter(sockJSHandler.bridge(options, new UICapabilityHandler(vertx.eventBus(), sessionStore)));
+		SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
+		route("/eventbus/*").subRouter(sockJSHandler.bridge(options,
+				new UICapabilityHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel)));
 
-		// Add the UI static contents route supported by the HTTP layer about url path
-		// and static contents directory
-		StaticHandler staticWebContentsHandler = StaticHandler.create("static");
-		// Configure the static files delivery
-		staticWebContentsHandler.setCachingEnabled(false);
-		staticWebContentsHandler.setDefaultContentEncoding("UTF-8");
-		staticWebContentsHandler.setIndexPage("index.html");
-		staticWebContentsHandler.setIncludeHidden(false);
-		staticWebContentsHandler.setDirectoryListing(false);
-		// Handle static resources
-		route("/static/*").handler(staticWebContentsHandler);
-
-		// Add possible API routes supported by the HTTP layer as a JSON api
-		UICapabilitiesHTTPRouterImpl.initRoutes(this);
 	}
 
 }
