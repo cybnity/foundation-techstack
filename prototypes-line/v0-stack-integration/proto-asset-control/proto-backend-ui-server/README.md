@@ -20,7 +20,7 @@ From shell command line:
 1. Test that ui backend give answer about sent parameter (over HTTP/GET protocol) without specific route to defined UI capability:
 
     ```shell
-    curl -v http://localhost:8080\?name\="Olivier"
+    curl -v http://localhost:8080/assetcontrol/
     ```
   
 2. Test that UI backend give answer about sent parameter (over HTTP/GET protocol) from specific route defined about UI capability handled:
