@@ -77,8 +77,8 @@
 	 eb.send('assetcontrol.isAlive', {});
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
-	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', collection: 'assets'});
-	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', uid: '123'});
+	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), collection: 'assets'});
+	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), uid: '123'});
 	 eb.send('assetcontrol.in', {cqrs: 'command', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), name:'cybnity-backend-server1', description: 'Development backend server'});
 	}
 	

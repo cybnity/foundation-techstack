@@ -27,27 +27,44 @@ public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
 		JsonObject message = event.getRawMessage();
 		if (message != null) {
-			System.out.println("Event to process: " + message);
-			// Manage :
-			// - quality of event received and integrity
-			// - translation into supported event types by the UI interactions layer (Redis
-			// space)
-			// - the identification of channel of space where to push the event to process
-			// - the push of event to space for processing by Application layer
 
-			// Read the event and contents
+			// Read the event and contents requiring for context-based routing
+			String eventType = message.getString("type", null);
+			String routingAddress = message.getString("address", null);
+			JsonObject body = message.getJsonObject("body", null);
+			String correlationId = (body != null) ? body.getString("correlationId", null) : null;
 
-			// Manage the treatment to execute
+			if (eventType != null) {
+				JsonObject transactionResult = null;
+				// - quality of event received and integrity WITHOUT TRANSFORMATION of event
+				// message
+				// - translation into supported event types by the UI interactions layer (Redis
+				// space) when need
 
-			// Publish result/callback event in event bus's channel
-			bus().send(cqrsResponseChannel, new JsonObject().put("key", "value"));
+				if ("send".equalsIgnoreCase(eventType)) {
+					// Confirm notification about performed routing
+					transactionResult = new JsonObject();
+					transactionResult.put("status", "processing");
+					if (correlationId != null) {
+						transactionResult.put("correlationId", correlationId);
+					}
+					// - the identification of channel of space where to push the event to process
+					// - the push of event to space for processing by Application layer
 
-			/*
-			 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
-			 * Integer value = counter.get() + 1; repository.update(value);
-			 * eventBus.publish("out", value); } else { Integer value = 1;
-			 * repository.update(value); eventBus.publish("out", value); }
-			 */
+					// Send event into UI space's channel
+					System.out.println("Event forwared to User Interactions Space : " + message);
+				}
+
+				/*
+				 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
+				 * Integer value = counter.get() + 1; repository.update(value);
+				 * eventBus.publish("out", value); } else { Integer value = 1;
+				 * repository.update(value); eventBus.publish("out", value); }
+				 */
+
+				if (transactionResult != null)
+					bus().send(cqrsResponseChannel, transactionResult);
+			}
 		}
 	}
 
