@@ -17,6 +17,32 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      function generate_UUID(){
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (dt + Math.random()*16)%16 | 0;
+            dt = Math.floor(dt/16);
+            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+      }
+      function generateUUIDUsingMathRandom() { 
+	    var d = new Date().getTime();// Timestamp
+	    var d2 = (performance && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+	    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	        var r = Math.random() * 16;//random number between 0 and 16
+	        if(d > 0){//Use timestamp until depleted
+	            r = (d + r)%16 | 0;
+	            d = Math.floor(d/16);
+	        } else {//Use microseconds since page-load if supported
+	            r = (d2 + r)%16 | 0;
+	            d2 = Math.floor(d2/16);
+	        }
+	        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+	    });
+	   }
+	</script>
     <script type="text/babel">
 
       function MyApp() {
@@ -36,25 +62,30 @@
 	   vertxbus_randomization_factor: 0.5 // Randomization factor between 0 and 1
 	};
 	var eb = new EventBus('http://localhost:8080/eventbus', busOptions);
-	eb.enableReconnect(true);
 	
 	// Set up event bus handlers...
-	eb.onopen = () => {
+	eb.onopen = function() {
+	 
 	 // Set a handler to receive UI capabilities answers over the event bus
 	 eb.registerHandler('assetcontrol.out', (error, message) => {
 	   console.log('received a message from assetcontrol.out: ' + JSON.stringify(message));
 	 });
 	
+	 eb.enableReconnect(true);
+	 
 	 // Send a message without parameter
 	 eb.send('assetcontrol.isAlive', {});
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
-	 eb.send('assetcontrol.in', {action: 'query', collection: 'assets'});
-	 eb.send('assetcontrol.in', {action: 'query', uid: '123'});
-	 eb.send('assetcontrol.in', {action: 'command', type: 'asset', name:'myasset'});
+	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', collection: 'assets'});
+	 eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', uid: '123'});
+	 eb.send('assetcontrol.in', {cqrs: 'command', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), name:'cybnity-backend-server1', description: 'Development backend server'});
 	}
+	
+	eb.onreconnect = function() {}; // Optional, will only be called on reconnections
 
     </script>
+    
     <!--
       Note: this page is a great way to try React but it's not suitable for production.
       It slowly compiles JSX with Babel in the browser and uses a large development build of React.
@@ -62,7 +93,7 @@
       Read this section for a production-ready setup with JSX:
       https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
 
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      In a larger project, you can use an integrated tool chain that includes JSX instead:
       https://reactjs.org/docs/create-a-new-react-app.html
 
       You can also use React without JSX, in which case you can remove Babel:

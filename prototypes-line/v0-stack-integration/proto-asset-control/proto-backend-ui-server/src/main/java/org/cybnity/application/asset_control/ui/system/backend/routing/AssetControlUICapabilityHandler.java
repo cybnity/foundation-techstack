@@ -27,7 +27,7 @@ public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
 		JsonObject message = event.getRawMessage();
 		if (message != null) {
-			System.out.println("Requested CQRS: " + message);
+			System.out.println("Event to process: " + message);
 			// Manage :
 			// - quality of event received and integrity
 			// - translation into supported event types by the UI interactions layer (Redis

@@ -38,7 +38,6 @@ From shell command line:
     
 2. Test that UI backend give answer about sent parameter (over HTTP/GET protocol)
 
-
     ```shell
     http://localhost:8080/assetcontrol/?name=olivier
     ```

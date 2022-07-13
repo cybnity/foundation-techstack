@@ -55,19 +55,16 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// --- DEFINE PERMITTED INPUT EVENT TYPES (will look through inbound permitted
 		// matches when it is received from client side Javascript to the server) ---
-		// Let through any message sent to 'assetcontrol/isAlive' from the client
+		// Let through any message sent to 'assetcontrol.isAlive' from the client
 		// side
 		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.isAlive");
 
 		// Allow calls to the address domain channels from the client as long as the
 		// messages have an action filed with value (e.g CQRS type as 'query, command')
-		// and collection field with value 'assets'
 		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.in")
-				.setMatch(new JsonObject().put("action", "query").put("collection", "assets"));
-		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.in")
-				.setMatch(new JsonObject().put("action", "query").put("uid", "123"));
+				.setMatch(new JsonObject().put("cqrs", "query"));
 		PermittedOptions inboundPermitted4 = new PermittedOptions().setAddress("assetcontrol.in")
-				.setMatch(new JsonObject().put("action", "command"));
+				.setMatch(new JsonObject().put("cqrs", "command"));
 
 		// But only if the user is logged in and has the authority "place_cqrs" (the
 		// user must be first logged in and secondly have the required authority)
@@ -104,8 +101,8 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// --- DEFINE WHAT WE'RE GOING TO ALLOW FROM CLIENT -> SERVER
 		SockJSBridgeOptions options = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted1)
-				.addInboundPermitted(inboundPermitted2).addInboundPermitted(inboundPermitted3)
-				.addInboundPermitted(inboundPermitted4).addOutboundPermitted(outboundPermitted1)
+				.addInboundPermitted(inboundPermitted2).addInboundPermitted(inboundPermitted4)
+				.addOutboundPermitted(outboundPermitted1)
 				/**
 				 * if ping message doesn’t arrive from client within 5 seconds then the
 				 * SOCKET_IDLE bridge event would be triggered
@@ -122,8 +119,9 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 													 * <protocol>://<domain>[:<port>][</resource>] can be verifier
 													 * during handling about received by server domain identifier
 													 */
-				).setLocalWriteHandler(false);// configure the sockJS instance build, that can be retrieved an stored in
+				).setLocalWriteHandler(false)// configure the sockJS instance build, that can be retrieved an stored in
 												// local map
+				.setRegisterWriteHandler(true);
 		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, sockJSHandlerOpts);
 
 		// Create a sub-route dedicated to the Asset Control domain
