@@ -7,10 +7,10 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | TECHNOLOGY | VERSION | COMMENTS | HELP / SUPPORT |
 | :--- | :--- | :--- | :--- |
 | [ReactBootstrap](https://react-bootstrap.github.io/) |v2.4.0 (Bootstrap 5.1)| |- [Getting started](https://react-bootstrap.github.io/getting-started/introduction)|
-| [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1| | |
 | [ReactJS](https://reactjs.org/) |18.1.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)|
-| Eclipse Vert.x Core |4.3.2| |- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)|
-| Eclipse Vert.x Web |4.3.2| |- [Documentation](https://vertx.io/docs/vertx-web/java/)|
+| [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1| |-POC state: OK build/run with Vert.x Web|
+| Eclipse Vert.x Web |4.3.2| |- [Documentation](https://vertx.io/docs/vertx-web/java/)<br>-POC state: OK build/run with Vert.x Core|
+| Eclipse Vert.x Core |4.3.2| |- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)<br>-POC state: OK build/run with Eclipse Temurin JDK/JRE|
 | [Apache Directory Server](https://directory.apache.org/) |2.0.0| |- [Apache directory studio](https://directory.apache.org/studio/) LDAP browser|
 | midPoint | | |- [Installation requirements](https://docs.evolveum.com/midpoint/install/system-requirements/)<br>- [Docker Alpine image installation](https://docs.evolveum.com/midpoint/install/docker/)<br>- [Tutorial](https://evolveum.com/get-started/)|
 | [Vault](https://www.vaultproject.io/) | | |- [docker image](https://hub.docker.com/_/vault/)<br>- [Installations](https://www.vaultproject.io/downloads)<br>- [Helm example](https://www.vaultproject.io/docs/platform/k8s/helm)<br>- [Vault Helm Charts](https://github.com/hashicorp/vault-helm)|
@@ -24,8 +24,8 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | Spring Core | | |- [Core documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html)<br>- [Spring Vault](https://spring.io/projects/spring-vault)<br>- [Accessing Vault](https://spring.io/guides/gs/accessing-vault/)<br>- [Valut configuration](https://spring.io/guides/gs/vault-config/)<br>- [Spring Kafka](https://spring.io/projects/spring-kafka)<br>- [Messaging with Redis](https://spring.io/guides/gs/messaging-redis/)|
 | [Spring Boot](https://spring.io/projects/spring-boot) | | |- [SpringBoot with Docker](https://spring.io/guides/gs/spring-boot-docker/)|
 | [Apache Zookeeper](https://zookeeper.apache.org) | | |- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
-| Eclipse Temurin JRE |JDK/JRE 11.0.15| |- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium|
-| Linux Alpine OS |3.16.0| | |
+| Eclipse Temurin JRE |JDK/JRE 11.0.15| |- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium<br>-POC state: OK build/run with Linux Alpine|
+| Linux Alpine OS |3.16.0| |-POC state: OK build/run with Docker|
 | Docker | | |- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
 
@@ -90,7 +90,7 @@ Several technologies are selected into the stack version for implementation of c
 | SYSTEM | TYPE | TECHNOLOGIES | COMMENTS |
 | :--- | :--- | :--- | :--- |
 |Asset Control FrontEnd UI server|Web Reactive FrontEnd|- ReactBootstrap<br>- ReactJS<br>Vert.x SockJS Client<br>- Google Chrome web browser| |
-|Asset Control BackEnd UI server|Reactive BackEnd Server|- Vert.x Web<br>- Jedis<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|
+|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Jedis<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|
 |Asset Control & SSO server|Security Services|- Keycloack<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access|
 |Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer|
 |Secret Management server|Security Services|- Vault<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Test of storage/retrieve of user token used by Asset Control & SSO server|

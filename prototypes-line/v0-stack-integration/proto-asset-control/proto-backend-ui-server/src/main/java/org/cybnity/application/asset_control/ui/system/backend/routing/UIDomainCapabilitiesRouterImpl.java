@@ -8,6 +8,7 @@ import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import io.vertx.ext.web.handler.sockjs.SockJSHandlerOptions;
 import io.vertx.ext.web.impl.RouterImpl;
 
 /**
@@ -54,17 +55,19 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// --- DEFINE PERMITTED INPUT EVENT TYPES (will look through inbound permitted
 		// matches when it is received from client side Javascript to the server) ---
-		// Let through any message sent to 'assetcontrol.asset.isAlive' from the client
+		// Let through any message sent to 'assetcontrol/isAlive' from the client
 		// side
-		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.asset.isAlive");
+		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.isAlive");
 
-		// Allow calls to the address 'assetcontrol.cqrs' from the client as long as the
-		// messages have an action filed with value 'find'
+		// Allow calls to the address domain channels from the client as long as the
+		// messages have an action filed with value (e.g CQRS type as 'query, command')
 		// and collection field with value 'assets'
-		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.cqrs")
-				.setMatch(new JsonObject().put("action", "find").put("collection", "assets"));
-		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.cqrs")
-				.setMatch(new JsonObject().put("action", "read").put("uid", "123"));
+		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.in")
+				.setMatch(new JsonObject().put("action", "query").put("collection", "assets"));
+		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.in")
+				.setMatch(new JsonObject().put("action", "query").put("uid", "123"));
+		PermittedOptions inboundPermitted4 = new PermittedOptions().setAddress("assetcontrol.in")
+				.setMatch(new JsonObject().put("action", "command"));
 
 		// But only if the user is logged in and has the authority "place_cqrs" (the
 		// user must be first logged in and secondly have the required authority)
@@ -92,17 +95,17 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Define what we're going to allow from server -> client
 		// Let through any message coming from address 'assetcontrol.cqrs_response'
-		String cqrsResponseChannel = "assetcontrol.cqrs_response";
+		String cqrsResponseChannel = "assetcontrol.out";
 		PermittedOptions outboundPermitted1 = new PermittedOptions().setAddress(cqrsResponseChannel);
 
 		// Let through any messages from addresses starting with 'assets.' (e.g
 		// assets.updated, assets.news, etc)
-		PermittedOptions outboundPermitted2 = new PermittedOptions().setAddressRegex("assets\\..+");
+		PermittedOptions outboundPermitted2 = new PermittedOptions().setAddressRegex("assetcontrol.asset\\..+");
 
 		// --- DEFINE WHAT WE'RE GOING TO ALLOW FROM CLIENT -> SERVER
 		SockJSBridgeOptions options = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted1)
 				.addInboundPermitted(inboundPermitted2).addInboundPermitted(inboundPermitted3)
-				.addOutboundPermitted(outboundPermitted1)
+				.addInboundPermitted(inboundPermitted4).addOutboundPermitted(outboundPermitted1)
 				/**
 				 * if ping message doesn’t arrive from client within 5 seconds then the
 				 * SOCKET_IDLE bridge event would be triggered
@@ -114,9 +117,19 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Add the several control capabilities supported by the bridge on the router's
 		// routes about event bus
-		SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
+		SockJSHandlerOptions sockJSHandlerOpts = new SockJSHandlerOptions().setRegisterWriteHandler(true)
+				.setOrigin("http://localhost:8080" /**
+													 * <protocol>://<domain>[:<port>][</resource>] can be verifier
+													 * during handling about received by server domain identifier
+													 */
+				).setLocalWriteHandler(false);// configure the sockJS instance build, that can be retrieved an stored in
+												// local map
+		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, sockJSHandlerOpts);
+
+		// Create a sub-route dedicated to the Asset Control domain
 		route("/eventbus/*").subRouter(sockJSHandler.bridge(options,
-				new UICapabilityHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel)));
+				new AssetControlUICapabilityHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel)));
+		// Add other domain endpoints routers
 
 	}
 

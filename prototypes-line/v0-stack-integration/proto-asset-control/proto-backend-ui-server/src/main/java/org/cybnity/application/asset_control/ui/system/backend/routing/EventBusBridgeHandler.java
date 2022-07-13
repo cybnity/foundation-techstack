@@ -63,7 +63,8 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 		}
 
 		if (event.type() == BridgeEventType.PUBLISH || event.type() == BridgeEventType.SEND) {
-			// A message is attempted to be published from the client to the server
+			// A message is attempted to be published from the client to the server (PUBLISH
+			// = too all the handler; SEND = only to one of the handler instances)
 			// Delegate to inputs handling about UI capabilities treatment/control by the UI
 			// interaction logic
 			publishToUsersInteractionsSpace(event);

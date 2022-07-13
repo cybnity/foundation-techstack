@@ -41,16 +41,17 @@
 	// Set up event bus handlers...
 	eb.onopen = () => {
 	 // Set a handler to receive UI capabilities answers over the event bus
-	 eb.registerHandler('assetcontrol.cqrs_response', (error, message) => {
-	   console.log('received a message from assetcontrol.cqrs_response: ' + JSON.stringify(message));
+	 eb.registerHandler('assetcontrol.out', (error, message) => {
+	   console.log('received a message from assetcontrol.out: ' + JSON.stringify(message));
 	 });
 	
 	 // Send a message without parameter
-	 //eb.send('assetcontrol.asset.isAlive', {});
+	 eb.send('assetcontrol.isAlive', {});
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
-	 eb.send('assetcontrol.cqrs', {action: 'find', collection: 'assets'});
-	 eb.send('assetcontrol.cqrs', {action: 'read', uid: '123'});
+	 eb.send('assetcontrol.in', {action: 'query', collection: 'assets'});
+	 eb.send('assetcontrol.in', {action: 'query', uid: '123'});
+	 eb.send('assetcontrol.in', {action: 'command', type: 'asset', name:'myasset'});
 	}
 
     </script>

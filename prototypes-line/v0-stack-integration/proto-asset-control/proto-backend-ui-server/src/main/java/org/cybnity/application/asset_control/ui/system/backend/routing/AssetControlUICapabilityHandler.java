@@ -6,13 +6,13 @@ import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.web.handler.sockjs.BridgeEvent;
 
 /**
- * Handler of UI events and interactions
+ * Handler of UI events and interactions regarding one domain (asset control)
  */
-public class UICapabilityHandler extends EventBusBridgeHandler {
+public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 
 	private String cqrsResponseChannel;
 
-	public UICapabilityHandler(EventBus eventBus, SharedData sessionStore, String cqrsResponseChannel) {
+	public AssetControlUICapabilityHandler(EventBus eventBus, SharedData sessionStore, String cqrsResponseChannel) {
 		super(eventBus, sessionStore);
 		this.cqrsResponseChannel = cqrsResponseChannel;
 	}
@@ -24,7 +24,6 @@ public class UICapabilityHandler extends EventBusBridgeHandler {
 	@Override
 	protected void publishToUsersInteractionsSpace(BridgeEvent event) {
 		// regarding ui-event, domain-event, command-event, etc. as CYBNITY bridge
-
 		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
 		JsonObject message = event.getRawMessage();
 		if (message != null) {
