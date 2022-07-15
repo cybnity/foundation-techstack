@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cybnity.techstack</groupId>
 		<artifactId>prototypes</artifactId>
-		<version>${revision}</version>
+		<version>${proto-revision}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
@@ -15,10 +15,11 @@
 
 	<properties>
 		<!-- CYBNITY prototype revision number -->
-		<proto-revision>V0-SNAPSHOT</proto-revision>
+		<proto-revision>1.0.0-SNAPSHOT</proto-revision>
 	</properties>
 
 	<modules>
+		<module>proto-specifications</module>
 		<module>proto-infrastructures</module>
 		<module>proto-asset-control</module>
 	</modules>

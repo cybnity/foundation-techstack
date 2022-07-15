@@ -1,5 +1,7 @@
 package org.cybnity.application.asset_control.ui.system.backend.routing;
 
+import org.cybnity.infrastructure.common.event.Event;
+
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
@@ -27,14 +29,14 @@ public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
 		JsonObject message = event.getRawMessage();
 		if (message != null) {
-
 			// Read the event and contents requiring for context-based routing
 			String eventType = message.getString("type", null);
 			String routingAddress = message.getString("address", null);
 			JsonObject body = message.getJsonObject("body", null);
-			String correlationId = (body != null) ? body.getString("correlationId", null) : null;
-
 			if (eventType != null) {
+				// Interpretation of the transport bridge event to identify the CQRS event to
+				// process
+				Event evt = null;
 				JsonObject transactionResult = null;
 				// - quality of event received and integrity WITHOUT TRANSFORMATION of event
 				// message
@@ -45,6 +47,9 @@ public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 					// Confirm notification about performed routing
 					transactionResult = new JsonObject();
 					transactionResult.put("status", "processing");
+
+					String correlationId = (body != null) ? body.getString("correlationId", null) : null;
+					String eventId = body.getString("id");
 					if (correlationId != null) {
 						transactionResult.put("correlationId", correlationId);
 					}
@@ -52,9 +57,13 @@ public class AssetControlUICapabilityHandler extends EventBusBridgeHandler {
 					// - the push of event to space for processing by Application layer
 
 					// Send event into UI space's channel
-					System.out.println("Event forwared to User Interactions Space : " + message);
+					System.out.println("Event forwared to User Interactions Space: " + body);
+					System.out.println("with event (" + eventId + ") in status: " + transactionResult);
 				}
 
+				if ("publish".equalsIgnoreCase(eventType)) {
+
+				}
 				/*
 				 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
 				 * Integer value = counter.get() + 1; repository.update(value);

@@ -8,14 +8,10 @@
 	</parent>
 
 	<groupId>org.cybnity.techstack.prototypes</groupId>
-	<artifactId>asset-control</artifactId>
+	<artifactId>specifications</artifactId>
 	<packaging>pom</packaging>
-	<name>- CYBNITY Domain's MVF POC</name>
-	
+	<name>- CYBNITY Specifications MVF POC</name>
 	<modules>
-		<module>proto-rts-computation-unit-server</module>
-		<module>proto-domain-gateway-server</module>
-		<module>proto-backend-ui-server</module>
-		<module>proto-frontend-ui-server</module>
+		<module>infrastructures</module>
 	</modules>
 </project>

@@ -2,20 +2,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.cybnity.techstack.prototypes</groupId>
-		<artifactId>integration</artifactId>
+		<artifactId>specifications</artifactId>
 		<version>${proto-revision}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<groupId>org.cybnity.techstack.prototypes</groupId>
-	<artifactId>asset-control</artifactId>
+	<groupId>org.cybnity.techstack.prototypes.specifications</groupId>
+	<artifactId>infrastructure</artifactId>
+	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
-	<name>- CYBNITY Domain's MVF POC</name>
-	
+	<name>CYBNITY infrastructure</name>
+
 	<modules>
-		<module>proto-rts-computation-unit-server</module>
-		<module>proto-domain-gateway-server</module>
-		<module>proto-backend-ui-server</module>
-		<module>proto-frontend-ui-server</module>
+		<module>common</module>
 	</modules>
 </project>
