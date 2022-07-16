@@ -52,9 +52,10 @@ public interface CommandEvent extends Event {
 	 * pointers, references and structures. This set of parameters passed MUST be
 	 * modified by the executed command.
 	 * 
-	 * @return A list of output parameters (e.g return channel name) that should be
-	 *         valued by the executed command. Null when none predetermined are
-	 *         requested to be delivered.
+	 * @return A list of output parameters (e.g entity reference that should be
+	 *         changed as ordered by this command to execute) that should be valued
+	 *         by the executed command. Null when none predetermined are requested
+	 *         to be delivered.
 	 */
 	public HashMap<String, String> outParameters();
 
@@ -65,11 +66,11 @@ public interface CommandEvent extends Event {
 	 * needed to be pointers, references and structures. This set of parameters
 	 * passed MAY be modified by the executed command.
 	 * 
-	 * @return A list of output parameters (e.g a result channel when a notification
-	 *         of execution result can be published) that could be valued by the
-	 *         executed command. When existing, each parameter had been initialized
-	 *         before being passed to the command executor. Null when none
-	 *         predetermined are requested to be delivered.
+	 * @return A list of output parameters (e.g entity reference that could be
+	 *         changed as ordered by this command to execute) that could be valued
+	 *         by the executed command. When existing, each parameter had been
+	 *         initialized before being passed to the command executor. Null when
+	 *         none predetermined are requested to be delivered.
 	 */
 	public HashMap<String, String> refParameters();
 }

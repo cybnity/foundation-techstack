@@ -15,7 +15,7 @@ import java.util.HashMap;
  * more specific passing values to the functions to prevent unknown behavior.
  */
 public interface QueryEvent extends Event {
-	
+
 	/**
 	 * Get the incoming parameter available for only read about their value. If a
 	 * parameter is passed by value, it is okay not passing variable as const as the
@@ -30,31 +30,4 @@ public interface QueryEvent extends Event {
 	 */
 	public HashMap<String, String> inParameters();
 
-	/**
-	 * Get the outgoing parameters that the function to execute does not require to
-	 * read the value, parameter value is of no importance. In fact the parameters
-	 * marked are needed to output multiple values. Such parameters are needed to be
-	 * pointers, references and structures. This set of parameters passed MUST be
-	 * modified by the executed command.
-	 * 
-	 * @return A list of output parameters (e.g return channel name) that should be
-	 *         valued by the executed command. Null when none predetermined are
-	 *         requested to be delivered.
-	 */
-	public HashMap<String, String> outParameters();
-
-	/**
-	 * Get the reference parameters that the function to execute does not require to
-	 * read the value, parameter value is of no importance. In fact the parameters
-	 * marked are maybe modified to output multiple values. Such parameters are
-	 * needed to be pointers, references and structures. This set of parameters
-	 * passed MAY be modified by the executed command.
-	 * 
-	 * @return A list of output parameters (e.g a result channel when a notification
-	 *         of execution result can be published) that could be valued by the
-	 *         executed command. When existing, each parameter had been initialized
-	 *         before being passed to the command executor. Null when none
-	 *         predetermined are requested to be delivered.
-	 */
-	public HashMap<String, String> refParameters();
 }
