@@ -21,7 +21,7 @@ Should provide basic technologies set allowing the development of a first protot
 
 ### User Interface Layer
 #### Dynamics
-Should be real-time: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-tim between several CYBNITY users connected via their CYBNITY cockpits).
+Should be real-time: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-time between several CYBNITY users connected via their CYBNITY cockpits).
 
 #### Context and local persistence
 Should proposed personal management of real-time data dedicated to the connected user in dedicated space (e.g session during cockpit access, when a user prepare a draft of a security information before to commit it in a transaction mode to a CYBNITY domain).
@@ -98,16 +98,15 @@ The current status of technology already in the analysis stream give a general v
 | UI | Web GUI Reactive Frontend Library | ReactJS | `WIN` | | | HTML/CSS view from rendering components based with data changes auto-refresh, according to a View / Presenter pattern approach |
 | UI | Client-Side Data Model Format | JSON | `WIN` | | | Data and command events (e.g Data Transform Object, domain events) |
 | UI | Server-Side Reactive Backend Server | Eclipse Vert.x | `WIN` | | | UI reactive services (e.g UI cockpit capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Redis client) with application(s) services layer via Application Domains Access Hub |
-| APPLICATION / DOMAIN | Users Interactions Space Library | Redis Connector | `WIN` | | | Embedded memory database client for UI messages and application domains integration between UI layer and application layer; [Jedis](https://github.com/redis/jedis) java client for Redis cluster discovery |
-| APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Connector | `WIN` | | | Embedded memory database client for application domains events between applications and domains layer |
+| APPLICATION / DOMAIN | Users Interactions Space Library | Redis Connector | `WIN` | | | Embedded memory database (streamed events store) client for UI messages and application domains integration between UI layer and application layer; [Jedis](https://github.com/redis/jedis) java client for Redis cluster discovery |
+| APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Connector | `WIN` | | | Embedded memory database (streamed events store) client for application domains events between applications and domains layer |
 | APPLICATION / DOMAIN | Domains Events Validation | [Kafka processors/consumers api](https://kafka.apache.org/) | `WIN` | | | Stateless Anti-Corruption Layer (e.g Application Services Layer), remote proxy, input/output ports executed into JVM with Kafka connector API (e.g Java client), validators of domain events (e.g quality and conformity control) |
 | APPLICATION / DOMAIN | Real-Time Stream Computation | Apache Flink | `WIN` | | | Cluster framework for stateful data processing, CEP, data pipeline job running into a Flink cluster, Saga [Pattern](https://microservices.io/patterns/data/saga.html) for transactional flow |
 | APPLICATION / DOMAIN | Real-Time Data Stream Computation | [Kafka Streams](https://kafka.apache.org/documentation/streams/) Client Library | `ALT` | | | Library for stateful data processing (e.g CYBNIYT process / feature modules) and pipeline running into independent application implementation |
-| APPLICATION / DOMAIN | Application Context Manager | Spring Core | `WIN` | | | Injection of dependency, configuration of assembled applicative components and technical services |
+| APPLICATION / DOMAIN | Application Context Manager | Spring Core | `ALT` | | | Injection of dependency, configuration of assembled applicative components and technical services |
 | APPLICATION INFRASTRUCTURE | Services Discovery | Zookeeper Client | `WIN` | | | Client for discovery of services (e.g Kafka brokers) and/or to maintained configuration information (e.g service names, properties) as connector to contents |
 | APPLICATION INFRASTRUCTURE | Domains Interactions Space | [Kafka Cluster](https://kafka.apache.org/) | `WIN` | | | Distributed memory database in event-driven approach for management of domains inputs/outputs via embedded mode (distributed data cluster); [Kafka Backup](https://medium.com/@anatolyz/introducing-kafka-backup-9dc0677ea7ee) consists of two Connectors for Kafka Connect: One for Backup (Implemented as a Sink Connector) and one for the restore of data (Implemented as a Source Connector) |
-| APPLICATION INFRASTRUCTURE | Application Execution Container | Spring Boot | `WIN` | | | Execution environment of application service layers |
-| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | [Documentation](https://www.eclipse.org/openj9/docs/index.html) |
+| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | Execution environment of application service layers; [Documentation](https://www.eclipse.org/openj9/docs/index.html) |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
 | APPLICATION INFRASTRUCTURE | Access Control & Single-Sign-On | [Keycloack](https://www.keycloak.org/) | `WIN` | | | Dynamic part of the IAM solution that works with the data in the real time; SAML2.0 protocol for user authentication with SSO |
 | APPLICATION INFRASTRUCTURE | Identity & Access Management | midPoint | `WIN` | | | IDM system implement integration part of the IAM solution that move the data around; maintain data in the directory service (identity store); Federation, RBAC or ABAC based on attributes; place to apply policies, such as Role-Based Access Control (RBAC), Segregation of Duties (SoD), and various policies for compliance with regulations; SPML (to create users/permissions as access provisioning) |
@@ -257,8 +256,6 @@ The acceptance level per differentiation criteria is evaluated as:
 | Telegraf Agent | | | | | | | |
 | Grafana | | | | | | | |
 | InfluxDB | | | | | | | |
-| Spring Core | | | | | | | |
-| Spring Boot | | | | | | | |
 | Apache Zookeeper | | | | | | | |
 | Liberica JDK | | | | | | | |
 | Eclipse OpenJ9 8/11 JRE | | | | | | | |

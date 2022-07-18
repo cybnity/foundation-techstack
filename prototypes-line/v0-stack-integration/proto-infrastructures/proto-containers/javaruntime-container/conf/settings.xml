@@ -1,0 +1,39 @@
+<settings>
+	<!-- <localRepository>/root/.m2</localRepository> -->
+	<offline>true</offline>
+	<mirrors>
+		<mirror>
+			<id>Central</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>ibiblio.org</id>
+			<name>ibiblio Mirror of http://repo1.maven.org/maven2/</name>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>springsource.org</id>
+			<url>http://ebr.springsource.com/repository/</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>UK</id>
+			<name>UK Central</name>
+			<url>http://uk.maven.org/maven2</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>springsource.org</id>
+			<url>http://ebr.springsource.com/repository/</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+		<mirror>
+			<id>antelink.com</id>
+			<url>http://maven.antelink.com/content/repositories/central/</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+	</mirrors>
+
+</settings>

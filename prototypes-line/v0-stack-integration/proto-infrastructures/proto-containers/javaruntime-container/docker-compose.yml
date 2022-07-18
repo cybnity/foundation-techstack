@@ -1,0 +1,31 @@
+# Build and run the Java container with docker-compose
+version: '3.5'
+services:
+  javaruntime:
+    build: .
+    image: agnet/cybnity-javaruntime-distribution
+    container_name: javaruntime
+    volumes:
+      - type: volume
+        source: m2repo
+        target: /root/.m2
+    #ports:
+    #  - 1099:1099
+    #  - 8101:8101
+    #  - 4444:4444
+    #  - 8181:8181
+    networks:
+      - common_integration_layer
+    # Allow command entry
+    #stdin_open: true
+    # Activate image console
+    tty: true
+networks:
+  common_integration_layer:
+    name: cybnity-common_layer
+  #sandbox:
+  #default:
+   # external:
+    #  cybnityprima
+volumes:
+  m2repo:
