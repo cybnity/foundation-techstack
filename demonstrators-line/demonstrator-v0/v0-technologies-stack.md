@@ -20,7 +20,7 @@ It's possible that new goals entry enhance the common goals, regarding specific 
 ## LAYER ARCHITECTURE
 
 ### Event-Based Principles
-[!image](mvf-event-based-architecture.png)
+![image](mvf-event-based-architecture.png)
 
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
