@@ -16,16 +16,16 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | [Vault](https://www.vaultproject.io/) | | |- [docker image](https://hub.docker.com/_/vault/)<br>- [Installations](https://www.vaultproject.io/downloads)<br>- [Helm example](https://www.vaultproject.io/docs/platform/k8s/helm)<br>- [Vault Helm Charts](https://github.com/hashicorp/vault-helm)|
 | [Keycloack](https://www.keycloak.org/) | | |- [Docker image](https://www.keycloak.org/server/containers)<br>- [Extensions](https://www.keycloak.org/extensions.html)<br>- [Theming extension with React](https://www.keycloakify.dev/)|
 | [Jedis](https://github.com/redis/jedis) | | | |
-| Redis | | |- [Documentations](https://redis.io/docs/)|
+| Redis |7.0.4-alpine| |- [Documentations](https://redis.io/docs/)<br>- Official Docker Hub [image of Redis 7](https://hub.docker.com/_/redis)|
 | [Apache Kafka](https://kafka.apache.org/) | | |- [Documentations](https://kafka.apache.org/documentation/)|
 | Apache Flink | | |- [Installation](https://flink.apache.org/downloads.html)<br>- [Visualizer web app](https://flink.apache.org/visualizer/)<br>- [Redis Connector](https://bahir.apache.org/docs/flink/current/flink-streaming-redis/)<br>- [Connectors](https://flink-packages.org/)|
 | [Telegraf Agent](https://www.influxdata.com/time-series-platform/telegraf/) | | |- [Documentation](https://docs.influxdata.com/telegraf/v1.22/)|
 | [InfluxDB](https://www.influxdata.com/) | | |- [Installation](https://portal.influxdata.com/downloads/)|
 | Eclipse vert.x Core |4.3.2| |- Vert.x Vault<br>- Kafka Connector<br>- Jedis messaging plugin with Redis|
 | [Apache Zookeeper](https://zookeeper.apache.org) | | |- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
-| Eclipse Temurin JRE |JDK/JRE 11.0.15| |- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium<br>-POC state: OK build/run with Linux Alpine|
-| Linux Alpine OS |3.16.0| |-POC state: OK build/run with Docker|
-| Docker | | |- [Documentations](https://docs.docker.com/)|
+| Eclipse Temurin JRE |JDK/JRE 11.0.15| |- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium<br>- POC state: OK build/run with Linux Alpine|
+| Linux Alpine OS |3.16.0| |- POC state: OK build/run with Docker|
+| Docker |Engine 20.10.17, Compose v2.6.1| |- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
 
 ## TARGETED ACTIONS
@@ -86,15 +86,15 @@ flowchart LR
 ## TECHNOLOGY
 Several technologies are selected into the stack version for implementation of components and systems.
 
-| SYSTEM | TYPE | TECHNOLOGIES | COMMENTS |
-| :--- | :--- | :--- | :--- |
-|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- ReactBootstrap<br>- ReactJS<br>Vert.x SockJS Client<br>- Google Chrome web browser| |
-|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Jedis<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|
-|Asset Control & SSO server|Security Services|- Keycloack<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access|
-|Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer|
-|Secret Management server|Security Services|- Vault<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Test of storage/retrieve of user token used by Asset Control & SSO server|
-|Users Interactions broker|Users Interactions Space|- Redis Cluster<br>- Telegraf Agent<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Telegrag agent (plugin for Redis cluster) push monitoring to Event Logging Server|
-|Event Logging server|Logging|- InfluxDB<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Logs repository regarding Redis instances' activities|
-|Asset Control Domain Gateway server|Domains Gateway Server|- Java Kafka POJO<br>- Zookeeper Client<br>- Jedis<br>- Kafka Connector<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Sample code which integrate the request (e.g validate a request parameter like "asset name to read") of UI layer to domain, and execute the requested feature (e.g read of an asset description) via delegation to a RT computation unit (e.g domain model of Asset Control implementing the Security Feature named Asset);<br>Java Processor/Consumer as domain application service layer|
-|Domains Interactions broker|Events Brokers Cluster (Domains Interactions Space)|- Kafka Broker instance<br>-Zookeeper Registry<br>- Temurin JVM<br>- Alpine OS<br>- Docker Image<br>- MicroK8s| Kafka cluster|
-|RTS Computation Unit server|Real-Time Stream Computation Unit|- Apache Flink<br>- Zookeeper Client<br>- Kafka Connector<br>- Flink CEP<br>- Temurin JVM<br>- Docker Image|Asset feature java implementation with Flink;<br>Flink CEP test for command chain pattern implementation that build the Asset description requested by the UI layer and provider by the Domain model|
+| SYSTEM | TYPE | TECHNOLOGIES | COMMENTS | STATUS |
+| :--- | :--- | :--- | :--- | :--- |
+|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- ReactBootstrap<br>- ReactJS<br>Vert.x SockJS Client<br>- Google Chrome web browser| | |
+|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Jedis<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|- Integration & runtime OK<br>- TODO: Jedis, HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
+|Asset Control & SSO server|Security Services|- Keycloack<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access| |
+|Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer| |
+|Secret Management server|Security Services|- Vault<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Test of storage/retrieve of user token used by Asset Control & SSO server| |
+|Users Interactions broker|Users Interactions Space|- Redis Cluster<br>- Telegraf Agent<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Telegraf agent (plugin for Redis cluster) push monitoring to Event Logging Server|- Redis/Linux/Docker integration & runtime OK<br>- TODO: Redis cluster mode with multiple instances, Telegraf agent, MicroK8S|
+|Event Logging server|Logging|- InfluxDB<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Logs repository regarding Redis instances' activities| |
+|Asset Control Domain Gateway server|Domains Gateway Server|- Java Kafka POJO<br>- Zookeeper Client<br>- Jedis<br>- Kafka Connector<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Sample code which integrate the request (e.g validate a request parameter like "asset name to read") of UI layer to domain, and execute the requested feature (e.g read of an asset description) via delegation to a RT computation unit (e.g domain model of Asset Control implementing the Security Feature named Asset);<br>Java Processor/Consumer as domain application service layer| |
+|Domains Interactions broker|Events Brokers Cluster (Domains Interactions Space)|- Kafka Broker instance<br>-Zookeeper Registry<br>- Temurin JVM<br>- Alpine OS<br>- Docker Image<br>- MicroK8s| Kafka cluster| |
+|RTS Computation Unit server|Real-Time Stream Computation Unit|- Apache Flink<br>- Zookeeper Client<br>- Kafka Connector<br>- Flink CEP<br>- Temurin JVM<br>- Docker Image|Asset feature java implementation with Flink;<br>Flink CEP test for command chain pattern implementation that build the Asset description requested by the UI layer and provider by the Domain model| |
