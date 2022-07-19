@@ -1,6 +1,5 @@
 package org.cybnity.application.asset_control.ui.system.backend.capabilities;
 
-import org.cybnity.application.asset_control.ui.system.backend.capabilities.AssetControlVerticle;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

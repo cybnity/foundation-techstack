@@ -1,7 +1,5 @@
 package org.cybnity.application.asset_control.ui.system.backend.capabilities;
 
-import org.cybnity.application.asset_control.ui.system.backend.capabilities.AssetControlVerticle;
-
 import io.vertx.core.Launcher;
 
 /**

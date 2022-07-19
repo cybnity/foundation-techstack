@@ -44,9 +44,10 @@ public class AssetControlVerticle extends AbstractVerticle {
 		vertx.deployVerticle(verticleName, event -> {
 			if (event.succeeded()) {
 				retVal.isComplete();
-				System.out.println("Verticle deployed with success");
+				System.out.println("Successly deployed: " + event.result());
 			} else {
-				System.out.println("Verticle deployment failure");
+				System.out.println("Deployment failed: ");
+				event.cause().printStackTrace();
 				retVal.failed();
 			}
 		});
