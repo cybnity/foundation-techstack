@@ -6,7 +6,7 @@ From shell command line:
   ```shell
   mvn package
   ```
-  
+
 * Start the server Vert.x server-side backend system:
 
   ```shell
@@ -22,20 +22,20 @@ From shell command line:
     ```shell
     curl -v http://localhost:8080/assetcontrol/
     ```
-  
+
 2. Test that UI backend give answer about sent parameter (over HTTP/GET protocol) from specific route defined about UI capability handled:
- 
+
     ```shell
-    curl -v http://localhost:8080/assetcontrol/\?name\="olivier" 
+    curl -v http://localhost:8080/assetcontrol/\?name\="olivier"
     ```
-    
-###From web browser
+
+### From web browser
 1. Test that UI backend give static resources with default index.html reactive page display
 
     ```shell
     http://localhost:8080/static/
     ```
-    
+
 2. Test that UI backend give answer about sent parameter (over HTTP/GET protocol)
 
     ```shell

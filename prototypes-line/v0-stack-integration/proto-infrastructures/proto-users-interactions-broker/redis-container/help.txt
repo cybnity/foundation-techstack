@@ -1,0 +1,30 @@
+# FROM PROJECT DIRECTORY
+
+# Build a Docker image of Redis environment container from shell command (including force remove of intermediary container)
+docker-compose build --force-rm
+
+# Scan image vulnerabilities
+docker scan agnet/cybnity-redis-distribution
+
+# Run it
+docker run -it --rm agnet/cybnity-redis-distribution
+
+# Run a docker container without shell console (as a daemon without interaction) or without -d argument to maintain shell console opened
+docker-compose up -d
+
+# Check that the container is running
+docker ps
+
+# Read logs
+docker-compose logs -f
+
+# Kill container
+docker-compose kill
+# or
+docker kill agnet/cybnity-redis-distribution
+
+# Create tag for built Redis container distribution specific to CYBNITY technology
+docker tag cybnity-redis-distribution agnet/cybnity-redis-distribution:latest
+
+# Push docker image to online CYBNITY private Docker repository
+docker push agnet/cybnity-redis-distribution:latest
