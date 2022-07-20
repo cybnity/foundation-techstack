@@ -7,8 +7,104 @@
 		<relativePath>..</relativePath>
 	</parent>
 
-	<groupId>org.cybnity.techstack.prototypes.asset-control</groupId>
+	<groupId>org.cybnity.techstack.prototypes.areas-assets-protection</groupId>
 	<artifactId>domain-gateway-server</artifactId>
 	<packaging>jar</packaging>
-	<name>  - Asset Control domain gateway</name>
+	<name>  - Areas and Assets Protection domain gateway</name>
+	<properties>
+		<maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+		<vertx.version>4.3.2</vertx.version>
+		<junit-jupiter.version>5.7.0</junit-jupiter.version>
+		<main.verticle>org.cybnity.application.areas_assets_protection.domain.system.gateway.AreasAssetsProtectionVerticle</main.verticle>
+		<launcher.class>io.vertx.core.Launcher</launcher.class>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-web</artifactId>
+			<version>${vertx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-junit5</artifactId>
+			<version>${vertx.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.cybnity.techstack.prototypes.specifications.infrastructure.common</groupId>
+			<artifactId>event</artifactId>
+			<version>${proto-revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-redis-client</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven-shade-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<manifestEntries>
+										<Main-Class>${launcher.class}</Main-Class>
+										<Main-Verticle>${main.verticle}</Main-Verticle>
+									</manifestEntries>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							</transformers>
+							<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec-maven-plugin.version}</version>
+				<configuration>
+					<mainClass>io.vertx.core.Launcher</mainClass>
+					<arguments>
+						<argument>run</argument>
+						<argument>${main.verticle}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

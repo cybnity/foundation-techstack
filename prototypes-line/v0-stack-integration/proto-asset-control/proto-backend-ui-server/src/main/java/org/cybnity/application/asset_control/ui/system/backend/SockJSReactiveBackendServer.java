@@ -23,10 +23,10 @@ public class SockJSReactiveBackendServer extends AbstractVerticle {
 				.listen(8080)
 				// Print the port
 				.onSuccess(server -> {
-					System.out.println("SockJS server started (port: " + server.actualPort() + ")");
+					System.out.println("SockJS backend server started (port: " + server.actualPort() + ")");
 					startPromise.complete();
 				}).onFailure(error -> {
-					System.out.println("SockJS server start failure: " + error.getCause());
+					System.out.println("SockJS backend server start failure: " + error.getCause());
 					startPromise.fail(error.getCause());
 				});
 

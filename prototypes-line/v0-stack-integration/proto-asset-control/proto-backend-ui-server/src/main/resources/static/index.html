@@ -79,9 +79,7 @@
 	 // Send requests including parameter (according to the address permissions) about capability to execute
 	 eb.send('assetcontrol.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset', description: 'Development backend server'}});
 	 eb.send('assetcontrol.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'QueryEvent', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset'}, outParameters: {}, refParameters: {}});
-	 
-	 //eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), uid: '123'});
-	 
+
 	}
 	
 	eb.onreconnect = function() {}; // Optional, will only be called on re-connections

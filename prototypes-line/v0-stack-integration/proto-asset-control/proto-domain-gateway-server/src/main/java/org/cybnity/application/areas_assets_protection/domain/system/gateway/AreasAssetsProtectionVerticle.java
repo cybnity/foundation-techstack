@@ -1,4 +1,7 @@
-package org.cybnity.application.asset_control.ui.system.backend.capabilities;
+package org.cybnity.application.areas_assets_protection.domain.system.gateway;
+
+import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.AssetControlAliveQueryHandler;
+import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.AssetControlCreationCommandHandler;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.CompositeFuture;
@@ -8,21 +11,22 @@ import io.vertx.core.Promise;
 /**
  * Start a composition of autonomous Verticles supporting the UI capabilities
  * provided by the backend services (e.g via interaction over event bus)
- * regarding a domain.
+ * regarding a cockpit foundation's capability domain.
  */
-public class AssetControlVerticle extends AbstractVerticle {
+public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 
-	public AssetControlVerticle() {
+	public AreasAssetsProtectionVerticle() {
 		super();
 	}
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
-		// TODO change for inclusion of each UIcapability dedicated verticle in the list
-		// in place of current tester empty verticle
+		// TODO change for inclusion of each UIcapability dedicated Verticle (regarding
+		// the cockpit foundation scope) in the list
+		// in place of current tester empty Verticle
 		CompositeFuture
-				.all(deployVerticle(UISecurityCapability.class.getName()),
-						deployVerticle(UISecurityCapability.class.getName()))// Add others
+				.all(deployVerticle(AssetControlCreationCommandHandler.class.getName()),
+						deployVerticle(AssetControlAliveQueryHandler.class.getName()))// Add others
 				.onComplete(handler -> {
 					if (handler.succeeded()) {
 						// All components started

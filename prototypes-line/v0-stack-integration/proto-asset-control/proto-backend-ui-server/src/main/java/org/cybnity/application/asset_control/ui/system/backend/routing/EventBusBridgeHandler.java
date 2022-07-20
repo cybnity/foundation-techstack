@@ -65,9 +65,13 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 		if (event.type() == BridgeEventType.PUBLISH || event.type() == BridgeEventType.SEND) {
 			// A message is attempted to be published from the client to the server (PUBLISH
 			// = too all the handler; SEND = only to one of the handler instances)
-			// Delegate to inputs handling about UI capabilities treatment/control by the UI
-			// interaction logic
-			publishToUsersInteractionsSpace(event);
+			try {
+				// Delegate to inputs handling about UI capabilities treatment/control by the UI
+				// interaction logic
+				toUsersInteractionsSpace(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		// Complete the event delegation status
@@ -75,12 +79,13 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 	}
 
 	/**
-	 * Publish an interaction event (e.g ui-event, domain-event, command-event)
+	 * Transmit an interaction event (e.g ui-event, domain-event, command-event)
 	 * coming from frontend side, to User Interactions Space for
 	 * analysis/processing.
 	 * 
 	 * @param event To treat.
+	 * @throws Exception When failure occurred during transmission to space.
 	 */
-	protected abstract void publishToUsersInteractionsSpace(BridgeEvent event);
+	protected abstract void toUsersInteractionsSpace(BridgeEvent event) throws Exception;
 
 }

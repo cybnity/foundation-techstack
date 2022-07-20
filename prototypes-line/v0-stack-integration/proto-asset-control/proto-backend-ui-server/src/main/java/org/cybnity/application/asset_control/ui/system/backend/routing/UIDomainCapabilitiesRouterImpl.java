@@ -62,9 +62,9 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		// Allow calls to the address domain channels from the client as long as the
 		// messages have an action filed with value (e.g CQRS type as 'query, command')
 		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.in")
-				.setMatch(new JsonObject().put("cqrs", "query"));
-		PermittedOptions inboundPermitted4 = new PermittedOptions().setAddress("assetcontrol.in")
-				.setMatch(new JsonObject().put("cqrs", "command"));
+				.setMatch(new JsonObject().put("type", "QueryEvent"));
+		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.in")
+				.setMatch(new JsonObject().put("type", "CommandEvent"));
 
 		// But only if the user is logged in and has the authority "place_cqrs" (the
 		// user must be first logged in and secondly have the required authority)
@@ -101,7 +101,7 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// --- DEFINE WHAT WE'RE GOING TO ALLOW FROM CLIENT -> SERVER
 		SockJSBridgeOptions options = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted1)
-				.addInboundPermitted(inboundPermitted2).addInboundPermitted(inboundPermitted4)
+				.addInboundPermitted(inboundPermitted2).addInboundPermitted(inboundPermitted3)
 				.addOutboundPermitted(outboundPermitted1)
 				/**
 				 * if ping message doesn’t arrive from client within 5 seconds then the
@@ -125,9 +125,10 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, sockJSHandlerOpts);
 
 		// Create a sub-route dedicated to the Asset Control domain
-		route("/eventbus/*").subRouter(sockJSHandler.bridge(options,
-				new AssetControlUICapabilityHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel)));
-		// Add other domain endpoints routers
+		route("/eventbus/*")
+				.subRouter(sockJSHandler.bridge(options, new AreasAssetsProtectionUICapabilityHandler(vertx.eventBus(),
+						sessionStore, cqrsResponseChannel, vertx)));
+		// Add other domain endpoints routers (per cockpit capability boundary)
 
 	}
 

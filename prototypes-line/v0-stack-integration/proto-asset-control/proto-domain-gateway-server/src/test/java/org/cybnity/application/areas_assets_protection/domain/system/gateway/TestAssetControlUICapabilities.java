@@ -1,4 +1,4 @@
-package org.cybnity.application.asset_control.ui.system.backend.capabilities;
+package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,8 @@ import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 
 /**
- * Test starting of asset control domain UI capabilities.
+ * Test starting of areas and assets protection domain of UI cockpit
+ * capabilities.
  */
 @ExtendWith(VertxExtension.class)
 public class TestAssetControlUICapabilities {
@@ -22,7 +23,8 @@ public class TestAssetControlUICapabilities {
 	void deploy_verticle(Vertx vertx, VertxTestContext testContext) {
 		this.vertx = vertx;
 		this.context = testContext;
-		vertx.deployVerticle(new AssetControlVerticle(), testContext.succeeding(id -> testContext.completeNow()));
+		vertx.deployVerticle(new AreasAssetsProtectionVerticle(),
+				testContext.succeeding(id -> testContext.completeNow()));
 	}
 
 	@Test

@@ -13,6 +13,24 @@ From shell command line:
   mvn exec:java
   ```
 
+## REDIS Users Interactions Space Broker
+### Tool for view of stored data
+After success start of Redis docker image (project proto-infrastructures/proto-users-interactions-broker/redis-container), install a Redis desktop manager/browser allowing to navigate into the Redis database
+- [Redisinsight](https://developer.redis.com/explore/redisinsightv2/getting-started/#step-1-download-redisinsight)
+
+- or use redis-cli from started Redis image's console
+
+  ```shell
+  // Connect on Redis instance from client
+  redis-cli
+  // authentify user allowing to have data access (protected mode actived in redis.conf)
+  auth username password
+  // connect on the database number used by the backend (1 by default)
+  select 1
+  // List the registered event
+  keys *
+  ```
+
 # INTEGRATION TEST PROTOCOL
 
 ## UI BACKEND SUPPORTED ENDPOINTS (HTTP, API, EVENTBUS)

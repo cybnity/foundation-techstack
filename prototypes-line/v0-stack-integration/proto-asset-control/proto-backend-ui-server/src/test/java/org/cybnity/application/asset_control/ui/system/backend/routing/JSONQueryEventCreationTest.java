@@ -37,9 +37,11 @@ public class JSONQueryEventCreationTest extends TestCase {
 
 		@Override
 		public HashMap<String, String> inParameters() {
-			HashMap<String, String> params = new HashMap();
+			HashMap<String, String> params = new HashMap<String, String>();
 			params.put("domain", "assetcontrol");
-			params.put("name", "an asset label");
+			params.put("name", "cybnity-backend-server2");
+			params.put("type", "asset");
+			params.put("description", "Development backend server");
 			return params;
 		}
 
@@ -63,6 +65,8 @@ public class JSONQueryEventCreationTest extends TestCase {
 		CommandEvent command = new ConcreteCommandEvent(null);
 		assertNotNull(command.occurredOn());
 		assertNotNull(command.correlationId());
+		assertNotNull(command.type());
+
 		// Check input parameters existing
 		System.out.println(command.inParameters());
 	}
