@@ -1,63 +1,54 @@
 package org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities;
 
+import java.util.MissingResourceException;
+
+import org.cybnity.infrastructure.uis.adapter.api.UISAdapter;
+import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory;
+import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory.AdapterType;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
-import io.vertx.redis.client.Command;
-import io.vertx.redis.client.Redis;
-import io.vertx.redis.client.RedisOptions;
-import io.vertx.redis.client.Request;
 
 public abstract class UISecurityCapability extends AbstractVerticle {
 
-	private RedisOptions redisOpts;
-	private String refName;
+	protected UISAdapter uiasSpace;
+	private AdapterType uisAdapterType = UISAdapterAbstractFactory.AdapterType.LETTUCE_ADAPTER;
 
-	public UISecurityCapability() {
+	/**
+	 * Default constructor reading configuration file.
+	 * 
+	 * @throws MissingResourceException When uis-adapter-config.properties file is
+	 *                                  not found in classpath.
+	 */
+	public UISecurityCapability() throws MissingResourceException {
 		super();
-		// Define Redis options allowing capabilities to discuss with users interactions
-		// space (don't use pool that avoid possible usable of channels subscription by
-		// handlers)
-		// TODO CONTINUER ICI
-		// redisOpts = RedisOptionFactory.createUsersInteractionsSpaceOptions();
 	}
 
 	@Override
+	public void stop() throws Exception {
+		// Free adapter resources
+		if (uiasSpace != null) {
+			uiasSpace.dispose();
+		}
+	}
+
+	/**
+	 * Initialize the Users Interactions Space adapter, initialize it, check
+	 * operational state and execute the capability handlers registration.
+	 */
+	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
 		start();
-		refName = this.getClass().getSimpleName() + " (" + this.deploymentID() + ")";
-
 		// Create and test connector to Users Interactions Space
 		System.out.println(this.getClass().getSimpleName() + " (" + this.deploymentID()
 				+ ") initialize User Interactions Space connector...");
-
-		Redis.createClient(vertx, redisOpts).connect().onSuccess(conn -> {
-			// Test connection operational state
-			conn.send(Request.cmd(Command.PING)).onSuccess(info -> {
-				// PONG received
-				System.out.println(refName + " is operational and connected to UIS broker");
-				try {
-					// Create the handler monitoring the CQRS event coming from the backend that are
-					// relative to the capability domain
-					registerUsersInteractionsSpaceHandlers();
-
-					// Confirm the operational state of this Verticle capable to collaborate with
-					// users interactions space
-					startPromise.complete();
-				} catch (Exception e) {
-					System.out.println(refName + " UIS handlers registration failed!");
-					e.printStackTrace();
-				}
-			}).onFailure(error -> {
-				System.out.println(refName + " connection to UIS broker failed: " + error.getCause());
-				// Notify problem of start
-				startPromise.fail(error.getCause());
-			});
-		}).onFailure(fail -> {
-			System.out.println(refName + " UIS broker connection failed: ");
-			fail.printStackTrace();
-			// Notify problem of start
-			startPromise.fail(fail.getCause());
-		});
+		UISAdapter uiasSpace = new UISAdapterAbstractFactory().getInstance(uisAdapterType).create();
+		// Activate the adapter
+		uiasSpace.init();
+		// Verify operation state
+		uiasSpace.checkOperationalState();
+		// Start UIS handlers
+		registerUsersInteractionsSpaceHandlers();
 	}
 
 	/**

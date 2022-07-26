@@ -50,14 +50,9 @@
 			<version>${proto-revision}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-redis-client</artifactId>
-			<version>4.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>4.2.3</version>
+			<groupId>org.cybnity.techstack.prototypes.infrastructure.uis.adapter</groupId>
+			<artifactId>impl</artifactId>
+			<version>${proto-revision}</version>
 		</dependency>
 	</dependencies>
 

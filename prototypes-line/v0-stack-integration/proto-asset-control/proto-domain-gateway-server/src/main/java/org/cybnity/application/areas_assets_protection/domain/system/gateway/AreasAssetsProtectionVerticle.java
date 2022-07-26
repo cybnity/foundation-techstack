@@ -21,9 +21,6 @@ public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
-		// TODO change for inclusion of each UIcapability dedicated Verticle (regarding
-		// the cockpit foundation scope) in the list
-		// in place of current tester empty Verticle
 		CompositeFuture
 				.all(deployVerticle(AssetControlCreationCommandHandler.class.getName()),
 						deployVerticle(AssetControlAliveQueryHandler.class.getName()))// Add others

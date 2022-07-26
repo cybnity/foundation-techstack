@@ -8,8 +8,7 @@ public class AssetControlAliveQueryHandler extends UISecurityCapability {
 
 	@Override
 	protected void registerUsersInteractionsSpaceHandlers() throws Exception {
-		// TODO Auto-generated method stub
-
+		// Create the subscription consumer attached to UIS events managed by this capability
+		//this.uiasSpace
 	}
-
 }

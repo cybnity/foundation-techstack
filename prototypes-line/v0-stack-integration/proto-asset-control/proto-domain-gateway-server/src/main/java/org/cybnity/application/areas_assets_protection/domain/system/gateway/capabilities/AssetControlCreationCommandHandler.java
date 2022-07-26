@@ -8,8 +8,12 @@ public class AssetControlCreationCommandHandler extends UISecurityCapability {
 
 	@Override
 	protected void registerUsersInteractionsSpaceHandlers() throws Exception {
-		// TODO Auto-generated method stub
+		// Create the subscription consumer attached to UIS events managed by this
+		// capability
 
 	}
 
+	// Interpretation of the transport bridge event to identify the CQRS event to
+	// process
+	// Event evt = null;
 }

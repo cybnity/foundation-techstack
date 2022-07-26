@@ -50,9 +50,6 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 			final String routingAddress = message.getString("address", null);
 			final JsonObject body = message.getJsonObject("body", null);
 			if (eventType != null) {
-				// Interpretation of the transport bridge event to identify the CQRS event to
-				// process
-				Event evt = null;
 				// - quality of event received and integrity WITHOUT TRANSFORMATION of event
 				// message
 				// - translation into supported event types by the UI interactions layer (Redis
@@ -99,7 +96,7 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 				}
 
 				if ("publish".equalsIgnoreCase(eventType)) {
-
+					throw new Exception("missing implementation!");
 				}
 				/*
 				 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
