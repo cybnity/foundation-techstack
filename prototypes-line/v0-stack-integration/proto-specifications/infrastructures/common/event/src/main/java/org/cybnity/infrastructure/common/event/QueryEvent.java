@@ -17,6 +17,14 @@ import java.util.HashMap;
 public interface QueryEvent extends Event {
 
 	/**
+	 * Get the name of this command (e.g name of a capability or feature to
+	 * execute).
+	 * 
+	 * @return A name.
+	 */
+	public String name();
+
+	/**
 	 * Get the incoming parameter available for only read about their value. If a
 	 * parameter is passed by value, it is okay not passing variable as const as the
 	 * function will have a local variable to perform operations. To avoid copying,

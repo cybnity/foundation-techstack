@@ -8,6 +8,7 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.reactive.RedisStringReactiveCommands;
 import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.pubsub.RedisPubSubListener;
 
 /**
  * Implementation client allowing discussion with Users Interactions Space
@@ -38,12 +39,26 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 		connection = redisClient.connect();
 	}
 
+	protected void addPubSubChannelListener(RedisPubSubListener<String, String> observer) {
+		if (observer != null)
+			redisClient().connectPubSub().addListener(observer);
+	}
+
+	/**
+	 * Get original Redis client connected to space.
+	 * 
+	 * @return A client.
+	 */
+	public RedisClient redisClient() {
+		return this.redisClient;
+	}
+
 	/**
 	 * Get a new sync commands instance authorized.
 	 * 
 	 * @return An instance.
 	 */
-	private RedisCommands<String, String> newSyncCommands() {
+	public RedisCommands<String, String> newSyncCommands() {
 		RedisCommands<String, String> syncCommands = connection.sync();
 		String password = authPassword();
 		if (password != null && !"".equals(password))
@@ -56,7 +71,7 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 	 * 
 	 * @return An instance.
 	 */
-	private RedisAsyncCommands<String, String> newAsyncCommands() {
+	public RedisAsyncCommands<String, String> newAsyncCommands() {
 		RedisAsyncCommands<String, String> asyncCommands = connection.async();
 		String password = authPassword();
 		if (password != null && !"".equals(password))
@@ -69,7 +84,7 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 	 * 
 	 * @return An instance.
 	 */
-	private RedisStringReactiveCommands<String, String> newReactiveCommands() {
+	public RedisStringReactiveCommands<String, String> newReactiveCommands() {
 		RedisStringReactiveCommands<String, String> reactiveCommands = connection.reactive();
 		return reactiveCommands;
 	}

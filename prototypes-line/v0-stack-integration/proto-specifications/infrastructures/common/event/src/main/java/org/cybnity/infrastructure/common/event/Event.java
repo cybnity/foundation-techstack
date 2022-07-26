@@ -41,8 +41,8 @@ public interface Event {
 	public String body();
 
 	/**
-	 * Get the type name of this event (e.g that help to understand the nature of
-	 * this event).
+	 * Get the type of this event (e.g that help to understand the nature of this
+	 * event).
 	 * 
 	 * @return A type of this event.
 	 */

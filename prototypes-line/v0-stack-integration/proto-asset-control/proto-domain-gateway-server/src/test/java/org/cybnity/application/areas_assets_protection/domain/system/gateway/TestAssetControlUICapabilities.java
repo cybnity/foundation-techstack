@@ -29,6 +29,7 @@ public class TestAssetControlUICapabilities {
 
 	@Test
 	void verticle_deployed(Vertx vertx, VertxTestContext testContext) throws Throwable {
+		System.out.println("Verticles deployment test finalized with success");
 		testContext.completeNow();
 	}
 

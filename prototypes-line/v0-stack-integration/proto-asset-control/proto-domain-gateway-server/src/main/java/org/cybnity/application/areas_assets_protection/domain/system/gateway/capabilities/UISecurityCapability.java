@@ -2,16 +2,16 @@ package org.cybnity.application.areas_assets_protection.domain.system.gateway.ca
 
 import java.util.MissingResourceException;
 
-import org.cybnity.infrastructure.uis.adapter.api.UISAdapter;
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory;
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory.AdapterType;
+import org.cybnity.infrastructure.uis.adapter.impl.lettuce.UISLettuceClient;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 
 public abstract class UISecurityCapability extends AbstractVerticle {
 
-	protected UISAdapter uiasSpace;
+	private UISLettuceClient uiSpace;
 	private AdapterType uisAdapterType = UISAdapterAbstractFactory.AdapterType.LETTUCE_ADAPTER;
 
 	/**
@@ -27,9 +27,18 @@ public abstract class UISecurityCapability extends AbstractVerticle {
 	@Override
 	public void stop() throws Exception {
 		// Free adapter resources
-		if (uiasSpace != null) {
-			uiasSpace.dispose();
+		if (uiSpace != null) {
+			uiSpace.dispose();
 		}
+	}
+
+	/**
+	 * Get Users Interactions Space client.
+	 * 
+	 * @return A client to collaboration space.
+	 */
+	protected UISLettuceClient uiSpace() {
+		return this.uiSpace;
 	}
 
 	/**
@@ -40,15 +49,15 @@ public abstract class UISecurityCapability extends AbstractVerticle {
 	public void start(Promise<Void> startPromise) throws Exception {
 		start();
 		// Create and test connector to Users Interactions Space
-		System.out.println(this.getClass().getSimpleName() + " (" + this.deploymentID()
-				+ ") initialize User Interactions Space connector...");
-		UISAdapter uiasSpace = new UISAdapterAbstractFactory().getInstance(uisAdapterType).create();
+		uiSpace = (UISLettuceClient) new UISAdapterAbstractFactory().getInstance(uisAdapterType).create();
 		// Activate the adapter
-		uiasSpace.init();
+		uiSpace.init();
 		// Verify operation state
-		uiasSpace.checkOperationalState();
+		uiSpace.checkOperationalState();
 		// Start UIS handlers
 		registerUsersInteractionsSpaceHandlers();
+		// Confirm start end
+		startPromise.complete();
 	}
 
 	/**

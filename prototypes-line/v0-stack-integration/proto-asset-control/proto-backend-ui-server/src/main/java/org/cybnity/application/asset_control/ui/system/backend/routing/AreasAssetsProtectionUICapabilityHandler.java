@@ -1,7 +1,6 @@
 package org.cybnity.application.asset_control.ui.system.backend.routing;
 
 import org.cybnity.application.asset_control.ui.system.backend.infrastructure.impl.redis.RedisOptionFactory;
-import org.cybnity.infrastructure.common.event.Event;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -23,12 +22,14 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 	private Vertx context;
 	private RedisOptions redisOpts;
 	private String refName;
+	private UISDynamicDestinationList destinationMap;
 
 	public AreasAssetsProtectionUICapabilityHandler(EventBus eventBus, SharedData sessionStore,
 			String cqrsResponseChannel, Vertx vertx) {
 		super(eventBus, sessionStore);
 		this.cqrsResponseChannel = cqrsResponseChannel;
 		this.context = vertx;
+		this.destinationMap = new UISDynamicDestinationList();
 		// Define Redis options allowing capabilities to discuss with users interactions
 		// space (don't use pool that avoid possible usable of channels subscription by
 		// handlers)
@@ -42,7 +43,6 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 	@Override
 	protected void toUsersInteractionsSpace(BridgeEvent event) throws Exception {
 		// regarding ui-event, domain-event, command-event, etc. as CYBNITY bridge
-		System.out.println("Event entry from client side that need to be processed by UI Interaction Logic...");
 		JsonObject message = event.getRawMessage();
 		if (message != null) {
 			// Read the event and contents requiring for context-based routing
@@ -55,21 +55,18 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 				// - translation into supported event types by the UI interactions layer (Redis
 				// space) when need
 
-				if ("send".equalsIgnoreCase(eventType)) {
-					// - the identification of channel of space where to push the event to process
-					// - the push of event to space for processing by Application layer
+				// - the identification of channel of space where to push the event to process
+				// - the push of event to space for processing by Application layer
 
-					// Collaborate with users interactions space
-					Redis.createClient(context, redisOpts).connect().onSuccess(conn -> {
-						String correlationId = (body != null) ? body.getString("correlationId", null) : null;
-						String eventId = (body != null) ? body.getString("id", null) : null;
-
-						// Send event into UI space's channel
-						conn.send(Request.cmd(Command.SET, /* key is event id */ eventId, /*
-																							 * key value is the json
-																							 * string
-																							 */
-								body.toString())).onSuccess(info -> {
+				// Collaborate with users interactions space
+				Redis.createClient(context, redisOpts).connect().onSuccess(conn -> {
+					String correlationId = (body != null) ? body.getString("correlationId", null) : null;
+					String eventId = (body != null) ? body.getString("id", null) : null;
+					UISChannel recipientChannel = destinationMap.recipient(routingAddress);
+					if (recipientChannel != null) {
+						// Send event into UI space's channel via
+						conn.send(Request.cmd(Command.PUBLISH).arg(/* redis stream channel */ recipientChannel.name())
+								.arg(body.toString())).onSuccess(res -> {
 									// Confirm notification about performed routing
 									JsonObject transactionResult = new JsonObject();
 									transactionResult.put("status", "processing");
@@ -77,9 +74,12 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 										transactionResult.put("correlationId", correlationId);
 									}
 
-									System.out.println("Event forwared from (address: " + routingAddress
-											+ ") to User Interactions Space: " + body);
+									System.out.println("Event forwared event bus (address: " + routingAddress
+											+ ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);
 									System.out.println("with event (" + eventId + ") in status: " + transactionResult);
+
+									// Close the connection or return to the pool
+									conn.close();
 
 									// Notify the front side via the event bus
 									bus().send(cqrsResponseChannel, transactionResult);
@@ -88,23 +88,15 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 											.println(refName + " connection to UIS broker failed: " + error.getCause());
 									error.printStackTrace();
 								});
-					}).onFailure(fail -> {
-						System.out.println(refName + " UIS broker connection failed: ");
-						fail.printStackTrace();
-					});
-
-				}
-
-				if ("publish".equalsIgnoreCase(eventType)) {
-					throw new Exception("missing implementation!");
-				}
-				/*
-				 * Optional<Integer> counter = repository.get(); if (counter.isPresent()) {
-				 * Integer value = counter.get() + 1; repository.update(value);
-				 * eventBus.publish("out", value); } else { Integer value = 1;
-				 * repository.update(value); eventBus.publish("out", value); }
-				 */
-
+					} else {
+						// Unknown channel where to forward the event to Redis space for treatment by UI
+						// capabilities
+						System.out.println("Ignored event that does not be supported by any UI capability API!");
+					}
+				}).onFailure(fail -> {
+					System.out.println(refName + " UIS broker connection failed: ");
+					fail.printStackTrace();
+				});
 			}
 		}
 	}

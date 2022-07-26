@@ -29,6 +29,10 @@ After success start of Redis docker image (project proto-infrastructures/proto-u
   select 1
   // List the registered event
   keys *
+  // Read an event payload from its id (key identifier)
+  get "<key number>"
+  // Clear the database from any record
+  flushdb
   ```
 
 # INTEGRATION TEST PROTOCOL

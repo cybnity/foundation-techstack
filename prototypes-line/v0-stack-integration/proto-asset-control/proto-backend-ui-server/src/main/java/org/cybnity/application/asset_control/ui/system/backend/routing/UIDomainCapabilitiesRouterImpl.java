@@ -55,15 +55,16 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// --- DEFINE PERMITTED INPUT EVENT TYPES (will look through inbound permitted
 		// matches when it is received from client side Javascript to the server) ---
-		// Let through any message sent to 'assetcontrol.isAlive' from the client
+		// Let through any message sent directly to a capability service from the client
 		// side
-		PermittedOptions inboundPermitted1 = new PermittedOptions().setAddress("assetcontrol.isAlive");
+		PermittedOptions inboundPermitted1 = new PermittedOptions()
+				.setAddress(CollaborationChannel.aap.label() + ".isAlive");
 
 		// Allow calls to the address domain channels from the client as long as the
 		// messages have an action filed with value (e.g CQRS type as 'query, command')
-		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress("assetcontrol.in")
+		PermittedOptions inboundPermitted2 = new PermittedOptions().setAddress(CollaborationChannel.aap_in.label())
 				.setMatch(new JsonObject().put("type", "QueryEvent"));
-		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress("assetcontrol.in")
+		PermittedOptions inboundPermitted3 = new PermittedOptions().setAddress(CollaborationChannel.aap_in.label())
 				.setMatch(new JsonObject().put("type", "CommandEvent"));
 
 		// But only if the user is logged in and has the authority "place_cqrs" (the
@@ -91,13 +92,15 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		// matches before it is sent to the client Vert.x-Web) ---
 
 		// Define what we're going to allow from server -> client
-		// Let through any message coming from address 'assetcontrol.cqrs_response'
-		String cqrsResponseChannel = "assetcontrol.out";
+		// Let through any message coming from address
+		String cqrsResponseChannel = CollaborationChannel.aap_out.label();
 		PermittedOptions outboundPermitted1 = new PermittedOptions().setAddress(cqrsResponseChannel);
 
-		// Let through any messages from addresses starting with 'assets.' (e.g
-		// assets.updated, assets.news, etc)
-		PermittedOptions outboundPermitted2 = new PermittedOptions().setAddressRegex("assetcontrol.asset\\..+");
+		// Let through any messages from addresses starting with
+		// 'areas_assets_protection.' (e.g
+		// areas_assets_protection.info, areas_assets_protection.news, etc)
+		PermittedOptions outboundPermitted2 = new PermittedOptions()
+				.setAddressRegex(CollaborationChannel.aap.label() + ".\\..+");
 
 		// --- DEFINE WHAT WE'RE GOING TO ALLOW FROM CLIENT -> SERVER
 		SockJSBridgeOptions options = new SockJSBridgeOptions().addInboundPermitted(inboundPermitted1)

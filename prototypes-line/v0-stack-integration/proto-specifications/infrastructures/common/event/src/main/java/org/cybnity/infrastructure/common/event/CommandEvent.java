@@ -22,6 +22,13 @@ import java.util.List;
 public interface CommandEvent extends Event {
 
 	/**
+	 * Get the name of this command (e.g name of a capability to execute).
+	 * 
+	 * @return A name.
+	 */
+	public String name();
+
+	/**
 	 * Get ordered list of operations that are requested to be executed.
 	 * 
 	 * @return A list of next operations (e.g instances of event including each one

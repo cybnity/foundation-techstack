@@ -54,6 +54,11 @@ public class JSONQueryEventCreationTest extends TestCase {
 		public HashMap<String, String> refParameters() {
 			return null;
 		}
+
+		@Override
+		public String name() {
+			return "findAssets";
+		}
 	}
 
 	@After
@@ -66,6 +71,7 @@ public class JSONQueryEventCreationTest extends TestCase {
 		assertNotNull(command.occurredOn());
 		assertNotNull(command.correlationId());
 		assertNotNull(command.type());
+		assertNotNull(command.name());
 
 		// Check input parameters existing
 		System.out.println(command.inParameters());

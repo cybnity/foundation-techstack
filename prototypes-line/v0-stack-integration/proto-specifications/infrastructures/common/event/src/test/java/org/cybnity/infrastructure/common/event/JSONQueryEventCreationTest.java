@@ -28,6 +28,11 @@ public class JSONQueryEventCreationTest {
 		}
 
 		@Override
+		public String name() {
+			return "createAsset";
+		}
+
+		@Override
 		public String body() {
 			return null;
 		}
@@ -58,6 +63,8 @@ public class JSONQueryEventCreationTest {
 		CommandEvent command = new ConcreteCommandEvent(null);
 		assertNotNull(command.occurredOn());
 		assertNotNull(command.correlationId());
+		assertNotNull(command.name());
+		assertNotNull(command.type());
 	}
 
 }

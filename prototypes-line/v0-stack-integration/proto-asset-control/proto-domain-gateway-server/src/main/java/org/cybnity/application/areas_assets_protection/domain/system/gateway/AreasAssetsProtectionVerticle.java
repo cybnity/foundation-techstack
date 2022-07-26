@@ -15,43 +15,38 @@ import io.vertx.core.Promise;
  */
 public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 
-	public AreasAssetsProtectionVerticle() {
-		super();
-	}
-
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
 		CompositeFuture
-				.all(deployVerticle(AssetControlCreationCommandHandler.class.getName()),
-						deployVerticle(AssetControlAliveQueryHandler.class.getName()))// Add others
+				.all(deployHelper(AssetControlCreationCommandHandler.class.getName()),
+						deployHelper(AssetControlAliveQueryHandler.class.getName()))// Add others
 				.onComplete(handler -> {
 					if (handler.succeeded()) {
 						// All components started
 						System.out.println("All components are started with success");
+						startPromise.complete();
 					} else {
 						// At least one component failed
 						System.out.println("At least one component start failed");
 					}
-				}).onSuccess(handler -> {
-					startPromise.complete();
-				}).onFailure(f -> {
-					startPromise.fail(f.getCause());
-				});
+				})/*
+					 * .onSuccess(handler -> { startPromise.complete(); }).onFailure(f -> {
+					 * startPromise.fail(f.getCause()); })
+					 */;
 	}
 
-	Future<Void> deployVerticle(String verticleName) {
-		Future<Void> retVal = Future.future(handler -> {
-		});
+	Future<Void> deployHelper(String verticleName) {
+		Promise<Void> retVal = Promise.promise();
 		vertx.deployVerticle(verticleName, event -> {
 			if (event.succeeded()) {
-				retVal.isComplete();
 				System.out.println("Successly deployed: " + event.result());
+				retVal.complete();
 			} else {
 				System.out.println("Deployment failed: ");
 				event.cause().printStackTrace();
-				retVal.failed();
+				retVal.fail(event.cause());
 			}
 		});
-		return retVal;
+		return retVal.future();
 	}
 }
