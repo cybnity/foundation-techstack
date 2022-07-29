@@ -21,9 +21,24 @@ public interface Event {
 	/**
 	 * When the event was observed.
 	 * 
-	 * @return A date.
+	 * @return A date/time when the event happened.
 	 */
 	public Date occurredOn();
+
+	/**
+	 * Get the version of the event (e.g which could be the same as a notification
+	 * event including this event as payload)
+	 * 
+	 * @return A integer version of this event type.
+	 */
+	public Integer version();
+
+	/**
+	 * The identifier of a tenant that is concerned by this event.
+	 * 
+	 * @return A tenant id or null.
+	 */
+	public String tenantId();
 
 	/**
 	 * Get unique identifier of this event.
@@ -44,7 +59,7 @@ public interface Event {
 	 * Get the type of this event (e.g that help to understand the nature of this
 	 * event).
 	 * 
-	 * @return A type of this event.
+	 * @return A type of this event (E;g a class name according to the type name).
 	 */
 	public String type();
 }

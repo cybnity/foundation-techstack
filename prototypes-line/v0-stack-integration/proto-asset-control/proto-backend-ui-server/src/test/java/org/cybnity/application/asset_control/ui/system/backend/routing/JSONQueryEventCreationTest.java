@@ -59,6 +59,16 @@ public class JSONQueryEventCreationTest extends TestCase {
 		public String name() {
 			return "findAssets";
 		}
+
+		@Override
+		public Integer version() {
+			return Integer.valueOf(1);
+		}
+
+		@Override
+		public String tenantId() {
+			return null;
+		}
 	}
 
 	@After
@@ -72,6 +82,7 @@ public class JSONQueryEventCreationTest extends TestCase {
 		assertNotNull(command.correlationId());
 		assertNotNull(command.type());
 		assertNotNull(command.name());
+		assertNotNull(command.version());
 
 		// Check input parameters existing
 		System.out.println(command.inParameters());

@@ -56,6 +56,16 @@ public class JSONQueryEventCreationTest {
 		public HashMap<String, String> refParameters() {
 			return null;
 		}
+
+		@Override
+		public Integer version() {
+			return Integer.valueOf(1);
+		}
+
+		@Override
+		public String tenantId() {
+			return null;
+		}
 	}
 
 	@Test
@@ -65,6 +75,7 @@ public class JSONQueryEventCreationTest {
 		assertNotNull(command.correlationId());
 		assertNotNull(command.name());
 		assertNotNull(command.type());
+		assertNotNull(command.version());
 	}
 
 }

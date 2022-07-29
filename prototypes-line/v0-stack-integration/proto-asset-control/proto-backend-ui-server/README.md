@@ -33,6 +33,9 @@ After success start of Redis docker image (project proto-infrastructures/proto-u
   get "<key number>"
   // Clear the database from any record
   flushdb
+  // Read in real-time the events published into all channels
+  psubscribe *
+  // 
   ```
 
 # INTEGRATION TEST PROTOCOL
