@@ -11,4 +11,11 @@
 	<artifactId>api</artifactId>
 	<packaging>jar</packaging>
 	<name>  - UIS adapter api</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.cybnity.techstack.prototypes.specifications.infrastructure.common</groupId>
+			<artifactId>event</artifactId>
+			<version>${proto-revision}</version>
+		</dependency>
+	</dependencies>
 </project>

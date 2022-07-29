@@ -1,5 +1,6 @@
 package org.cybnity.infrastructure.uis.adapter.impl.lettuce;
 
+import org.cybnity.infrastructure.uis.adapter.api.ChannelListener;
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapter;
 import org.cybnity.infrastructure.uis.adapter.impl.UISAbstractAdapterImpl;
 
@@ -8,7 +9,8 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
 import io.lettuce.core.api.reactive.RedisStringReactiveCommands;
 import io.lettuce.core.api.sync.RedisCommands;
-import io.lettuce.core.pubsub.RedisPubSubListener;
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
+import io.lettuce.core.pubsub.api.async.RedisPubSubAsyncCommands;
 
 /**
  * Implementation client allowing discussion with Users Interactions Space
@@ -39,9 +41,18 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 		connection = redisClient.connect();
 	}
 
-	protected void addPubSubChannelListener(RedisPubSubListener<String, String> observer) {
-		if (observer != null)
-			redisClient().connectPubSub().addListener(observer);
+	@Override
+	public void addListener(ChannelListener channel, String observabilityPattern, ChannelMode mode) {
+		if (mode != null && UISAdapter.ChannelMode.PUB_SUB_MODE == mode) {
+			// Create observer utility instance
+			PubSubChannelListener observer = new PubSubChannelListener(channel.monitoredChannel());
+			// Connect and add listener on connection PubSub mode
+			StatefulRedisPubSubConnection<String, String> connection = redisClient().connectPubSub();
+			connection.addListener(observer);
+			// Create subscription to channel
+			RedisPubSubAsyncCommands<String, String> async = connection.async();
+			async.subscribe(channel.monitoredChannel());
+		}
 	}
 
 	/**

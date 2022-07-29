@@ -1,5 +1,6 @@
 package org.cybnity.infrastructure.uis.adapter.impl.jedis;
 
+import org.cybnity.infrastructure.uis.adapter.api.ChannelListener;
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapter;
 import org.cybnity.infrastructure.uis.adapter.impl.UISAbstractAdapterImpl;
 
@@ -54,6 +55,11 @@ public class UISJedisClient extends UISAbstractAdapterImpl implements UISAdapter
 		if (jedisPool != null && !jedisPool.isClosed()) {
 			jedisPool.close();
 		}
+	}
+
+	@Override
+	public void addListener(ChannelListener channel, String observabilityPattern, ChannelMode mode) {
+		// TODO
 	}
 
 	protected void sendAsyncCommand(String command) throws Exception {

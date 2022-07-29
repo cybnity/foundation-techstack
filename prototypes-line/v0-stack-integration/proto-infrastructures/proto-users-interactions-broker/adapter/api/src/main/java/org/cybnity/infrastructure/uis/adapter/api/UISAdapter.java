@@ -25,4 +25,24 @@ public interface UISAdapter {
 	 */
 	public void checkOperationalState();
 
+	/**
+	 * Add an observer of channel.
+	 * 
+	 * @param listener             Mandatory observer instance called by the adapter
+	 *                             when the observability pattern is satisfied. If
+	 *                             null, none observer is applied.
+	 * @param observabilityPattern Optional filtering pattern about the event to
+	 *                             monitor justifying the call of the listener.
+	 * @param mode                 Type of channel mode observed (e.g PUB_SUB_MODE
+	 *                             when queue is observed) with the listener.
+	 */
+	public void addListener(ChannelListener listener, String observabilityPattern, ChannelMode mode);
+
+	/**
+	 * Type of channel integrated and managed by the adapter.
+	 */
+	public enum ChannelMode {
+		PUB_SUB_MODE, STREAM;
+	}
+
 }
