@@ -1,7 +1,6 @@
 package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 
-import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.AssetControlAliveQueryHandler;
-import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.AssetControlCreationCommandHandler;
+import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.DownloadReportHandler;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.CompositeFuture;
@@ -17,9 +16,15 @@ public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
-		CompositeFuture
-				.all(deployHelper(AssetControlCreationCommandHandler.class.getName()),
-						deployHelper(AssetControlAliveQueryHandler.class.getName()))// Add others
+		CompositeFuture.all(
+				/* Set the routing manager regarding this capabilities domain for UI */
+				deployHelper(AreasAssetsProtectionCapabilitiesEntryPointHandler.class.getName()),
+
+				/*
+				 * Set each handler of UI capability supported by this UI capabilities boundary
+				 */
+				deployHelper(DownloadReportHandler.class.getName()))// Add others
+		
 				.onComplete(handler -> {
 					if (handler.succeeded()) {
 						// All components started
@@ -29,10 +34,7 @@ public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 						// At least one component failed
 						System.out.println("At least one component start failed");
 					}
-				})/*
-					 * .onSuccess(handler -> { startPromise.complete(); }).onFailure(f -> {
-					 * startPromise.fail(f.getCause()); })
-					 */;
+				});
 	}
 
 	Future<Void> deployHelper(String verticleName) {

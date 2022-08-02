@@ -77,9 +77,9 @@
 	 eb.send('aap.isAlive', {});
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
-	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'createAsset', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset', description: 'Development backend server'}});
-	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'QueryEvent', name: 'findAssets', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset'}, outParameters: {}, refParameters: {}});
-
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'createAsset', inParameters: {domain: 'asset_control', name: 'cybnity-backend-server1', type: 'asset', description: 'Development backend server'}});
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'QueryEvent', name: 'findAssets', inParameters: {domain: 'asset_control', name: 'cybnity-backend-server1', type: 'asset'}});
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'downloadReport', inParameters: {domain: 'aap', reportName: 'Server 1 Status', type: 'asset', output: 'pdf'}});
 	}
 	
 	eb.onreconnect = function() {}; // Optional, will only be called on re-connections

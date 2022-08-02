@@ -11,6 +11,12 @@
 	<artifactId>impl</artifactId>
 	<packaging>jar</packaging>
 	<name>  - UIS adapter impl</name>
+	<properties>
+		<maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+		<vertx.version>4.3.2</vertx.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.cybnity.techstack.prototypes.infrastructure.uis.adapter</groupId>
@@ -26,6 +32,16 @@
 			<groupId>io.lettuce</groupId>
 			<artifactId>lettuce-core</artifactId>
 			<version>6.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+			<version>${vertx.version}</version>
 		</dependency>
 	</dependencies>
 </project>

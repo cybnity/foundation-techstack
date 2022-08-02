@@ -8,5 +8,9 @@ package org.cybnity.infrastructure.common.event;
  * change fact that could interested (e.g for synchronization of their local
  * domain or external domain reference upgraded information).
  */
-public interface NotificationEvent extends Event {
+public class NotificationEvent extends CommonEvent {
+	
+	public NotificationEvent() {
+		super();
+	}
 }

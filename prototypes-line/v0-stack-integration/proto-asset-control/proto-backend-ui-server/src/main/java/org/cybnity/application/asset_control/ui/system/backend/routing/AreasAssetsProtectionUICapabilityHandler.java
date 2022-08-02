@@ -62,11 +62,11 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 				Redis.createClient(context, redisOpts).connect().onSuccess(conn -> {
 					String correlationId = (body != null) ? body.getString("correlationId", null) : null;
 					String eventId = (body != null) ? body.getString("id", null) : null;
-					UISChannel recipientChannel = destinationMap.recipient(routingAddress);
+					Enum<?> recipientChannel = destinationMap.recipient(routingAddress);
 					if (recipientChannel != null) {
 						// Send event into UI space's channel via
 						conn.send(Request.cmd(Command.PUBLISH).arg(/* redis stream channel */ recipientChannel.name())
-								.arg(body.toString())).onSuccess(res -> {
+								.arg(body.encode())).onSuccess(res -> {
 									// Confirm notification about performed routing
 									JsonObject transactionResult = new JsonObject();
 									transactionResult.put("status", "processing");

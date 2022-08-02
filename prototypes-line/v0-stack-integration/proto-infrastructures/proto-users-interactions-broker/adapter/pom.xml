@@ -12,7 +12,7 @@
 	<packaging>pom</packaging>
 	<name>  - Users Interactions Space adapter</name>
 	<modules>
-		<module>api</module>
-		<module>impl</module>
+		<module>uis-api</module>
+		<module>uis-impl</module>
 	</modules>
 </project>

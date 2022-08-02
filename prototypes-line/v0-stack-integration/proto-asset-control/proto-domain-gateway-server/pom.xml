@@ -6,7 +6,6 @@
 		<version>${proto-revision}</version>
 		<relativePath>..</relativePath>
 	</parent>
-
 	<groupId>org.cybnity.techstack.prototypes.areas-assets-protection</groupId>
 	<artifactId>domain-gateway-server</artifactId>
 	<packaging>jar</packaging>
@@ -52,6 +51,11 @@
 		<dependency>
 			<groupId>org.cybnity.techstack.prototypes.infrastructure.uis.adapter</groupId>
 			<artifactId>impl</artifactId>
+			<version>${proto-revision}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cybnity.techstack.prototypes.areas-assets-protection.capabilities</groupId>
+			<artifactId>api</artifactId>
 			<version>${proto-revision}</version>
 		</dependency>
 	</dependencies>

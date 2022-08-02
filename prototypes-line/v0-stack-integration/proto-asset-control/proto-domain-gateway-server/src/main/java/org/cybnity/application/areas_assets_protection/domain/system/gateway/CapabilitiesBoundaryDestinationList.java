@@ -1,4 +1,4 @@
-package org.cybnity.application.asset_control.ui.system.backend.routing;
+package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,17 +6,13 @@ import java.util.Map;
 import org.cybnity.feature.areas_assets_protection.api.APIChannel;
 
 /**
- * Utility class allowing to map the event bus channels names, with the names of
- * the UI capability entry points (redis stream channels) allowing to bridge the
- * events forwarding. This implementation helps to implement the Content-Based
- * Router pattern where the recipient channel is identified from the message
- * content to forward. The goal of the recipients list identification allowed by
- * this mapper is to manage (on server-side and hidden from the client side
- * source code's url and/or javascript) the routing in a generic way based on
- * the capabilities' names supporting the channels naming between the event bus
- * and the redis space.
+ * Utility class allowing to map each capability name (e.g command event's
+ * name), with each name of the dedicated UI capability entry point (redis
+ * stream channel) allowing to bridge the events forwarding. This implementation
+ * helps to implement the Content-Based Router pattern where the recipient
+ * channel is identified from the message content to forward.
  */
-public class UISDynamicDestinationList {
+public class CapabilitiesBoundaryDestinationList {
 
 	private Map<String, Enum<?>> routingMap;
 
@@ -27,13 +23,15 @@ public class UISDynamicDestinationList {
 	 * supported) with settings hosted by the domains-interacts-broker module (e.g
 	 * as configuration api).
 	 */
-	public UISDynamicDestinationList() {
-		// Initialize the routing destination tables that link a event bus channel with
-		// a redis channel
+	public CapabilitiesBoundaryDestinationList() {
+		// Initialize the routing destination tables that link a Users Interactions
+		// Space's channel with
+		// an UI capability name
 		routingMap = new HashMap<String, Enum<?>>();
 
 		// Set each destination path
-		routingMap.put(CollaborationChannel.aap_in.label(), APIChannel.areas_assets_protection);
+		routingMap.put(CapabilityEventNameRepository.downloadReport.name(), APIChannel.aap_downloadReport);
+
 	}
 
 	/**

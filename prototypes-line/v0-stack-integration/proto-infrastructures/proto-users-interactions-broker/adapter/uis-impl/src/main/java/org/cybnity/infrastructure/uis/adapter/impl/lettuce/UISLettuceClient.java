@@ -45,7 +45,7 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 	public void addListener(ChannelListener channel, String observabilityPattern, ChannelMode mode) {
 		if (mode != null && UISAdapter.ChannelMode.PUB_SUB_MODE == mode) {
 			// Create observer utility instance
-			PubSubChannelListener observer = new PubSubChannelListener(channel.monitoredChannel());
+			PubSubChannelListener observer = new PubSubChannelTraceListener(channel.monitoredChannel());
 			// Connect and add listener on connection PubSub mode
 			StatefulRedisPubSubConnection<String, String> connection = redisClient().connectPubSub();
 			connection.addListener(observer);

@@ -7,11 +7,14 @@ import java.util.Date;
  * Common features proposed by an event, that can be reused by application
  * domains' model for specialization of specific custom domain events.
  */
-public abstract class AbstractEvent implements Event {
+public class CommonEvent implements Event, Identifiable {
 
-	private Date occurredOn;
-	private String correlationId;
-	private String id;
+	public String name, type;
+	public Date occurredOn;
+	public String correlationId;
+	public String id;
+	public String body, tenantId;
+	public Integer version;
 
 	/**
 	 * Constructor of event using a specific time area.
@@ -19,9 +22,18 @@ public abstract class AbstractEvent implements Event {
 	 * @param local A specific time area. If null, a default Calendar is used for
 	 *              initialization of the event date initialized.
 	 */
-	public AbstractEvent(Calendar local) {
+	public CommonEvent(Calendar local) {
 		Calendar current = (local != null) ? local : Calendar.getInstance();
 		wasOccurredOn(current.getTime());
+	}
+
+	public CommonEvent() {
+		wasOccurredOn(Calendar.getInstance().getTime());
+	}
+
+	@Override
+	public String name() {
+		return this.name;
 	}
 
 	@Override
@@ -78,6 +90,21 @@ public abstract class AbstractEvent implements Event {
 	 */
 	@Override
 	public String type() {
-		return this.getClass().getSimpleName();
+		return (type != null) ? type : this.getClass().getSimpleName();
+	}
+
+	@Override
+	public Integer version() {
+		return this.version;
+	}
+
+	@Override
+	public String tenantId() {
+		return this.tenantId;
+	}
+
+	@Override
+	public String body() {
+		return this.body;
 	}
 }
