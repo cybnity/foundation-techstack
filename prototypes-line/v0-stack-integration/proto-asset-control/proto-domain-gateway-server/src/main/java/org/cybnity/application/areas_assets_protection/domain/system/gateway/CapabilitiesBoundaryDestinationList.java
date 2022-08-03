@@ -3,7 +3,7 @@ package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cybnity.feature.areas_assets_protection.api.APIChannel;
+import org.cybnity.feature.areas_assets_protection.api.UICapabilityChannel;
 
 /**
  * Utility class allowing to map each capability name (e.g command event's
@@ -14,37 +14,38 @@ import org.cybnity.feature.areas_assets_protection.api.APIChannel;
  */
 public class CapabilitiesBoundaryDestinationList {
 
-	private Map<String, Enum<?>> routingMap;
+	private Map<String, UICapabilityChannel> routingMap;
 
 	/**
 	 * Default constructor initializing the routing table. This configuration
-	 * implementation example of linked channels could be replaced by a routing
-	 * configuration file more easy to maintain (e.g with possible hot change
-	 * supported) with settings hosted by the domains-interacts-broker module (e.g
-	 * as configuration api).
+	 * implementation example of events linked channels could be replaced by a
+	 * routing configuration file more easy to maintain (e.g with possible hot
+	 * change supported) with settings hosted by the domains-interacts-broker module
+	 * (e.g as configuration api).
 	 */
 	public CapabilitiesBoundaryDestinationList() {
 		// Initialize the routing destination tables that link a Users Interactions
 		// Space's channel with
 		// an UI capability name
-		routingMap = new HashMap<String, Enum<?>>();
+		routingMap = new HashMap<String, UICapabilityChannel>();
 
 		// Set each destination path
-		routingMap.put(CapabilityEventNameRepository.downloadReport.name(), APIChannel.aap_downloadReport);
+		routingMap.put(CapabilitySupportedEvent.downloadReport.name(), UICapabilityChannel.aap_downloadReport);
 
 	}
 
 	/**
-	 * Find a route to Users Interactions Space's channel.
+	 * Find a route to Users Interactions Space's channel according to an event
+	 * type.
 	 * 
-	 * @param aCollaborationChannelLabel Origin channel which is subject of possible
-	 *                                   routing to find.
+	 * @param eventName CapabilitySupportedEvent name which is subject of possible
+	 *                  routing to find.
 	 * @return A recipient channel or null.
 	 */
-	public Enum<?> recipient(String aCollaborationChannelLabel) {
-		if (aCollaborationChannelLabel != null && !"".equals(aCollaborationChannelLabel)) {
+	public UICapabilityChannel recipient(String eventName) {
+		if (eventName != null) {
 			// Find existing UIS channel routing
-			return routingMap.get(aCollaborationChannelLabel);
+			return routingMap.get(eventName);
 		}
 		return null;
 	}

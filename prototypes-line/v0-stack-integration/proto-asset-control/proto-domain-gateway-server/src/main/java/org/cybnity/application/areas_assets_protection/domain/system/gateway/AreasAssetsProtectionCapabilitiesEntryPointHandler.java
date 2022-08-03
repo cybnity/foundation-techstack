@@ -1,11 +1,13 @@
 package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.UISecurityCapability;
-import org.cybnity.feature.areas_assets_protection.api.APIChannel;
 import org.cybnity.feature.areas_assets_protection.api.DomainsBoundaryDestinationList;
 import org.cybnity.feature.areas_assets_protection.api.DomainsBoundaryDestinationList.DelegatedDomainAPIChannel;
+import org.cybnity.feature.areas_assets_protection.api.UICapabilityChannel;
 import org.cybnity.infrastructure.common.event.Event;
 import org.cybnity.infrastructure.common.event.Identifiable;
 import org.cybnity.infrastructure.common.event.InputParameterProvider;
@@ -27,6 +29,9 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 
 	private CapabilitiesBoundaryDestinationList routes;
 	private DomainsBoundaryDestinationList otherDomainsChannels;
+	private UICapabilityChannel apiEntryPoint = UICapabilityChannel.areas_assets_protection;
+	private StatefulRedisPubSubConnection<String, String> connection;
+	private List<EntryPointEventsListener> activeListeners = new LinkedList<EntryPointEventsListener>();
 
 	public AreasAssetsProtectionCapabilitiesEntryPointHandler() {
 		super();
@@ -42,10 +47,30 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 		RedisClient client = space.redisClient();
 		// Attach the listener of channel to delegate treatment of each event relative
 		// to any capability
-		StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
-		EntryPointEventsListener listener = new EntryPointEventsListener(APIChannel.areas_assets_protection.name());
-		connection.addListener(listener); // listener installed
-		connection.async().subscribe(listener.monitoredChannel()); // channel subscribed
+		connection = client.connectPubSub();
+		// Create set of listener manager by this handler
+		activeListeners.add(new EntryPointEventsListener(apiEntryPoint.name()));
+
+		// Install listeners on connection
+		for (EntryPointEventsListener listener : activeListeners) {
+			connection.addListener(listener); // listener installed
+			connection.async().subscribe(listener.monitoredChannel()); // channel subscribed
+		}
+	}
+
+	@Override
+	public void stop() throws Exception {
+		// Free resources
+		for (EntryPointEventsListener listener : activeListeners) {
+			// Stop active subscription
+			connection.async().unsubscribe(listener.monitoredChannel());
+			// remove listener from connection
+			connection.removeListener(listener);
+		}
+		if (connection != null && connection.isOpen()) {
+			connection.close();
+		}
+		super.stop();
 	}
 
 	/**
@@ -79,12 +104,12 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 					if (domainName != null) {
 						// Validate if the event should be treated by this UI capabilities boundary
 						boolean delegatedEvent = false;
-						if (APIChannel.aap.name().equals(domainName)) {
+						if (apiEntryPoint.name().equals(domainName) || apiEntryPoint.acronym().equals(domainName)) {
 							// Command event need to be treated by this UI capability domain
 
 							// Identify the entry point (channel) supporting the feature
 							if (Identifiable.class.isAssignableFrom(event.getClass())) {
-								Enum<?> toForwardAt = routes.recipient(((Identifiable) event).name());
+								UICapabilityChannel toForwardAt = routes.recipient(((Identifiable) event).name());
 								if (toForwardAt != null) {
 									// Forward the treatment to the feature's dedicated channel on Users
 									// Interactions Space
@@ -93,9 +118,13 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 									StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
 									// Publish the event to channel
 									connection.async().publish(toForwardAt.name(), Json.encode(event));
-									System.out.println("Event (correlationId: " + event.correlationId()
-											+ ") dispatched to capability's channel (" + toForwardAt.name()
-											+ ") for treatment");
+
+									/*
+									 * System.out.println("Event (correlationId: " + event.correlationId() +
+									 * ") delegated to capability's channel (" + toForwardAt.name() +
+									 * ") for treatment");
+									 */
+
 									// confirm dispatched event
 									delegatedEvent = true;
 								} else {
@@ -120,9 +149,11 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 									StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
 									// Publish the event to channel
 									connection.async().publish(delegation.name(), Json.encode(event));
+
 									System.out.println("Event (correlationId: " + event.correlationId()
-											+ ") delegated to feature's channel (" + delegation.name()
+											+ ") dispatched to feature's channel (" + delegation.name()
 											+ ") for treatment");
+
 									// confirm dispatched event
 									delegatedEvent = true;
 								}

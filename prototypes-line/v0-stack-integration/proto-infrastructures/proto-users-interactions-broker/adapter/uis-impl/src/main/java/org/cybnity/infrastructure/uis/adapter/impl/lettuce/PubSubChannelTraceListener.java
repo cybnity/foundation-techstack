@@ -14,8 +14,8 @@ public class PubSubChannelTraceListener extends PubSubChannelListener {
 
 	@Override
 	public void onMessage(String channel, Event event) {
-		System.out
-				.println("Event (correlationId: " + event.correlationId() + ") entry into the " + channel + " channel");
+		System.out.println("Event (type: " + event.type() + ", correlationId: " + event.correlationId()
+				+ ") entry into the " + channel + " channel");
 	}
 
 }

@@ -107,7 +107,8 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 		RedisCommands<String, String> syncCommands = newSyncCommands();
 		String pong = syncCommands.ping();
 		if (pong != null && !pong.equals("")) {
-			System.out.println(refName + " is in operational state (" + pong + " confirmed)");
+			// System.out.println(refName + " is in operational state (" + pong + "
+			// confirmed)");
 		} else {
 			System.out.println(refName + " is not operational!");
 		}

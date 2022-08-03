@@ -3,7 +3,7 @@ package org.cybnity.application.asset_control.ui.system.backend.routing;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cybnity.feature.areas_assets_protection.api.APIChannel;
+import org.cybnity.feature.areas_assets_protection.api.UICapabilityChannel;
 
 /**
  * Utility class allowing to map the event bus channels names, with the names of
@@ -33,7 +33,7 @@ public class UISDynamicDestinationList {
 		routingMap = new HashMap<String, Enum<?>>();
 
 		// Set each destination path
-		routingMap.put(CollaborationChannel.aap_in.label(), APIChannel.areas_assets_protection);
+		routingMap.put(CollaborationChannel.aap_in.label(), UICapabilityChannel.areas_assets_protection);
 	}
 
 	/**

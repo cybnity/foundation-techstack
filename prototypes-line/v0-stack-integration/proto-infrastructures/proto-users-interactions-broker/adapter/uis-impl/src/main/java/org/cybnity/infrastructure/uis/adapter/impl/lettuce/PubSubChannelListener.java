@@ -28,7 +28,7 @@ public abstract class PubSubChannelListener implements ChannelListener, RedisPub
 
 	@Override
 	public void message(String channel, String message) {
-		System.out.println("Got " + message + " on channel " + channel);
+		// System.out.println("Got " + message + " on channel " + channel);
 		// Serialize the message as non type object that is equals to a Map
 		JsonObject json = new JsonObject(message);
 		// Identify which type of class type is defined for the event type
@@ -72,7 +72,8 @@ public abstract class PubSubChannelListener implements ChannelListener, RedisPub
 
 	@Override
 	public void message(String pattern, String channel, String message) {
-		System.out.println("Got " + message + " on channel" + channel + " based on pattern " + pattern);
+		// System.out.println("Got " + message + " on channel" + channel + " based on
+		// pattern " + pattern);
 		// Delegate to message method
 		message(channel, message);
 	}
