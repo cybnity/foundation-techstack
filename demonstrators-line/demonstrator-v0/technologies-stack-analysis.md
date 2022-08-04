@@ -136,6 +136,7 @@ The current status of technology already in the analysis stream give a general v
 # Industrialization Tools
 | Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
+| OPERATING TOOL | Kafka Cluster Manager| X | | | | |
 | BUILD TOOL | Components Build | Maven | `WIN` | `WIN` | | Build (e.g application component), install and push into Artifacts Repository |
 | BUILD TOOL | System Docker Images Build | Skaffold | `WIN` | | | Build (e.g docker image template of packaged system ready for run) and push Docker image into artifacts repository (e.g Docker Hub) |
 | DELIVERY TOOL | Artifacts Repository | Nexus | `WIN` | | | Hosting and management of several artifact types (e.g packaged library) and versions (e.g jar versions) |
@@ -248,7 +249,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Lettuce Redis Client|OK| |OK| | | | |
 | Eclipse Vert.x Redis Client|OK| |OK| | | | |
 | Redis |OK| |OK| | | | |
-| Apache Kafka | | | | | | | |
+| Apache Kafka |OK| |OK| | | |Administration vi web tool: CMAK cluster manager 2.4.0|
 | Gravitee | | | | | | | |
 | Apache Directory Server | | | | | | | |
 | midPoint | | | | | | | |
@@ -259,7 +260,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Telegraf Agent | | | | | | | |
 | Grafana | | | | | | | |
 | InfluxDB | | | | | | | |
-| Apache Zookeeper | | | | | | | |
+| Apache Zookeeper |OK| |OK| | | | |
 | Liberica JDK | | | | | | | |
 | Eclipse OpenJ9 8/11 JRE |OK| | | | | | |
 | Consul | | | | | | | |

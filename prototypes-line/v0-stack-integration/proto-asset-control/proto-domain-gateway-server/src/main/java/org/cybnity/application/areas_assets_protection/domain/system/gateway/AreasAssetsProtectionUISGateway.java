@@ -1,6 +1,6 @@
 package org.cybnity.application.areas_assets_protection.domain.system.gateway;
 
-import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.DownloadReportHandler;
+import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.DownloadReportProcessingCapabilityHandler;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.CompositeFuture;
@@ -12,27 +12,29 @@ import io.vertx.core.Promise;
  * provided by the backend services (e.g via interaction over event bus)
  * regarding a cockpit foundation's capability domain.
  */
-public class AreasAssetsProtectionVerticle extends AbstractVerticle {
+public class AreasAssetsProtectionUISGateway extends AbstractVerticle {
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
 		CompositeFuture.all(
 				/* Set the routing manager regarding this capabilities domain for UI */
-				deployHelper(AreasAssetsProtectionCapabilitiesEntryPointHandler.class.getName()),
+				deployHelper(AreasAssetsProtectionSecurityCapabilitiesDispatcher.class.getName()),
 
 				/*
 				 * Set each handler of UI capability supported by this UI capabilities boundary
 				 */
-				deployHelper(DownloadReportHandler.class.getName()))// Add others
-		
+				deployHelper(DownloadReportProcessingCapabilityHandler.class.getName()))// Add others
+
 				.onComplete(handler -> {
 					if (handler.succeeded()) {
 						// All components started
-						System.out.println("All components are started with success");
+						System.out.println(AreasAssetsProtectionUISGateway.class.getSimpleName()
+								+ " components are started with success");
 						startPromise.complete();
 					} else {
 						// At least one component failed
-						System.out.println("At least one component start failed");
+						System.out.println(AreasAssetsProtectionUISGateway.class.getSimpleName()
+								+ " > at least one component start failed");
 					}
 				});
 	}
@@ -41,10 +43,10 @@ public class AreasAssetsProtectionVerticle extends AbstractVerticle {
 		Promise<Void> retVal = Promise.promise();
 		vertx.deployVerticle(verticleName, event -> {
 			if (event.succeeded()) {
-				System.out.println("Successly deployed: " + event.result());
+				System.out.println("AAP successly deployed: " + event.result());
 				retVal.complete();
 			} else {
-				System.out.println("Deployment failed: ");
+				System.out.println("AAP deployment failed: ");
 				event.cause().printStackTrace();
 				retVal.fail(event.cause());
 			}

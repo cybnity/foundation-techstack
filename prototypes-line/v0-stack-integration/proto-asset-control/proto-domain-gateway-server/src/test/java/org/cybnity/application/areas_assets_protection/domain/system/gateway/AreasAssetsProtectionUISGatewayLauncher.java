@@ -7,13 +7,13 @@ import io.vertx.core.Launcher;
  * IDE.
  *
  */
-public class AreasAssetsProtectionCapabilitiesLauncher {
+public class AreasAssetsProtectionUISGatewayLauncher {
 
-	public AreasAssetsProtectionCapabilitiesLauncher() {
+	public AreasAssetsProtectionUISGatewayLauncher() {
 	}
 
 	public static void main(String[] args) {
-		Launcher.executeCommand("run", AreasAssetsProtectionVerticle.class.getName());
+		Launcher.executeCommand("run", AreasAssetsProtectionUISGateway.class.getName());
 	}
 
 }

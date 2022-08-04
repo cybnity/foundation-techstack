@@ -23,7 +23,7 @@ public class TestAssetControlUICapabilities {
 	void deploy_verticle(Vertx vertx, VertxTestContext testContext) {
 		this.vertx = vertx;
 		this.context = testContext;
-		vertx.deployVerticle(new AreasAssetsProtectionVerticle(),
+		vertx.deployVerticle(new AreasAssetsProtectionUISGateway(),
 				testContext.succeeding(id -> testContext.completeNow()));
 	}
 

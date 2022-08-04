@@ -3,26 +3,25 @@ package org.cybnity.application.areas_assets_protection.domain.system.gateway.ca
 import java.util.LinkedList;
 import java.util.List;
 
+import org.cybnity.application.areas_assets_protection.UISecurityCapability;
 import org.cybnity.application.areas_assets_protection.domain.system.gateway.CapabilitiesBoundaryDestinationList;
 import org.cybnity.application.areas_assets_protection.domain.system.gateway.CapabilitySupportedEvent;
 import org.cybnity.infrastructure.common.event.Event;
 import org.cybnity.infrastructure.uis.adapter.impl.lettuce.PubSubChannelListener;
-import org.cybnity.infrastructure.uis.adapter.impl.lettuce.UISLettuceClient;
 
-import io.lettuce.core.RedisClient;
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
 
 /**
  * UI capability regarding the creation and download of a report about the
  * current status of an assets area.
  */
-public class DownloadReportHandler extends UISecurityCapability {
+public class DownloadReportProcessingCapabilityHandler extends UISecurityCapability {
 	private CapabilitiesBoundaryDestinationList routes;
 	private CapabilitySupportedEvent capabilityEntryPoint = CapabilitySupportedEvent.downloadReport;
 	private StatefulRedisPubSubConnection<String, String> connection;
 	private List<DownloadAssetReportListener> activeListeners = new LinkedList<DownloadAssetReportListener>();
 
-	public DownloadReportHandler() {
+	public DownloadReportProcessingCapabilityHandler() {
 		super();
 		routes = new CapabilitiesBoundaryDestinationList();
 	}
@@ -30,11 +29,9 @@ public class DownloadReportHandler extends UISecurityCapability {
 	@Override
 	protected void registerUsersInteractionsSpaceHandlers() throws Exception {
 		// Create the subscription consumer attached to UI capability (function)
-		UISLettuceClient space = uiSpace();
-		RedisClient client = space.redisClient();
 		// Attach the listener of channel to delegate treatment of each event relative
 		// to any capability
-		connection = client.connectPubSub();
+		connection = uiSpace().redisClient().connectPubSub();
 		// Create set of listener manager by this handler
 		activeListeners.add(new DownloadAssetReportListener(routes.recipient(capabilityEntryPoint.name()).name()));
 
@@ -53,9 +50,6 @@ public class DownloadReportHandler extends UISecurityCapability {
 			connection.async().unsubscribe(listener.monitoredChannel());
 			// remove listener from connection
 			connection.removeListener(listener);
-		}
-		if (connection != null && connection.isOpen()) {
-			connection.close();
 		}
 		super.stop();
 	}

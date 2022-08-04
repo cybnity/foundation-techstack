@@ -1,0 +1,260 @@
+version: '3.5'
+
+services:
+  # ZOOKEEPER CLUSTER
+  # see more details on https://github.com/bitnami/bitnami-docker-zookeeper
+  cybnity-dis-registry1:
+    image: 'bitnami/zookeeper:latest'
+    container_name: cybnity-dis-registry1
+    restart: always
+    expose:
+      # zookeeper client port (2181)
+      - 2181
+      - 3888
+    ports:
+      - '2181:2181'
+      # follower port (2888)
+      - '2888'
+      # election port (3888)
+      - '3888'
+      # adminserver port (8080)
+      #- '8080'
+    environment:
+      ZOO_SERVER_ID: 1
+      ZOO_SERVERS: 0.0.0.0:2888:3888,cybnity-dis-registry2:2888:3888,cybnity-dis-registry3:2888:3888
+      ALLOW_ANONYMOUS_LOGIN: 'yes'
+    networks:
+      - cybnity-domains-api-zone
+    volumes:
+      - 'zookeeper_data:/bitnami/zookeeper/systems-registry'
+
+  cybnity-dis-registry2:
+    image: 'bitnami/zookeeper:latest'
+    container_name: cybnity-dis-registry2
+    restart: always
+    expose:
+      - 2182
+      - 3888
+    ports:
+      - '2182:2181'
+      - '2888'
+      - '3888'
+    environment:
+      ZOO_SERVER_ID: 2
+      ZOO_SERVERS: cybnity-dis-registry1:2888:3888,0.0.0.0:2888:3888,cybnity-dis-registry3:2888:3888
+      ALLOW_ANONYMOUS_LOGIN: 'yes'
+    networks:
+      - cybnity-domains-api-zone
+    volumes:
+      - 'zookeeper_data:/bitnami/zookeeper/systems-registry'
+
+  cybnity-dis-registry3:
+    image: 'bitnami/zookeeper:latest'
+    container_name: cybnity-dis-registry3
+    restart: always
+    expose:
+      - 2183
+      - 3888
+    ports:
+      - '2183:2181'
+      - '2888'
+      - '3888'
+    environment:
+      ZOO_SERVER_ID: 3
+      ZOO_SERVERS: cybnity-dis-registry1:2888:3888,cybnity-dis-registry2:2888:3888,0.0.0.0:2888:3888
+      ALLOW_ANONYMOUS_LOGIN: 'yes'
+    networks:
+      - cybnity-domains-api-zone
+    volumes:
+      - 'zookeeper_data:/bitnami/zookeeper/systems-registry'
+
+
+  # KAFKA CLUSTER
+  # See https://github.com/bitnami/bitnami-docker-kafka for help
+  cybnity-kafka-events-broker1:
+    image: 'bitnami/kafka:latest'
+    container_name: cybnity-kafka-events-broker1
+    # Automatic restart of kafka instance if failure
+    restart: always
+    expose:
+      - 9092
+      - 9093
+      - 35001
+    ports:
+    # Kafka container can talk to itself on localhost:9092 (within the containers networking namespace)
+    # Consumers and Producers can talk to the Kafka broker using localhost:9092 address. This is because docker will generally bind the port to all interfaces (0.0.0.0) when it is published.
+      - '9092:9092'
+      - '9093:9093'
+      - '35001:35001'
+    environment:
+      # Kafka container can talk to Zookeeper via the zookeeper DNS entry that exists within the kafkadocker_default network
+      KAFKA_CFG_ZOOKEEPER_CONNECT: '192.168.60.13:2181,192.168.60.13:2182,192.168.60.13:2183'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CFG_LISTENERS: 'CLIENT://:9092,EXTERNAL://:9093'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'CLIENT://cybnity-kafka-events-broker1:9092,EXTERNAL://localhost:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'CLIENT'
+
+
+      #ALLOW_PLAINTEXT_LISTENER: Allow to use the PLAINTEXT listener. Default: no
+      #KAFKA_INTER_BROKER_USER: Kafka inter broker communication user. Default: admin. Default: user
+      #KAFKA_INTER_BROKER_PASSWORD: Kafka inter broker communication password. Default: bitnami
+      #KAFKA_CLIENT_USER: Kafka client user. Default: user
+      #KAFKA_CLIENT_PASSWORD: Kafka client user password. Default: bitnami
+      #KAFKA_ZOOKEEPER_USER: Kafka Zookeeper user. No defaults
+      #KAFKA_ZOOKEEPER_PASSWORD: Kafka Zookeeper user password. No defaults
+      #KAFKA_CERTIFICATE_PASSWORD: Password for certificates. No defaults.
+      #KAFKA_HEAP_OPTS: Kafka's Java Heap size. Default: -Xmx1024m -Xms1024m
+
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.60.13
+
+      #KAFKA_MESSAGE_MAX_BYTES: 2000000
+      #LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: DEBUG, authorizerAppender
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+      # JMX activation (see https://kafka.apache.org/documentation/#remote_jmx) override on deactivated by default Kafka configuration
+      KAFKA_JMX_PORT: 35001
+      # Define JMX hostname with docker machine ip
+      KAFKA_JMX_HOSTNAME: '192.168.60.13'
+      # Authentication is disabled for JMX by default in Kafka and security configs must be overridden for production deployments by KAFKA_JMX_OPTS environment variable
+      # Password authentication over the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) is enabled by default (see https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html)
+      KAFKA_JMX_OPTS: "-Djava.rmi.server.hostname=192.168.60.13 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # change for embedding into vm from DockerFile shell command in place of direct link to project directory
+      #- /certs
+      - 'kafka_data:/bitnami/kafka/cybnity-kafka-events-broker1'
+    networks:
+      - cybnity-domains-api-zone
+    # Activate image console
+    tty: true
+
+  cybnity-kafka-events-broker2:
+    image: 'bitnami/kafka:latest'
+    container_name: cybnity-kafka-events-broker2
+    # Automatic restart of kafka instance if failure
+    restart: always
+    expose:
+      - 9094
+      - 9095
+      - 35002
+    ports:
+    # Kafka container can talk to itself on localhost:9092 (within the containers networking namespace)
+    # Consumers and Producers can talk to the Kafka broker using localhost:9092 address. This is because docker will generally bind the port to all interfaces (0.0.0.0) when it is published.
+      - '9094:9092'
+      - '9095:9093'
+      - '35002:35001'
+    environment:
+      # Kafka container can talk to Zookeeper via the zookeeper DNS entry that exists within the kafkadocker_default network
+      KAFKA_CFG_ZOOKEEPER_CONNECT: '192.168.60.13:2181,192.168.60.13:2182,192.168.60.13:2183'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CFG_LISTENERS: 'CLIENT://:9092,EXTERNAL://:9093'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'CLIENT://cybnity-kafka-events-broker2:9092,EXTERNAL://localhost:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'CLIENT'
+
+
+      #ALLOW_PLAINTEXT_LISTENER: Allow to use the PLAINTEXT listener. Default: no
+      #KAFKA_INTER_BROKER_USER: Kafka inter broker communication user. Default: admin. Default: user
+      #KAFKA_INTER_BROKER_PASSWORD: Kafka inter broker communication password. Default: bitnami
+      #KAFKA_CLIENT_USER: Kafka client user. Default: user
+      #KAFKA_CLIENT_PASSWORD: Kafka client user password. Default: bitnami
+      #KAFKA_ZOOKEEPER_USER: Kafka Zookeeper user. No defaults
+      #KAFKA_ZOOKEEPER_PASSWORD: Kafka Zookeeper user password. No defaults
+      #KAFKA_CERTIFICATE_PASSWORD: Password for certificates. No defaults.
+      #KAFKA_HEAP_OPTS: Kafka's Java Heap size. Default: -Xmx1024m -Xms1024m
+
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.60.13
+
+      #KAFKA_MESSAGE_MAX_BYTES: 2000000
+      #LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: DEBUG, authorizerAppender
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+      # JMX activation (see https://kafka.apache.org/documentation/#remote_jmx) override on deactivated by default Kafka configuration
+      KAFKA_JMX_PORT: 35001
+      # Define JMX hostname with docker machine ip
+      KAFKA_JMX_HOSTNAME: '192.168.60.13'
+      # Authentication is disabled for JMX by default in Kafka and security configs must be overridden for production deployments by KAFKA_JMX_OPTS environment variable
+      # Password authentication over the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) is enabled by default (see https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html)
+      KAFKA_JMX_OPTS: "-Djava.rmi.server.hostname=192.168.60.13 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # change for embedding into vm from DockerFile shell command in place of direct link to project directory
+      #- /certs
+      - 'kafka_data:/bitnami/kafka/cybnity-kafka-events-broker2'
+    networks:
+      - cybnity-domains-api-zone
+    # Activate image console
+    tty: true
+
+  cybnity-kafka-events-broker3:
+    image: 'bitnami/kafka:latest'
+    container_name: cybnity-kafka-events-broker3
+    # Automatic restart of kafka instance if failure
+    restart: always
+    expose:
+      - 9096
+      - 9097
+      - 35003
+    ports:
+    # Kafka container can talk to itself on localhost:9092 (within the containers networking namespace)
+    # Consumers and Producers can talk to the Kafka broker using localhost:9092 address. This is because docker will generally bind the port to all interfaces (0.0.0.0) when it is published.
+      - '9096:9092'
+      - '9097:9093'
+      - '35003:35001'
+    environment:
+      # Kafka container can talk to Zookeeper via the zookeeper DNS entry that exists within the kafkadocker_default network
+      KAFKA_CFG_ZOOKEEPER_CONNECT: '192.168.60.13:2181,192.168.60.13:2182,192.168.60.13:2183'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CFG_LISTENERS: 'CLIENT://:9092,EXTERNAL://:9093'
+      KAFKA_CFG_ADVERTISED_LISTENERS: 'CLIENT://cybnity-kafka-events-broker3:9092,EXTERNAL://localhost:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'CLIENT'
+
+
+      #ALLOW_PLAINTEXT_LISTENER: Allow to use the PLAINTEXT listener. Default: no
+      #KAFKA_INTER_BROKER_USER: Kafka inter broker communication user. Default: admin. Default: user
+      #KAFKA_INTER_BROKER_PASSWORD: Kafka inter broker communication password. Default: bitnami
+      #KAFKA_CLIENT_USER: Kafka client user. Default: user
+      #KAFKA_CLIENT_PASSWORD: Kafka client user password. Default: bitnami
+      #KAFKA_ZOOKEEPER_USER: Kafka Zookeeper user. No defaults
+      #KAFKA_ZOOKEEPER_PASSWORD: Kafka Zookeeper user password. No defaults
+      #KAFKA_CERTIFICATE_PASSWORD: Password for certificates. No defaults.
+      #KAFKA_HEAP_OPTS: Kafka's Java Heap size. Default: -Xmx1024m -Xms1024m
+
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.60.13
+
+      #KAFKA_MESSAGE_MAX_BYTES: 2000000
+      #LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: DEBUG, authorizerAppender
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+      # JMX activation (see https://kafka.apache.org/documentation/#remote_jmx) override on deactivated by default Kafka configuration
+      KAFKA_JMX_PORT: 35001
+      # Define JMX hostname with docker machine ip
+      KAFKA_JMX_HOSTNAME: '192.168.60.13'
+      # Authentication is disabled for JMX by default in Kafka and security configs must be overridden for production deployments by KAFKA_JMX_OPTS environment variable
+      # Password authentication over the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) is enabled by default (see https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html)
+      KAFKA_JMX_OPTS: "-Djava.rmi.server.hostname=192.168.60.13 -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # change for embedding into vm from DockerFile shell command in place of direct link to project directory
+      #- /certs
+      - 'kafka_data:/bitnami/kafka/cybnity-kafka-events-broker3'
+    networks:
+      - cybnity-domains-api-zone
+    # Activate image console
+    tty: true
+
+volumes:
+  kafka_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+
+networks:
+  cybnity-domains-api-zone:
+    name: domains_io_area
+    driver: bridge

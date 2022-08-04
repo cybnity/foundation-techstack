@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities.UISecurityCapability;
+import org.cybnity.application.areas_assets_protection.UISecurityCapability;
 import org.cybnity.feature.areas_assets_protection.api.DomainsBoundaryDestinationList;
 import org.cybnity.feature.areas_assets_protection.api.DomainsBoundaryDestinationList.DelegatedDomainAPIChannel;
 import org.cybnity.feature.areas_assets_protection.api.UICapabilityChannel;
@@ -25,7 +25,7 @@ import io.vertx.core.json.Json;
  * forward and optional enhancement of the event required by the UI capabilities
  * boundary.
  */
-public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecurityCapability {
+public class AreasAssetsProtectionSecurityCapabilitiesDispatcher extends UISecurityCapability {
 
 	private CapabilitiesBoundaryDestinationList routes;
 	private DomainsBoundaryDestinationList otherDomainsChannels;
@@ -33,7 +33,7 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 	private StatefulRedisPubSubConnection<String, String> connection;
 	private List<EntryPointEventsListener> activeListeners = new LinkedList<EntryPointEventsListener>();
 
-	public AreasAssetsProtectionCapabilitiesEntryPointHandler() {
+	public AreasAssetsProtectionSecurityCapabilitiesDispatcher() {
 		super();
 		routes = new CapabilitiesBoundaryDestinationList();
 		otherDomainsChannels = new DomainsBoundaryDestinationList();
@@ -43,11 +43,9 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 	protected void registerUsersInteractionsSpaceHandlers() throws Exception {
 		// Create the subscription consumer attached to UIS events managed by this
 		// capabilities domain
-		UISLettuceClient space = uiSpace();
-		RedisClient client = space.redisClient();
 		// Attach the listener of channel to delegate treatment of each event relative
 		// to any capability
-		connection = client.connectPubSub();
+		connection = uiSpace().redisClient().connectPubSub();
 		// Create set of listener manager by this handler
 		activeListeners.add(new EntryPointEventsListener(apiEntryPoint.name()));
 
@@ -66,9 +64,6 @@ public class AreasAssetsProtectionCapabilitiesEntryPointHandler extends UISecuri
 			connection.async().unsubscribe(listener.monitoredChannel());
 			// remove listener from connection
 			connection.removeListener(listener);
-		}
-		if (connection != null && connection.isOpen()) {
-			connection.close();
 		}
 		super.stop();
 	}

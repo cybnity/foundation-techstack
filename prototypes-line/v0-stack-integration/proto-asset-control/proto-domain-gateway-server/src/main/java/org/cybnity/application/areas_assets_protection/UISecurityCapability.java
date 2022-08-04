@@ -1,6 +1,4 @@
-package org.cybnity.application.areas_assets_protection.domain.system.gateway.capabilities;
-
-import java.util.MissingResourceException;
+package org.cybnity.application.areas_assets_protection;
 
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory;
 import org.cybnity.infrastructure.uis.adapter.api.UISAdapterAbstractFactory.AdapterType;
@@ -9,18 +7,18 @@ import org.cybnity.infrastructure.uis.adapter.impl.lettuce.UISLettuceClient;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 
+/**
+ * Category of verticle dedicated to the UI layer and capabilities domain.
+ */
 public abstract class UISecurityCapability extends AbstractVerticle {
 
 	private UISLettuceClient uiSpace;
 	private AdapterType uisAdapterType = UISAdapterAbstractFactory.AdapterType.LETTUCE_ADAPTER;
 
 	/**
-	 * Default constructor reading configuration file.
-	 * 
-	 * @throws MissingResourceException When uis-adapter-config.properties file is
-	 *                                  not found in classpath.
+	 * Default constructor.
 	 */
-	public UISecurityCapability() throws MissingResourceException {
+	public UISecurityCapability() {
 		super();
 	}
 

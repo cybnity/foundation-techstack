@@ -7,11 +7,11 @@ package org.cybnity.feature.areas_assets_protection.api;
 public enum UICapabilityChannel {
 
 	/**
-	 * Boundary regarding the capabilities of Areas and Assets Protection
+	 * Boundary regarding the capabilities of Areas and Assets Protection domain.
 	 */
 	areas_assets_protection("aap"),
 	/**
-	 * UI Capability generating and downloading a report about a subject
+	 * UI Capability generating and downloading a report about a subject.
 	 */
 	aap_downloadReport("aapdp");
 

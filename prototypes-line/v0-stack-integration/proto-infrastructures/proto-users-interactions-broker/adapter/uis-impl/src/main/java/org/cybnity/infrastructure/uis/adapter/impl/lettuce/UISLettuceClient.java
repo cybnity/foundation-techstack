@@ -118,13 +118,13 @@ public class UISLettuceClient extends UISAbstractAdapterImpl implements UISAdapt
 	 * Free Lettuce resources.
 	 */
 	public void dispose() {
-		super.dispose();
 		if (connection != null && connection.isOpen()) {
 			connection.close();
 		}
 		if (redisClient != null) {
 			redisClient.shutdown();
 		}
+		super.dispose();
 	}
 
 	protected void sendAsyncCommand(String command) throws Exception {
