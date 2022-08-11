@@ -248,15 +248,16 @@ The acceptance level per differentiation criteria is evaluated as:
 | Eclipse Vert.x SockJS Client |OK| | | | | | |
 | Eclipse Vert.x Core |OK| |OK| | | | |
 | Eclipse Vert.x Web |OK| |OK| | | | |
-| Lettuce Redis Client|OK| |OK| | | | |
-| Eclipse Vert.x Redis Client|OK| |OK| | | | |
+| Lettuce Redis Client |OK| |OK| | | | |
+| Eclipse Vert.x Redis Client |OK| |OK| | | | |
+| Eclipse Vert.x Kafka Client |OK| |OK| | | | |
 | Redis |OK| |OK| | | | |
 | Apache Kafka |OK| |OK| | | |Administration vi web tool: CMAK cluster manager 2.4.0|
+| Apache Flink | | | | | | | |
 | Gravitee | | | | | | | |
 | Apache Directory Server | | | | | | | |
 | midPoint | | | | | | | |
 | Keycloack | | | | | | | |
-| Apache Flink | | | | | | | |
 | Apache Solr | | | | | | | |
 | MongoDB | | | | | | | |
 | Telegraf Agent | | | | | | | |
