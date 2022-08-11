@@ -12,9 +12,11 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 
 /**
- * Category of Verticle dedicated to the application layer and features domain.
+ * Category of Verticle dedicated to the application layer and features domain
+ * which managed a bridge between UIS and DIS spaces via two types of adapter
+ * (connectors).
  */
-public abstract class DomainSecurityFeature extends AbstractVerticle {
+public abstract class SecurityFeatureDomainBridge extends AbstractVerticle {
 
 	private UISLettuceClient uiSpace;
 	private AdapterType uisAdapterType = UISAdapterAbstractFactory.AdapterType.LETTUCE_ADAPTER;
@@ -24,7 +26,7 @@ public abstract class DomainSecurityFeature extends AbstractVerticle {
 	/**
 	 * Default constructor.
 	 */
-	public DomainSecurityFeature() {
+	public SecurityFeatureDomainBridge() {
 		super();
 	}
 

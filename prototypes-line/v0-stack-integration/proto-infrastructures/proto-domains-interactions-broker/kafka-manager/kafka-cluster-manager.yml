@@ -14,7 +14,7 @@ services:
     ports:
       - '9000:9000'
     environment:
-      ZK_HOSTS: 192.168.60.13:2181,192.168.60.13:2182,192.168.60.13:2183
+      ZK_HOSTS: cybnity-dis-registry1:2181,cybnity-dis-registry2:2182,cybnity-dis-registry3:2183
       APPLICATION_SECRET: 'random-secret'
       # Optional protection of web UI with basic authentication
       KAFKA_MANAGER_AUTH_ENABLED: 'true'
@@ -26,7 +26,7 @@ services:
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - 'kafka_manager_data:/agnet/kafka-cluster-manager'
+      - 'kafka_manager_data:/agnet/cybnity-dis-cluster-manager'
 
 volumes:
   kafka_manager_data:

@@ -15,11 +15,12 @@ public class AssetControlDomainIOGateway extends AbstractVerticle {
 				/* Set the routing manager regarding this domain api */
 				AssetControlSecurityFeaturesDispatcher.class.getName(), event -> {
 					if (event.succeeded()) {
-						System.out.println(AssetControlDomainIOGateway.class.getSimpleName() + " successly deployed: "
-								+ event.result());
+						System.out.println(AssetControlSecurityFeaturesDispatcher.class.getSimpleName()
+								+ " successly deployed: " + event.result());
 						startPromise.complete();
 					} else {
-						System.out.println(AssetControlDomainIOGateway.class.getSimpleName() + " deployment failed: ");
+						System.out.println(
+								AssetControlSecurityFeaturesDispatcher.class.getSimpleName() + " deployment failed: ");
 						event.cause().printStackTrace();
 						startPromise.fail(event.cause());
 					}

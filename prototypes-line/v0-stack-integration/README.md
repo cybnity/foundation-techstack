@@ -7,7 +7,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | TECHNOLOGY | VERSION | COMMENTS | HELP / SUPPORT |
 | :--- | :--- | :--- | :--- |
 | [ReactBootstrap](https://react-bootstrap.github.io/) |v2.4.0 (Bootstrap 5.1)| |- [Getting started](https://react-bootstrap.github.io/getting-started/introduction)|
-| [ReactJS](https://reactjs.org/) |18.1.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)|
+| [ReactJS](https://reactjs.org/) |18.1.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)<br>- [Node.js and NPM installation](https://nodejs.org/en/)<br>- [Node.js documentation](https://nodejs.org/docs/latest-v17.x/api/)|
 | [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1| |- POC state: OK build/run with Vert.x Web|
 | Eclipse Vert.x Web |4.3.2| |- [Documentation](https://vertx.io/docs/vertx-web/java/)<br>- POC state: OK build/run with Vert.x Core|
 | Eclipse Vert.x Core |4.3.2|Jackson Databind 2.13.2 required for POJO/JSON mapping of event via Redis channels|- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)<br>- POC state: OK build/run with Eclipse Temurin JDK/JRE|

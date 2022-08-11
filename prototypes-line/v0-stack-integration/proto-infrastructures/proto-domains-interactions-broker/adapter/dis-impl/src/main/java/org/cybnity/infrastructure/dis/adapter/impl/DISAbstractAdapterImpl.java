@@ -10,8 +10,8 @@ import org.cybnity.infrastructure.dis.adapter.impl.kafka.DISKafkaClient;
 
 public abstract class DISAbstractAdapterImpl implements DISAdapter {
 
-	protected static String disConfigFileName = "dis-adapter-config.properties";
-	protected Properties disAdapterSetting;
+	protected static String disConfigFileName = "dis-adapter-config";
+	protected Properties disAdapterConsumerSetting, disAdapterProducerSetting;
 	protected String refName;
 
 	public DISAbstractAdapterImpl() {
@@ -22,16 +22,34 @@ public abstract class DISAbstractAdapterImpl implements DISAdapter {
 		// Define adapter's options allowing capabilities to discuss with domains
 		// interactions space (don't use pool that avoid possible usable of channels
 		// subscription by handlers)
-		disAdapterSetting = new Properties();
-		try (InputStream input = DISKafkaClient.class.getClassLoader().getResourceAsStream(disConfigFileName)) {
+		disAdapterConsumerSetting = new Properties();
+		try (InputStream input = DISKafkaClient.class.getClassLoader()
+				.getResourceAsStream(disConfigFileName + "-consumer.properties")) {
 			if (input == null) {
-				throw new MissingResourceException("Missing " + disConfigFileName + " file in classpath",
-						DISKafkaClient.class.getName(), disConfigFileName);
+				throw new MissingResourceException(
+						"Missing " + disConfigFileName + "-consumer.properties file in classpath",
+						DISKafkaClient.class.getName(), disConfigFileName + "-consumer.properties");
 			}
 			// Load a properties file from class path, inside static method
-			disAdapterSetting.load(input);
+			disAdapterConsumerSetting.load(input);
 		} catch (IOException ex) {
-			throw new MissingResourceException(ex.getMessage(), DISKafkaClient.class.getName(), disConfigFileName);
+			throw new MissingResourceException(ex.getMessage(), DISKafkaClient.class.getName(),
+					disConfigFileName + "-consumer.properties");
+		}
+
+		disAdapterProducerSetting = new Properties();
+		try (InputStream input = DISKafkaClient.class.getClassLoader()
+				.getResourceAsStream(disConfigFileName + "-producer.properties")) {
+			if (input == null) {
+				throw new MissingResourceException(
+						"Missing " + disConfigFileName + "-producer.properties file in classpath",
+						DISKafkaClient.class.getName(), disConfigFileName + "-producer.properties");
+			}
+			// Load a properties file from class path, inside static method
+			disAdapterProducerSetting.load(input);
+		} catch (IOException ex) {
+			throw new MissingResourceException(ex.getMessage(), DISKafkaClient.class.getName(),
+					disConfigFileName + "-producer.properties");
 		}
 		refName = this.getClass().getSimpleName();
 	}
@@ -64,7 +82,7 @@ public abstract class DISAbstractAdapterImpl implements DISAdapter {
 	 * @return A password or null.
 	 */
 	protected String authPassword() {
-		return disAdapterSetting.getProperty("defaultUserPassword", null);
+		return disAdapterConsumerSetting.getProperty("defaultUserPassword", null);
 	}
 
 	@Override

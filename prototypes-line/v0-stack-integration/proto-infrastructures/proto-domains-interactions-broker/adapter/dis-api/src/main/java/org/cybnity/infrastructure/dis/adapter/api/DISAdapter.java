@@ -45,4 +45,13 @@ public interface DISAdapter {
 		PUB_SUB_MODE, STREAM;
 	}
 
+	/**
+	 * Create a channel.
+	 * 
+	 * @param channelName A mandatory name.
+	 * @return
+	 * @throws IllegalArgumentException When null or invalid channel name parameter.
+	 */
+	public void createChannel(String channelName) throws IllegalArgumentException;
+
 }
