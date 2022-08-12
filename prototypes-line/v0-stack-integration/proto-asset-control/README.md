@@ -30,13 +30,9 @@ The CYBNITY prototyped systems are managed into the Maven sub-project named __pr
 
 ### RTS Computation Unit server
 Start the RTS Computation Unit server __from the proto-rts-computation-unit-server__ Maven sub-project directory:
-- From Eclipse IDE
+- From Eclipse IDE (since src/test/java sub-directory), execute the `org.cybnity.application.asset_control.domain.system.AssetControlRTComputationUnitLauncher` class as Java application.
 
-  Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.domain.system.AssetControlRTComputationUnitLauncher` class as Java application.
-
-- or from shell command line
-
-  Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.asset_control.domain.system.AssetControlComputationUnit`.
+- or from shell command line (since the project's target sub-directory), execute the java main class with command line instruction  `java org.cybnity.application.asset_control.domain.system.AssetControlComputationUnit`.
 
 When start process is executed:
   - The RTS unit server instance is started and automatically connected to the Domains Interactions broker (Kafka);
@@ -44,13 +40,9 @@ When start process is executed:
 
 ### Domains Gateway servers
 __From the proto-domain-gateway-server__ Maven sub-project directory, start the multi domains gateway (simulating in one project a gateway about UI capabilities, and a gateway about the asset control features domain) which manage the start of 2 Vert.x Verticles dedicated to each gateway instance:
-- From Eclipse IDE
+- From Eclipse IDE (since src/test/java sub-directory), execute the `org.cybnity.application.MultipleDomainGatewayLauncher` class as Java application.
 
-  Since src/test/java sub-directory, execute the `org.cybnity.application.MultipleDomainGatewayLauncher` class as Java application.
-
-- or from shell command line
-
-  Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.MultipleDomainGateway`.
+- or from shell command line (since the project's target sub-directory), execute the java main class with command line instruction  `java org.cybnity.application.MultipleDomainGateway`.
 
 When start process is executed:
   - One UI capabilities gateway relative to Assets & Areas Protection is started (ready for process UI capabilities received from backend ui server over the Users Interactions Space);
@@ -60,13 +52,9 @@ When start process is executed:
 
 ### Backend UI server
 __From the proto-backend-ui-server__ Maven sub-project directory, start the backend service ensuring the web exposure of web UI, and CYBNITY prototype UI layer (e.g html/javascript, ui services API via Vert.x event bus over HTTP):
-- From Eclipse IDE
+- From Eclipse IDE (since src/test/java sub-directory), execute the `org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServerLauncher` class as Java application.
 
-  Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServerLauncher` class as Java application.
-
-- of from shell command line
-
-  Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServer`.
+- of from shell command line (since the project's target sub-directory), execute the java main class with command line instruction  `java org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServer`.
 
 When start process is executed:
   - The UI backend server instance is started and automatically expose an http service on port 8080;
