@@ -10,7 +10,7 @@
 All the prototype components are built and available into the local Maven artifacts repository.
 
 ### Proto backend UI server
-From shell command line:
+During coding activity of this component, the Vert.x modified contents can be considered by the runtime with the shell command lines:
 * Package the server service:
 
   ```shell
@@ -26,10 +26,9 @@ From shell command line:
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.
 
-### Prototyped CYBNITY systems
-The prototyped systems regarding CYBNITY components are managed into the Maven sub-project named proto-asset-control.
+The CYBNITY prototyped systems are managed into the Maven sub-project named proto-asset-control.
 
-#### RTS Computation Unit server
+### RTS Computation Unit server
 Start the RTS Computation Unit server from the proto-rts-computation-unit-server Maven sub-project directory:
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.domain.system.AssetControlRTComputationUnitLauncher` class as Java application.
@@ -40,7 +39,7 @@ When start process is executed:
   - The RTS unit server instance is started and automatically connected to the Domains Interactions broker (Kafka);
   - The java console output show the processed events received from the UI layer (e.g domain gateways) via all the integration chain.
 
-#### Domains Gateway servers
+### Domains Gateway servers
 From the proto-domain-gateway-server Maven sub-project directory, start the multi domains gateway (simulating in one project a gateway about UI capabilities, and a gateway about the asset control features domain) which manage the start of 2 Vert.x Verticles dedicated to each gateway instance:
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.MultipleDomainGatewayLauncher` class as Java application.
@@ -53,7 +52,7 @@ When start process is executed:
   - One applicative domain IO gateway relative to Asset Control domain is started (ready for process the security features supported by the Asset Control domain, coming from UI layer via the User Interactions Space and requiring dispatching on Domains Interactions space);
     - Its console output show the collected and dispatched to application layer.
 
-#### Backend UI server
+### Backend UI server
 From the proto-backend-ui-server Maven sub-project directory, start the backend service ensuring the web exposure of web UI, and CYBNITY prototype UI layer (e.g html/javascript, ui services API via Vert.x event bus over HTTP):
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServerLauncher` class as Java application.
