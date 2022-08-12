@@ -15,10 +15,7 @@ Start a cluster manager with docker-compose from shell command line:
 `docker-compose -f kafka-cluster-manager.yml up -d`
 
 ## RUN
-Connect from web browser to the UI console at `https://localhost:9000` and use the admin account:
+Connect from web browser to the UI console at `http://localhost:9000` and use the admin account:
 
-```
-login=manager
-
-password=manager
-```
+- login = manager
+- password = manager
