@@ -1,0 +1,1 @@
+package org.cybnity.application.areas_assets_protection.domain.system.gateway;

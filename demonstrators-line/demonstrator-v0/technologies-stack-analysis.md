@@ -1,5 +1,5 @@
 ## PURPOSE
-This section develop, document and elaborate detailed designs progressively using agreed-on and rapid agile development techniques, addressing all components (business processes and related automated and manual controls, supporting IT applications, infrastructure services and technology products, and partners/suppliers). Ensure that the detailed design includes internal and external SLAs and OLAs.
+This section develop, document and elaborate detailed design progressively using agreed-on and rapid agile development techniques, addressing all components (business processes and related automated and manual controls, supporting IT applications, infrastructure services and technology products, and partners/suppliers). Ensure that the detailed design includes internal and external SLAs and OLAs.
 
 This section presents the design specifications about the solutions and technology approved for build.
 
@@ -94,48 +94,51 @@ The current status of technology already in the analysis stream give a general v
 | UI | Web GUI CSS Components Library | [MaterializeCSS](https://github.com/Dogfalo/materialize) | `ALT 1` | | | UI widgets usable [with ReactJS](http://fullstackhybrid.com/using-materializecss-with-reactjs/) based on Google's Material Design that incorporates custom components to provide default stylings, 261 contributors |
 | UI | Web GUI CSS Components Library | [Pure CSS](https://github.com/pure-css/pure) | `ALT 2` | | | UI widget based on CSS as a set of small responsive CSS modules (minimalism and small size); can be integrated with bootstrap components, 66 contributors |
 | UI | Web GUI CSS Components Library | [Ulkit](https://github.com/uikit/uikit) | `ALT 3` | | | UI widget based on CSS [usable with reactive JS framework](https://getuikit.com/docs/javascript), MIT license, 34 contributors |
-| UI | Web GUI Reactive Frontend Library | [Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) | `WIN` | | | JavaScript event bus bridge to Vert.x server-side reactive services |
+| UI | Web GUI Reactive Frontend Library | [Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) | `WIN` | `WIN` | | JavaScript event bus bridge to Vert.x server-side reactive services |
 | UI | Web GUI Reactive Frontend Library | ReactJS | `WIN` | | | HTML/CSS view from rendering components based with data changes auto-refresh, according to a View / Presenter pattern approach |
-| UI | Client-Side Data Model Format | JSON | `WIN` | | | Data and command events (e.g Data Transform Object, domain events) |
-| UI | Server-Side Reactive Backend Server | Eclipse Vert.x | `WIN` | | | UI reactive services (e.g UI cockpit capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Redis client) with application(s) services layer via Application Domains Access Hub |
-| APPLICATION / DOMAIN | Users Interactions Space Library | Redis Connector | `WIN` | | | Embedded memory database (streamed events store) client for UI messages and application domains integration between UI layer and application layer; [Jedis](https://github.com/redis/jedis) java client for Redis cluster discovery |
+| UI | Client-Side Data Model Format | JSON | `WIN` | `WIN` | | Data and CQRS events (e.g Data Transform Object, Command/Query/Domain events) |
+| UI | Server-Side Reactive Backend Server | Eclipse Vert.x | `WIN` | `WIN` | | UI reactive services (e.g UI cockpit capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Vert.x Redis module) with application(s) services layer via Application Domains Access Hub |
+| APPLICATION / DOMAIN | Users Interactions Space Library | Redis Connector | `WIN` | | | Embedded memory database (streamed events store) client for UI messages and application domains integration between UI layer and application layer; Eclipse Vert.x Redis module, or Lettuce java client for Redis cluster discovery |
 | APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Connector | `WIN` | | | Embedded memory database (streamed events store) client for application domains events between applications and domains layer |
 | APPLICATION / DOMAIN | Domains Events Validation | [Kafka processors/consumers api](https://kafka.apache.org/) | `WIN` | | | Stateless Anti-Corruption Layer (e.g Application Services Layer), remote proxy, input/output ports executed into JVM with Kafka connector API (e.g Java client), validators of domain events (e.g quality and conformity control) |
 | APPLICATION / DOMAIN | Real-Time Stream Computation | Apache Flink | `WIN` | | | Cluster framework for stateful data processing, CEP, data pipeline job running into a Flink cluster, Saga [Pattern](https://microservices.io/patterns/data/saga.html) for transactional flow |
-| APPLICATION / DOMAIN | Real-Time Data Stream Computation | [Kafka Streams](https://kafka.apache.org/documentation/streams/) Client Library | `ALT` | | | Library for stateful data processing (e.g CYBNIYT process / feature modules) and pipeline running into independent application implementation |
+| APPLICATION / DOMAIN | Real-Time Data Stream Computation | [Kafka Streams](https://kafka.apache.org/documentation/streams/) Client Library | `ALT` | | | Library for stateful data processing (e.g CYBNITY process / feature modules) and pipeline running into independent application implementation |
 | APPLICATION / DOMAIN | Application Context Manager | Spring Core | `ALT` | | | Injection of dependency, configuration of assembled applicative components and technical services |
 | APPLICATION INFRASTRUCTURE | Services Discovery | Zookeeper Client | `WIN` | | | Client for discovery of services (e.g Kafka brokers) and/or to maintained configuration information (e.g service names, properties) as connector to contents |
 | APPLICATION INFRASTRUCTURE | Domains Interactions Space | [Kafka Cluster](https://kafka.apache.org/) | `WIN` | | | Distributed memory database in event-driven approach for management of domains inputs/outputs via embedded mode (distributed data cluster); [Kafka Backup](https://medium.com/@anatolyz/introducing-kafka-backup-9dc0677ea7ee) consists of two Connectors for Kafka Connect: One for Backup (Implemented as a Sink Connector) and one for the restore of data (Implemented as a Source Connector) |
-| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse OpenJ9 8/11 | `WIN` | | | Execution environment of application service layers; [Documentation](https://www.eclipse.org/openj9/docs/index.html) |
+| APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse Temurin JDK/JRE 11 | `WIN` | `WIN` | | Execution environment of application service layers; [Documentation](https://www.eclipse.org/openj9/docs/index.html); Temurin version managed by Eclipse project as successor of OpenJ9 (IBM) |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
 | APPLICATION INFRASTRUCTURE | Access Control & Single-Sign-On | [Keycloack](https://www.keycloak.org/) | `WIN` | | | Dynamic part of the IAM solution that works with the data in the real time; SAML2.0 protocol for user authentication with SSO |
 | APPLICATION INFRASTRUCTURE | Identity & Access Management | midPoint | `WIN` | | | IDM system implement integration part of the IAM solution that move the data around; maintain data in the directory service (identity store); Federation, RBAC or ABAC based on attributes; place to apply policies, such as Role-Based Access Control (RBAC), Segregation of Duties (SoD), and various policies for compliance with regulations; SPML (to create users/permissions as access provisioning) |
 | APPLICATION INFRASTRUCTURE | Identity Repository | Apache Directory Server | `WIN` | | | Identity Management (IDM) static part of the IAM solution that store the data (e.g in LDAP identities repository) |
 | APPLICATION INFRASTRUCTURE | Secrets Management | [Vault](https://www.vaultproject.io/) | `WIN` | | | PKI, credentials, passwords, api keys via secrets engines and authentication methods like JWT/LDAP/pki certif/Token for partners API integration/connectors |
-| INTEGRATION INFRASTRUCTURE | Users Interactions Space | Redis | `WIN` | | | Datastore with async ports and protocol for application exchanges (e.g domain events and requests); [Redis in action book](https://redis.com/ebook/redis-in-action/); [redis persistence](https://redis.com/redis-enterprise/technology/durable-redis/) |
+| INTEGRATION INFRASTRUCTURE | Users Interactions Space | Redis | `WIN` | `WIN` | | Datastore with async ports and protocol for application exchanges (e.g domain events and requests); [Redis in action book](https://redis.com/ebook/redis-in-action/); [redis persistence](https://redis.com/redis-enterprise/technology/durable-redis/) |
 | INTEGRATION INFRASTRUCTURE | Services Registry & Coordination | Apache Zookeeper | `WIN` | | | Services and data registry, configuration management with resources directory (e.g Kafka broker instances) |
 | INTEGRATION INFRASTRUCTURE | APIs Gateway & Management | Gravitee.io | `WIN` | | | HTTP Reverse Proxy, CYBNITY API access control, API documentation/management/analytics/administration/design for User Interface Layer access (e.g reverse proxy, load balancing, access policies) and external APIs connections management |
 | INTEGRATION INFRASTRUCTURE | Remote Services Integration | Resilience4J | `ALT WITHOUT SERVER-SIDE API GATEWAY` | | | Embedded library for integration with external APIs without APIs Gateway support (circuit breaker, rate limiting for executions/period, bulkhead for concurrent execution limitation, automatic retry of failed executions, timeout handling, successful result caching, fallback to result failures; add-on for Spring, Vert.x) |
 | INDEXING INFRASTRUCTURE | Contents Indexing & Search | Apache Solr | `WIN` | | | Lucene indexing and query of time series contents (e.g logs, backups), documents (e.g pdf) |
 | PERSISTENCE INFRASTRUCTURE | Activity / Event Logs Store | [InfluxDB](https://www.influxdata.com/) | `WIN` | | | Time series data platform as NoSQL database for efficient storage (write optimized) of systems' metrics, traces, events, and logs |
 | PERSISTENCE INFRASTRUCTURE | Streams State Async Backup | MongoDB | `WIN` | | | Autonomous dynamic backup/recovery of distributed data, collection-oriented repository |
-| PERSISTENCE INFRASTRUCTURE | In-Memory Data Grid | Infinispan | X | | In-memory distributed data store storing, managing, and processing data; [Doc](https://infinispan.org/) |
+| PERSISTENCE INFRASTRUCTURE | In-Memory Data Grid (Cluster Manager) | Infinispan | X | | In-memory distributed data store storing, managing, and processing data; [Doc](https://infinispan.org/) |
 | SECURITY INFRASTRUCTURE | Traffic Health, Configuration Mesh & Networking | Consul | `WIN FOR SERVER-SIDE` | | | Service registration and discovery, health checking, distributed key-value store, TLS, ACL to data & api, key generation, dynamic load balancing, multi-data centers support, data encryption, REST api, CLI, administration web-ui |
 | SECURITY INFRASTRUCTURE | Services Observability, Traffic & Security Monitoring | Istio | `ALT FOR SERVER-SIDE` | | | Settings mesh of container urls to maintain service information like track/monitor services, load balancing, services discovery and registration; competitor of Consul about several capabilities |
 | MONITORING INFRASTRUCTURE | Data Visualization & Alerting | Grafana | `WIN` | | | Dashboard, alert and analytics of systems events (from Activity/Event logs store) |
 | MONITORING INFRASTRUCTURE | System Monitoring | Telegraf Agent | `WIN` | | | Client-side agent installed on a system (e.g application, ui backend, microservice via Java client library, or pre-built agent) that push events (e.g metrics, logs, traces) to Activity/Event Logs Store |
-| OPERATING INFRASTRUCTURE | Linux Operating System | Ubuntu 64bits kernel | `WIN` | | | LTS minimal optimized version, security patch and vulnerability monitoring by Canonical |
-| OPERATING INFRASTRUCTURE | Executable System | Docker Image | `WIN` | | | Template of CYBNITY packaged system ready for run on a virtualized infrastructure (Infra-As-Code Execution type) |
+| OPERATING INFRASTRUCTURE | Linux Operating System | Ubuntu 64bits kernel | `ALT` | | | LTS minimal optimized version, security patch and vulnerability monitoring by Canonical |
+| OPERATING INFRASTRUCTURE | Linux Operating System | Alpine 64bits kernel | `WIN` | `WIN` | | Docker optimized |
+| OPERATING INFRASTRUCTURE | Executable System | Docker Image | `WIN` | `WIN` | | Template of CYBNITY packaged system ready for run on a virtualized infrastructure (Infra-As-Code Execution type) |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | MicroK8s | `WIN` | | | Kubernetes for laptop, local dev deployment |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Minikube | `ALT` | | | Kubernetes for laptop, local dev deployment |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator | `WIN FOR SERVER-SIDE` | | | Server deployment; execution of Flink functions/CEP/data stream processors, and of Docker images |
-| PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | `WIN` | | | |
+| PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | `WIN` | `WIN` | | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | ARM | `WIN` | | | |
 
 # Industrialization Tools
 | Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| BUILD TOOL | Components Build | Maven | `WIN` | | | Build (e.g application component), install and push into Artifacts Repository |
+| OPERATING TOOL | Kafka Cluster Manager| X | | | | |
+| BUILD TOOL | Components Build | Maven | `WIN` | `WIN` | | Build (e.g application component), install and push into Artifacts Repository |
+| BUILD TOOL | Components Build | Node.js & NPM | `WIN` | `WIN` | | JavaScript runtime built on Chrome's V8 JS engine for development/test of ReactJS application (e.g frontend webserver components) |
 | BUILD TOOL | System Docker Images Build | Skaffold | `WIN` | | | Build (e.g docker image template of packaged system ready for run) and push Docker image into artifacts repository (e.g Docker Hub) |
 | DELIVERY TOOL | Artifacts Repository | Nexus | `WIN` | | | Hosting and management of several artifact types (e.g packaged library) and versions (e.g jar versions) |
 | DELIVERY TOOL | Integrated Build / Delivery | HashiCorp Waypoint | X | | | Build, deploy, release and publish Docker application images on Kubernetes infrastructure |
@@ -161,6 +164,8 @@ The criteria checked about advantages (ADV) are:
 
 | CANDIDATE TECHNOLOGY | Description | Comments | ANALYSIS RESULT |
 | :--- | :--- | :--- | :--- |
+| Lettuce |Redis connector<br>**ADV01:** open source license<br>**ADV03:** Lettuce Core GitHub project [started](https://github.com/lettuce-io/lettuce-core/wiki/Getting-Started); [reactive api documentation](https://github.com/lettuce-io/lettuce-core/wiki/Reactive-API); compatible Redis client [with Vert.x](https://github.com/luciopaiva/vertx-lettuce-redis-client); Pedagogy documentations like [Introduction to Java Redis client](https://www.baeldung.com/java-redis-lettuce), how to use [HSET of a JSON](https://redis.com/redis-best-practices/data-storage-patterns/object-hash-storage/), [distributed events](https://redis.com/redis-best-practices/communication-patterns/distributed-events/) with Redis|**Advantage:** easy to use, integrated with Vert.x or reusable in standard Java component, documented|`OK`|
+| Jedis | |! Jedis uses blocking I/O and method calls are synchronous. An action flow is required to wait until I/O is handled by the sockets. There's no asynchronous (Future, CompletableFuture) or reactive support (RxJava Observable or Reactive Stream Publisher). Jedis client instances are not thread-safe hence they require connection-pooling (Jedis instance per calling thread).<br>-Need to implement high-level features by using Redis API to have full control over the commands invoked and the resulting behavior.|`OK`|
 | [Gravitee](https://www.gravitee.io/) |[API Gateway](https://www.gravitee.io/platform/api-management) and designer of API; API Access Management<br>![image](graviteeio-am-overview-global-architecture.png)<br>![image](graviteeio-global-architecture.png)<br>**ADV01:** Apache 2 license; several projects [on github](https://github.com/gravitee-io)<br>**ADV02:** Docker image, Kubernetes, Amazon AWS <br>**ADV03:** several protocols supported (e.g SOAP, REST, RabbitMQ, Webhooks, gRPC, Kafka); [API Designer](https://www.gravitee.io/platform/api-designer?hsLang=en); automatically generates OpenAPI documentation; testing and validation (dynamically generated mock data to test new variables and features); export API specifications as a JSON, access policies (50 pre-built policies) via policy studio for create APIs policy; several protocols supported<br>![image](gravitee-eda-service-mgt.png); load balancing and failover; api debugger; [access mgt](https://www.gravitee.io/platform/access-management?hsLang=en) and api security (authentication and authorization services for seamless, secure APIs); API observability (monitor and secure the entire API landscape with Gravitee’s Alert Engine); [several protocols supported](https://github.com/gravitee-io/gravitee-access-management) for access mgt (e.g SAML 2, OpenID); Gravitee Cockpit is a centralized, multi-environment tool for managing all the Gravitee API Management and Access Management installations<br>![image](gravitee-cockpit-dashboard.png); several [plugins](https://docs.gravitee.io/apim/1.x/apim_overview_plugins.html)<br>![image](graviteeio-platform-architecture.png)<br>**ADV04:** support by gravitee team (STS and LTS support)|**Advantage:** features, security protocols supported, [large documentation](https://docs.gravitee.io/); better than Kong (UI available in OSS edition, multiple-protocol proxying, API Developer Portal in OSS edition, header based routing in OSS, policy application, native multi-factor authentication, native support for biometric authentication), OAuth2 introspection and mTLS AuthN included in OSS|`COOL`|
 | [API Umbrella](https://github.com/NREL/api-umbrella) |API management platform for exposing web service APIs; For API creator (acts as a layer above your APIs; API code doesn't need to be modified to take advantage of the features provided; scale the APIs); for API consumer (unify disparate APIs and present separate APIs as a cohesive offering to API consumers; all the APIs are can be accessed using the same API key credentials; standardize documentation with all APIs documented in a single place and in a similar fashion); see [architecture](https://api-umbrella.readthedocs.io/en/latest/developer/architecture.html) about gatekeeper mode<br>![image](api-umbrella-components.png)<br>**ADV01:** MIT license<br>**ADV02:** Linux installations; Docker<br>**ADV03:** web console for APIs administration; analytics menu; HTTP caching layer in front of the APIs (using [Apache Traffic Server(https://trafficserver.apache.org/) HTTP 1/2 caching proxy server); headers can optionally be used to identify details about the requesting user; “roles” feature can be used to restrict access to APIs so that only certain API keys may access the API; HTTPS configuration (handle the SSL termination with that external load balancer; SSL certificate installation); SMTP settings; Elastic search/mongoDB for load balancer / clustering features; rate limits|**Advantage:** simple and focus on essential for api admin, over web console or REST API<br>**Disadvantage:** small area of analytics view; no features about security control/monitoring|`KO`|
 | MicroK8s |Automates or simplifies operations such as deployment, clustering, and enabling of auxiliary services required for a production-grade K8s environment. Compared to other lightweight distributions MicroK8s is the only option that provides a single-command installation, automatic high availability clustering and automatic updates<br>**ADV02:** x86/ARM64; multi-node cluster support; automatic high availability; automatic updates; memory requirements 540MB; the isolation is achieved by packaging all the binaries for Kubernetes, Docker.io, iptables, and CNI in a single snap package (available only in Ubuntu and compatible distributions)<br>**ADV03:** container runtimes (containerd, kata); transactional over-the-air patching and security fixes, provided through the snap package<br>**ADV04:** developed by Kubernetes teams of Canonical and supported by Canonical|**Advantage:** easy to install, upgrade, remove; completely isolated from other tools in a machine<br>**Disadvantage:** only via [Snap](https://snapcraft.io/snapd)|`OK`|
@@ -239,29 +244,31 @@ The acceptance level per differentiation criteria is evaluated as:
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | ReactBootstrap | | | | | | | |
-| Eclipse Vert.x SockJS Client | | | | | | | |
 | ReactJS | | | | | | | |
-| Eclipse Vert.x Core | | | | | | | |
-| Eclipse Vert.x Web | | | | | | | |
+| Eclipse Vert.x SockJS Client |OK| | | | | | |
+| Eclipse Vert.x Core |OK| |OK| | | | |
+| Eclipse Vert.x Web |OK| |OK| | | | |
+| Lettuce Redis Client |OK| |OK| | | | |
+| Eclipse Vert.x Redis Client |OK| |OK| | | | |
+| Eclipse Vert.x Kafka Client |OK| |OK| | | | |
+| Redis |OK| |OK| | | | |
+| Apache Kafka |OK| |OK| | | |Administration vi web tool: CMAK cluster manager 2.4.0|
+| Apache Flink | | | | | | | |
 | Gravitee | | | | | | | |
 | Apache Directory Server | | | | | | | |
 | midPoint | | | | | | | |
 | Keycloack | | | | | | | |
-| Jedis | | | | | | | |
-| Redis | | | | | | | |
-| Apache Kafka | | | | | | | |
-| Apache Flink | | | | | | | |
 | Apache Solr | | | | | | | |
 | MongoDB | | | | | | | |
 | Telegraf Agent | | | | | | | |
 | Grafana | | | | | | | |
 | InfluxDB | | | | | | | |
-| Apache Zookeeper | | | | | | | |
+| Apache Zookeeper |OK| |OK| | | | |
 | Liberica JDK | | | | | | | |
-| Eclipse OpenJ9 8/11 JRE | | | | | | | |
+| Eclipse OpenJ9 8/11 JRE |OK| | | | | | |
 | Consul | | | | | | | |
-| Linux Ubuntu LTS (minimal for Docker)| | | | | | | |
-| Docker | | | | | | | |
+| Linux Alpine |OK| | | | | | |
+| Docker |OK| | | | | | |
 | MicroK8s | | | | | | | |
 | Kubernetes | | | | | | | |
 

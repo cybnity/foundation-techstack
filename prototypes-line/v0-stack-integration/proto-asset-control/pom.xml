@@ -10,12 +10,33 @@
 	<groupId>org.cybnity.techstack.prototypes</groupId>
 	<artifactId>asset-control</artifactId>
 	<packaging>pom</packaging>
-	<name>- CYBNITY Domain's MVF POC</name>
-	
+	<name>CYBNITY Domain's MVF POC</name>
+
 	<modules>
+		<!-- Domain application components projects-->
+		<module>application</module>
+		<module>features</module>
+		<!-- Domain systems assembly projects -->
 		<module>proto-rts-computation-unit-server</module>
 		<module>proto-domain-gateway-server</module>
 		<module>proto-backend-ui-server</module>
 		<module>proto-frontend-ui-server</module>
 	</modules>
+
+	<properties>
+		<maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

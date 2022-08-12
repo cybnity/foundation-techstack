@@ -7,8 +7,11 @@
 		<relativePath>..</relativePath>
 	</parent>
 
-	<groupId>org.cybnity.techstack.prototypes.infrastructures</groupId>
+	<groupId>org.cybnity.techstack.prototypes.infrastructure</groupId>
 	<artifactId>users-interactions-broker</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>  - Users Interactions Broker</name>
+	<modules>
+		<module>adapter</module>
+	</modules>
 </project>

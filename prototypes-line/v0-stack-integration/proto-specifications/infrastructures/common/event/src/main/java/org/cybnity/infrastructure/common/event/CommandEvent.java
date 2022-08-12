@@ -1,7 +1,7 @@
 package org.cybnity.infrastructure.common.event;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Based on the CQRS (Command Query Responsibility Segregation) pattern, a
@@ -19,7 +19,15 @@ import java.util.List;
  * simpler, more efficient, more maintainable code. Also help programmers be
  * more specific passing values to the functions to prevent unknown behavior.
  */
-public interface CommandEvent extends Event {
+public class CommandEvent extends CommonEvent implements InputParameterProvider {
+	public List<CommandEvent> successor;
+	public Map<String, String> outParameters;
+	public Map<String, String> refParameters;
+	public Map<String, String> inParameters;
+
+	public CommandEvent() {
+		super();
+	}
 
 	/**
 	 * Get ordered list of operations that are requested to be executed.
@@ -29,21 +37,9 @@ public interface CommandEvent extends Event {
 	 *         operations to perform) to execute. Null if none (only this current
 	 *         command event is requested to be treated).
 	 */
-	public List<CommandEvent> successor();
-
-	/**
-	 * Get the incoming parameter available for only read about their value. If a
-	 * parameter is passed by value, it is okay not passing variable as const as the
-	 * function will have a local variable to perform operations. To avoid copying,
-	 * passing by reference is preferred, therefore it is recommended to use const
-	 * to prevent any changes. This set of parameters passed CANNOT be modified by
-	 * the executed command.
-	 * 
-	 * @return A list of readable parameters. When existing, each parameter had been
-	 *         initialized before being passed to the command executor. Null when
-	 *         command without any input parameter.
-	 */
-	public HashMap<String, String> inParameters();
+	public List<CommandEvent> successor() {
+		return this.successor;
+	}
 
 	/**
 	 * Get the outgoing parameters that the function to execute does not require to
@@ -57,7 +53,9 @@ public interface CommandEvent extends Event {
 	 *         by the executed command. Null when none predetermined are requested
 	 *         to be delivered.
 	 */
-	public HashMap<String, String> outParameters();
+	public Map<String, String> outParameters() {
+		return this.outParameters;
+	}
 
 	/**
 	 * Get the reference parameters that the function to execute does not require to
@@ -72,5 +70,12 @@ public interface CommandEvent extends Event {
 	 *         initialized before being passed to the command executor. Null when
 	 *         none predetermined are requested to be delivered.
 	 */
-	public HashMap<String, String> refParameters();
+	public Map<String, String> refParameters() {
+		return this.refParameters;
+	}
+
+	@Override
+	public Map<String, String> inParameters() {
+		return this.inParameters;
+	}
 }

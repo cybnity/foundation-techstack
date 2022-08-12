@@ -1,0 +1,16 @@
+# The final base image regarding Redis instance (based on https://hub.docker.com/_/redis?tab=description)
+FROM redis:7.0.4-alpine
+
+MAINTAINER Olivier Lemée
+
+# Add an external ACL file including the specific user accounts, permissions, authentication secret passwords usable by other CYBNITY systems (e.g backend server, gateways)
+COPY redis-7.0-users.acl /etc/redis/users.acl
+
+# Add a redis.conf (doc on https://redis.io/docs/manual/config/) from the context into /data/ directory
+COPY redis-7.0.conf /usr/local/etc/redis/redis.conf
+
+# Open ports
+# Default Redis TCP port
+EXPOSE 6379
+
+CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]

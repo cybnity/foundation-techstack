@@ -1,0 +1,38 @@
+# Build and run the Redis container with docker-compose
+version: '3.9'
+services:
+  redis:
+    build:
+      context: .
+      dockerfile: Dockerfile-redis
+    image: agnet/cybnity-redis-distribution
+    container_name: cybnity-users-interactions-space
+    volumes:
+      - type: volume
+        source: data
+        target: /home/data
+    ports:
+      # Map the host port with the container port HOST:CONTAINER
+      - 6379:6379
+    expose:
+      # Expose Redis default port without publishing to the host machine, but will be exposed to the containers networks
+      - 6379
+    networks:
+      - cybnity-dmz
+    # Allow command entry
+    #stdin_open: true
+
+    # Activate image console
+    tty: true
+networks:
+  # Specify custom network and network drivers about DMZ zone
+  cybnity-dmz:
+    name: user_interfaces_area
+  #sandbox:
+  # Configure the default network instead of customizing
+  #default:
+   # external:
+    #  cybnityprima
+volumes:
+  data:
+    #external: true

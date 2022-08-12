@@ -67,21 +67,20 @@
 	eb.onopen = function() {
 	 
 	 // Set a handler to receive UI capabilities answers over the event bus
-	 eb.registerHandler('assetcontrol.out', (error, message) => {
+	 eb.registerHandler('aap.out', (error, message) => {
 	   console.log('received a message from assetcontrol.out: ' + JSON.stringify(message));
 	 });
 	
 	 eb.enableReconnect(true);
 	 
 	 // Send a message without parameter
-	 eb.send('assetcontrol.isAlive', {});
+	 eb.send('aap.isAlive', {});
 	
 	 // Send requests including parameter (according to the address permissions) about capability to execute
-	 eb.send('assetcontrol.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset', description: 'Development backend server'}});
-	 eb.send('assetcontrol.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'QueryEvent', inParameters: {domain: 'assetcontrol', name: 'cybnity-backend-server1', type: 'asset'}, outParameters: {}, refParameters: {}});
-	 
-	 //eb.send('assetcontrol.in', {cqrs: 'query', domain: 'asset', correlationId: generateUUIDUsingMathRandom(), uid: '123'});
-	 
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'createAsset', inParameters: {domain: 'asset_control', name: 'cybnity-backend-server1', type: 'asset', description: 'Development backend server'}});
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'QueryEvent', name: 'findAssets', inParameters: {domain: 'asset_control', name: 'cybnity-backend-server1', type: 'asset'}});
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'downloadReport', inParameters: {domain: 'areas_assets_protection', reportName: 'Server 1 Status', type: 'asset', output: 'pdf'}});
+	 eb.send('aap.in', {occurredOn: '', correlationId: generateUUIDUsingMathRandom(), id: generateUUIDUsingMathRandom(), type: 'CommandEvent', name: 'downloadReport', inParameters: {domain: 'aap', reportName: 'Server 2 Status', type: 'asset', output: 'png'}});
 	}
 	
 	eb.onreconnect = function() {}; // Optional, will only be called on re-connections
