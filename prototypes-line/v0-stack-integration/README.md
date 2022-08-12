@@ -86,7 +86,7 @@ flowchart LR
 
 ## SYSTEMS IMPLEMENTATION PROJECTS
 The implementation projects are managed over several sub-directories:
-- [proto-asset-control](proto-asset-control/README.md) regarding CYBNITY prototypes domains;
+- [proto-asset-control](proto-asset-control/README.md) regarding CYBNITY prototyped domains;
 - [proto-infrastructures](proto-infrastructures/README.md) regarding the technical and transversal services.
 
 ## TECHNOLOGY
