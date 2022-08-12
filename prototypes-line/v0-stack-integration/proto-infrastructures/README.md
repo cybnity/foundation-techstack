@@ -6,7 +6,7 @@ Several projects are managed regarding each technical service that make sens for
 
 Each infrastructure system implementation source codes is accessible per sub-directory:
 - [proto-containers](proto-containers) (usable generic container type as runtime sub-layer with OS)
-  - [javaruntime-container](javaruntime-container)
+  - [javaruntime-container](proto-containers/javaruntime-container/README.md)
 - [proto-domains-interactions-broker](proto-domains-interactions-broker) (Kafka broker type and additional tools allowing management)
 - [proto-event-logging-server](proto-event-logging-server)
 - [proto-iam-server](proto-iam-server)
