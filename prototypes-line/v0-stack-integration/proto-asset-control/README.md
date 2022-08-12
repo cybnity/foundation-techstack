@@ -1,7 +1,7 @@
-# CYBNITY PROTOTYPE SYSTEMS DEPLOYMENT & START
+# CYBNITY PROTOTYPE SYSTEMS DEPLOYMENT & RUN
 ## BUILD OF COMPONENTS & SYSTEMS
 ### Java components build
-* From shell command line executed in the root directory:
+* From shell command line executed from the [root directory](../):
 
   ```shell
   mvn clean install
