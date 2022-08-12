@@ -66,7 +66,7 @@ flowchart LR
 	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 1.3: createAsset event --> asset_control_api;
 	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 2.3: findAsset event --> asset_control_api;
 	asset_control_api --> AssetControlSecurityFeaturesDispatcher;
-	AssetControlSecurityFeaturesDispatcher -- 1.4: createAsset command --> ac_createAsset --> CreateAssetFeature;
+	AssetControlSecurityFeaturesDispatcher -- 1.4: createAsset command --> ac_createAsset -- 1.5: createAsset event --> CreateAssetFeature;
 	AssetControlSecurityFeaturesDispatcher -- 2.4: findAssets query --> ac_findAssets;
 
 	uibackend:::componentlayer;
