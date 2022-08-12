@@ -26,12 +26,13 @@ During coding activity of this component, the Vert.x modified contents can be co
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.
 
-The CYBNITY prototyped systems are managed into the Maven sub-project named proto-asset-control.
+The CYBNITY prototyped systems are managed into the Maven sub-project named __proto-asset-control__.
 
 ### RTS Computation Unit server
-Start the RTS Computation Unit server from the proto-rts-computation-unit-server Maven sub-project directory:
+Start the RTS Computation Unit server __from the proto-rts-computation-unit-server__ Maven sub-project directory:
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.domain.system.AssetControlRTComputationUnitLauncher` class as Java application.
+
 - or from shell command line
   Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.asset_control.domain.system.AssetControlComputationUnit`.
 
@@ -40,9 +41,10 @@ When start process is executed:
   - The java console output show the processed events received from the UI layer (e.g domain gateways) via all the integration chain.
 
 ### Domains Gateway servers
-From the proto-domain-gateway-server Maven sub-project directory, start the multi domains gateway (simulating in one project a gateway about UI capabilities, and a gateway about the asset control features domain) which manage the start of 2 Vert.x Verticles dedicated to each gateway instance:
+__From the proto-domain-gateway-server__ Maven sub-project directory, start the multi domains gateway (simulating in one project a gateway about UI capabilities, and a gateway about the asset control features domain) which manage the start of 2 Vert.x Verticles dedicated to each gateway instance:
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.MultipleDomainGatewayLauncher` class as Java application.
+
 - or from shell command line
   Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.MultipleDomainGateway`.
 
@@ -53,9 +55,10 @@ When start process is executed:
     - Its console output show the collected and dispatched to application layer.
 
 ### Backend UI server
-From the proto-backend-ui-server Maven sub-project directory, start the backend service ensuring the web exposure of web UI, and CYBNITY prototype UI layer (e.g html/javascript, ui services API via Vert.x event bus over HTTP):
+__From the proto-backend-ui-server__ Maven sub-project directory, start the backend service ensuring the web exposure of web UI, and CYBNITY prototype UI layer (e.g html/javascript, ui services API via Vert.x event bus over HTTP):
 - From Eclipse IDE
   Since src/test/java sub-directory, execute the `org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServerLauncher` class as Java application.
+  
 - of from shell command line
   Since the project's target sub-directory, execute the java main class with command line instruction  `java org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServer`.
 
