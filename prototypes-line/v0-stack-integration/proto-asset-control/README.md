@@ -31,7 +31,57 @@ The CYBNITY prototyped systems are managed into the Maven sub-project named __pr
 The systems are integrated according to an even-based architecture supported by an integration chain of events (e.g Command, Query, Notification):
 
 ```mermaid
+flowchart LR
+	subgraph cybnity_systems[POC CYBNITY systems]
+		subgraph uibackend[Proto Backend UI Server]
+			AreasAssetsProtectionUICapabilityHandler:::system;
+		end
+		subgraph areasassetsprotectiongateway[Proto Domain Gateways Server]
+			AreasAssetsProtectionSecurityCapabilitiesDispatcher:::system;
+			DownloadReportProcessingCapabilityHandler:::system;
+			AssetControlSecurityFeaturesDispatcher:::system;
+		end
+		subgraph assetcontrol_cpunit[Proto RTS Computation Unit Server]
+			CreateAssetFeature:::system;
+		end
+	end
+	subgraph dmbroker[Domains Interactions Space]
+		ac_createAsset:::techcomp;
+		ac_findAssets:::techcomp;
+	end
+	subgraph uibroker[Users Interactions Space]
+		aapdp[aap_downloadReport]:::techcomp;
+		aap[areas_assets_protection]:::techcomp;
+		asset_control_api[asset_control]:::techcomp;
+	end
+	subgraph busbroker[localhost:8080/eventbus]
+		aap_in[aap.in]:::techcomp;
+		aap_out[aap.out]:::techcomp;
+	end
+	AreasAssetsProtectionUICapabilityHandler -- 1.2, 2.2 : in progress notification --> aap_out;
+	aap_in -- 2: findAssets query --> AreasAssetsProtectionUICapabilityHandler -- 2.1 findAsset event --> aap --> AreasAssetsProtectionSecurityCapabilitiesDispatcher;
+	aap_in -- 1: createAsset command --> AreasAssetsProtectionUICapabilityHandler -- 1.1 createAsset event --> aap --> AreasAssetsProtectionSecurityCapabilitiesDispatcher;
+	aap_in -- 3: downloadReport command --> AreasAssetsProtectionUICapabilityHandler;
+	AreasAssetsProtectionUICapabilityHandler -- 3.1 downloadReport event --> aapdp --> DownloadReportProcessingCapabilityHandler;
+	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 1.3: createAsset event --> asset_control_api;
+	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 2.3: findAsset event --> asset_control_api;
+	asset_control_api --> AssetControlSecurityFeaturesDispatcher;
+	AssetControlSecurityFeaturesDispatcher -- 1.4: createAsset command --> ac_createAsset --> CreateAssetFeature;
+	AssetControlSecurityFeaturesDispatcher -- 2.4: findAssets query --> ac_findAssets;
 
+	uibackend:::componentlayer;
+	areasassetsprotectiongateway:::componentlayer;
+	assetcontrol_cpunit:::componentlayer;
+	busbroker:::area;
+	uibroker:::area;
+	dmbroker:::area;
+	cybnity_systems:::techsys;
+
+	classDef system fill:#3a5572,stroke:#3a5572,color:#fff;
+	classDef componentlayer fill:#97A5B5,stroke:#97A5B5,color:#fff;
+	classDef techcomp fill:#fff,stroke:#3a5572,color:#3a5572;
+	classDef techsys fill:#fff,stroke:#e5302a,color:#e5302a;
+	classDef area fill:#fff,stroke:#3a5572,color:#3a5572,stroke-width:1px,stroke-dasharray: 5 5;
 ```
 
 ### RTS Computation Unit server
