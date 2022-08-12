@@ -35,8 +35,9 @@ or
 `docker kill agnet/cybnity-redis-distribution`
 
 #### Tool for view of stored data
-After success start of Redis docker image (project proto-infrastructures/proto-users-interactions-broker/redis-container), install a Redis desktop manager/browser allowing to navigate into the Redis database
-- [Redisinsight](https://developer.redis.com/explore/redisinsightv2/getting-started/#step-1-download-redisinsight)
+After success start of Redis docker image, install a Redis desktop manager/browser on a workstation that allow to navigate into the Redis database:
+
+- like [Redisinsight](https://developer.redis.com/explore/redisinsightv2/getting-started/#step-1-download-redisinsight)
 
 - or use redis-cli from started Redis image's console
 
