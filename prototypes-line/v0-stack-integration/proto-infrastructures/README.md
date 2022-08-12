@@ -8,6 +8,8 @@ Each infrastructure system implementation source codes is accessible per sub-dir
 - [proto-containers](proto-containers) (usable generic container type as runtime sub-layer with OS)
   - [javaruntime-container](proto-containers/javaruntime-container/README.md)
 - [proto-domains-interactions-broker](proto-domains-interactions-broker) (Kafka broker type and additional tools allowing management)
+  - [kafka-broker](proto-domains-interactions-broker/kafka-broker/README.md)
+  - [kafka-manager](proto-domains-interactions-broker/kafka-manager/README.md)
 - [proto-event-logging-server](proto-event-logging-server)
 - [proto-iam-server](proto-iam-server)
 - [proto-secret-mgt-server](proto-secret-mgt-server)

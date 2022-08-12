@@ -1,4 +1,0 @@
-# Commands help (see http://wurstmeister.github.io/kafka-docker/)
-
-# Start a cluster:
-docker-compose -f kafka-single-instance.yml up -d
