@@ -28,6 +28,12 @@ The start of [infrastructure services](../proto-infrastructures/README.md) is __
 
 The CYBNITY prototyped systems are managed into the Maven sub-project named __proto-asset-control__.
 
+The systems are integrated according to an even-based architecture supported by an integration chain of events (e.g Command, Query, Notification):
+
+```mermaid
+
+```
+
 ### RTS Computation Unit server
 Start the RTS Computation Unit server __from the proto-rts-computation-unit-server__ Maven sub-project directory:
 - From Eclipse IDE (since src/test/java sub-directory), execute the `org.cybnity.application.asset_control.domain.system.AssetControlRTComputationUnitLauncher` class as Java application.
