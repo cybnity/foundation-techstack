@@ -7,6 +7,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 
 /**
  * Start a composition of gateway Verticles implemented for the POC as unique
@@ -14,6 +15,16 @@ import io.vertx.core.Promise;
  * gateway, Security features domain gateway).
  */
 public class MultipleDomainGateway extends AbstractVerticle {
+
+	/**
+	 * Default start method regarding the server.
+	 * 
+	 * @param args None pre-required.
+	 */
+	public static void main(String[] args) {
+		Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new MultipleDomainGateway());
+	}
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {

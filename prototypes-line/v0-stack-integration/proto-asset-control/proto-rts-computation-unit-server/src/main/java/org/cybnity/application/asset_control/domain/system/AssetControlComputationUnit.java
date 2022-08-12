@@ -4,12 +4,23 @@ import org.cybnity.application.asset_control.services.CreateAssetFeature;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 
 /**
  * Start a composition of gateway Verticle supporting the Application security
  * services provided by the processing units of the Asset Control domain.
  */
 public class AssetControlComputationUnit extends AbstractVerticle {
+
+	/**
+	 * Default start method regarding the server.
+	 * 
+	 * @param args None pre-required.
+	 */
+	public static void main(String[] args) {
+		Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new AssetControlComputationUnit());
+	}
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {

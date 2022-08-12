@@ -4,9 +4,20 @@ import org.cybnity.application.asset_control.ui.system.backend.routing.Capabilit
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 
 public class SockJSReactiveBackendServer extends AbstractVerticle {
+
+	/**
+	 * Default start method regarding the server.
+	 * 
+	 * @param args None pre-required.
+	 */
+	public static void main(String[] args) {
+		Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new SockJSReactiveBackendServer());
+	}
 
 	@Override
 	public void start(Promise<Void> startPromise) throws Exception {
@@ -29,6 +40,5 @@ public class SockJSReactiveBackendServer extends AbstractVerticle {
 					System.out.println("SockJS backend server start failure: " + error.getCause());
 					startPromise.fail(error.getCause());
 				});
-
 	}
 }
