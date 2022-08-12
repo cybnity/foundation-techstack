@@ -4,7 +4,7 @@ See commands help regarding reused docker image at https://github.com/hleb-albau
 ## START IMAGE
 Start a cluster manager from docker from shell command line:
 
-```
+```shell
 docker run -d \
      -p 9000:9000  \
      -e ZK_HOSTS="192.168.60.13:2181,192.168.60.13:2182,192.168.60.13:2183" \

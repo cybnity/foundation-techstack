@@ -15,6 +15,7 @@ Each infrastructure system implementation source codes is accessible per sub-dir
 - [proto-secret-mgt-server](proto-secret-mgt-server)
 - [proto-sso-server](proto-sso-server)
 - [proto-users-interactions-broker](proto-users-interactions-broker) (Redis broker type)
+  - [redis-container](proto-users-interactions-broker/redis-container/README.md)
 
 ## BUILD OF INFRASTRUCTURE SYSTEMS
 
