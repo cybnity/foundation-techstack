@@ -61,12 +61,11 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 				// Collaborate with users interactions space
 				Redis.createClient(context, redisOpts).connect().onSuccess(conn -> {
 					String correlationId = (body != null) ? body.getString("correlationId", null) : null;
-					String eventId = (body != null) ? body.getString("id", null) : null;
-					UISChannel recipientChannel = destinationMap.recipient(routingAddress);
+					Enum<?> recipientChannel = destinationMap.recipient(routingAddress);
 					if (recipientChannel != null) {
 						// Send event into UI space's channel via
 						conn.send(Request.cmd(Command.PUBLISH).arg(/* redis stream channel */ recipientChannel.name())
-								.arg(body.toString())).onSuccess(res -> {
+								.arg(body.encode())).onSuccess(res -> {
 									// Confirm notification about performed routing
 									JsonObject transactionResult = new JsonObject();
 									transactionResult.put("status", "processing");
@@ -74,9 +73,12 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 										transactionResult.put("correlationId", correlationId);
 									}
 
-									System.out.println("Event forwared event bus (address: " + routingAddress
-											+ ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);
-									System.out.println("with event (" + eventId + ") in status: " + transactionResult);
+									/*
+									 * System.out.println("Event forwared event bus (address: " + routingAddress +
+									 * ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);
+									 * System.out.println("with event (" + eventId + ") in status: " +
+									 * transactionResult);
+									 */
 
 									// Close the connection or return to the pool
 									conn.close();
@@ -91,7 +93,17 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 					} else {
 						// Unknown channel where to forward the event to Redis space for treatment by UI
 						// capabilities
-						System.out.println("Ignored event that does not be supported by any UI capability API!");
+						System.out.println("Ignored event (routing address: " + routingAddress
+								+ ") that is not supported by any UI capability API (none known destination)!");
+						JsonObject transactionResult = new JsonObject();
+						transactionResult.put("status", "rejected");
+						if (correlationId != null) {
+							transactionResult.put("correlationId", correlationId);
+						}
+						// Close the connection or return to the pool
+						conn.close();
+						// Notify the front side via the event bus
+						bus().send(cqrsResponseChannel, transactionResult);
 					}
 				}).onFailure(fail -> {
 					System.out.println(refName + " UIS broker connection failed: ");

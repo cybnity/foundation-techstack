@@ -1,0 +1,27 @@
+# Kafka manager distribution build
+# This script is an enhancement of source Docker template of project https://github.com/hleb-albau/kafka-manager-docker
+
+FROM openjdk:11-jre as build
+
+# Define the Cluster Manager for Apache Kafka version (see https://github.com/yahoo/CMAK) that need to be installed
+ARG CMAK_VERSION="3.0.0.5"
+
+RUN curl -L https://github.com/yahoo/CMAK/releases/download/${CMAK_VERSION}/cmak-${CMAK_VERSION}.zip -o /tmp/cmak.zip \
+    && unzip /tmp/cmak.zip -d / \
+    && ln -s /cmak-$CMAK_VERSION /cmak \
+    && rm -rf /tmp/cmak.zip
+
+# Target instance is based on Java image ready for deployment on middleware platform
+FROM openjdk:11-jre-slim
+
+MAINTAINER Olivier Lemée
+
+COPY --from=build /cmak /cmak
+
+VOLUME /cmak/conf
+
+ENV JAVA_OPTS=-XX:MaxRAMPercentage=80
+
+WORKDIR /cmak
+
+ENTRYPOINT ["/cmak/bin/cmak", "-Dpidfile.path=/dev/null", "-Dapplication.home=/cmak", ""]

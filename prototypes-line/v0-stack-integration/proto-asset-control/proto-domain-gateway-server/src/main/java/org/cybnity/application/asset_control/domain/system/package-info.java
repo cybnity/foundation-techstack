@@ -1,0 +1,1 @@
+package org.cybnity.application.asset_control.domain.system;

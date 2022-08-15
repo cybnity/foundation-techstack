@@ -62,4 +62,5 @@ public interface Event {
 	 * @return A type of this event (E;g a class name according to the type name).
 	 */
 	public String type();
+
 }

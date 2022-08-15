@@ -3,6 +3,8 @@ package org.cybnity.application.asset_control.ui.system.backend.routing;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cybnity.feature.areas_assets_protection.api.UICapabilityChannel;
+
 /**
  * Utility class allowing to map the event bus channels names, with the names of
  * the UI capability entry points (redis stream channels) allowing to bridge the
@@ -16,7 +18,7 @@ import java.util.Map;
  */
 public class UISDynamicDestinationList {
 
-	private Map<String, UISChannel> routingMap;
+	private Map<String, Enum<?>> routingMap;
 
 	/**
 	 * Default constructor initializing the routing table. This configuration
@@ -28,10 +30,10 @@ public class UISDynamicDestinationList {
 	public UISDynamicDestinationList() {
 		// Initialize the routing destination tables that link a event bus channel with
 		// a redis channel
-		routingMap = new HashMap<String, UISChannel>();
+		routingMap = new HashMap<String, Enum<?>>();
 
 		// Set each destination path
-		routingMap.put(CollaborationChannel.aap_in.label(), UISChannel.areas_assets_protection);
+		routingMap.put(CollaborationChannel.aap_in.label(), UICapabilityChannel.areas_assets_protection);
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class UISDynamicDestinationList {
 	 *                                   routing to find.
 	 * @return A recipient channel or null.
 	 */
-	public UISChannel recipient(String aCollaborationChannelLabel) {
+	public Enum<?> recipient(String aCollaborationChannelLabel) {
 		if (aCollaborationChannelLabel != null && !"".equals(aCollaborationChannelLabel)) {
 			// Find existing UIS channel routing
 			return routingMap.get(aCollaborationChannelLabel);

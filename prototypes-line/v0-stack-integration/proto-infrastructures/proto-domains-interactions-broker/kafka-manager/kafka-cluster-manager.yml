@@ -1,0 +1,38 @@
+version: '3.6'
+# see more details on https://github.com/hleb-albau/kafka-manager-docker
+services:
+  kafka-cluster-manager:
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile-cmak
+    image: 'agnet/cybnity-kafka-cluster-manager-distribution:latest'
+    container_name: cybnity-kafka-events-brokers-cluster-manager
+    restart: always
+    expose:
+      # Cluster Manager for Apache Karaf brokets port (9000)
+      - 9000
+    ports:
+      - '9000:9000'
+    environment:
+      ZK_HOSTS: cybnity-dis-registry1:2181,cybnity-dis-registry2:2182,cybnity-dis-registry3:2183
+      APPLICATION_SECRET: 'random-secret'
+      # Optional protection of web UI with basic authentication
+      KAFKA_MANAGER_AUTH_ENABLED: 'true'
+      KAFKA_MANAGER_USERNAME: manager
+      KAFKA_MANAGER_PASSWORD: manager
+    networks:
+      - cybnity-domains-api-zone
+    # Activate image console
+    tty: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - 'kafka_manager_data:/agnet/cybnity-dis-cluster-manager'
+
+volumes:
+  kafka_manager_data:
+    driver: local
+
+networks:
+  cybnity-domains-api-zone:
+    name: domains_io_area
+    driver: bridge
