@@ -10,6 +10,8 @@
 All the prototype components are built and available into the local Maven artifacts repository.
 
 ### Proto backend UI server
+
+#### Vert.x components layer
 During coding activity of this component, the Vert.x modified contents can be considered by the runtime with the shell command lines:
 * Package the server service:
 
@@ -22,6 +24,37 @@ During coding activity of this component, the Vert.x modified contents can be co
   ```shell
   mvn exec:java
   ```
+
+#### ReactJS components layer (frontend)
+[Babel](https://babeljs.io/docs/en/) JavaScript compiler (allowing code to works in current browsers) is used into the backend's static [index.html](proto-backend-ui-server/src/main/resources/static/index.html) page for integration between Vert.x and ReactJS.
+
+Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) and NPM tools according to the development workstation's operating system.
+
+* Check the Node and NPM versions supported by the development workstation via shell command line:
+
+  ```shell
+  node --version
+
+  npm --version
+  ```
+
+* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
+
+* Start the React web application (usable from web browser at http://localhost:3000) via the execution of the shell command line (which execute the scripts defined by the package.json file):
+
+  ```shell
+  npm start
+  ```
+
+The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console. The frontend development server ensure the backend functions.
+
+* A possible tests execution can be started from shell command line:
+
+  ```shell
+  npm test
+  ```
+
+Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
 
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.

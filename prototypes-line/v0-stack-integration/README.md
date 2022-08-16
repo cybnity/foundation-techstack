@@ -95,7 +95,7 @@ Several technologies are selected into the stack version for implementation of c
 | SYSTEM | TYPE | TECHNOLOGIES | COMMENTS | STATUS |
 | :--- | :--- | :--- | :--- | :--- |
 |Asset Control FrontEnd UI server|Web Reactive FrontEnd|- ReactBootstrap<br>- ReactJS<br>Vert.x SockJS Client<br>- Google Chrome web browser| | |
-|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Vert.x redis client<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|Integration & runtime OK<br>- TODO: HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
+|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Vert.x Redis client<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|Integration & runtime OK<br>- TODO: HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
 |Asset Control & SSO server|Security Services|- Keycloack<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access| |
 |Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer| |
 |Secret Management server|Security Services|- Vault<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Test of storage/retrieve of user token used by Asset Control & SSO server| |

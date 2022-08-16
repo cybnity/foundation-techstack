@@ -245,13 +245,13 @@ The acceptance level per differentiation criteria is evaluated as:
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | ReactBootstrap | | | | | | | |
 | ReactJS | | | | | | | |
-| Eclipse Vert.x SockJS Client |OK| | | | | | |
+| Eclipse Vert.x SockJS Client |OK| |OK| | | | |
 | Eclipse Vert.x Core |OK| |OK| | | | |
 | Eclipse Vert.x Web |OK| |OK| | | | |
 | Lettuce Redis Client |OK| |OK| | | | |
 | Eclipse Vert.x Redis Client |OK| |OK| | | | |
-| Eclipse Vert.x Kafka Client |OK| |OK| | | | |
-| Redis |OK| |OK| | | | |
+| Eclipse Vert.x Kafka Client |OK| |OK| | | |Usage of basic Kafka classes (wrapped by Vert.x extension classes); basic String serializer/deserializer used for POJO/JSON mapping|
+| Redis |OK| |OK| | | |Basic String serializer/deserializer used for POJO/JSON mapping|
 | Apache Kafka |OK| |OK| | | |Administration vi web tool: CMAK cluster manager 2.4.0|
 | Apache Flink | | | | | | | |
 | Gravitee | | | | | | | |

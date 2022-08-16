@@ -1,10 +1,19 @@
 package org.cybnity.application.asset_control.ui.system.backend.routing;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.auth.authentication.AuthenticationProvider;
 import io.vertx.ext.bridge.PermittedOptions;
+import io.vertx.ext.web.AllowForwardHeaders;
+import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
@@ -117,15 +126,59 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
 		// Add the several control capabilities supported by the bridge on the router's
 		// routes about event bus
+		String currentOriginDomainHost = "localhost";
+
 		SockJSHandlerOptions sockJSHandlerOpts = new SockJSHandlerOptions().setRegisterWriteHandler(true)
-				.setOrigin("http://localhost:8080" /**
-													 * <protocol>://<domain>[:<port>][</resource>] can be verifier
-													 * during handling about received by server domain identifier
-													 */
-				).setLocalWriteHandler(false)// configure the sockJS instance build, that can be retrieved an stored in
-												// local map
+				.setLocalWriteHandler(false)// configure the sockJS instance build, that can be retrieved and stored in
+				// local map
 				.setRegisterWriteHandler(true);
 		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, sockJSHandlerOpts);
+
+		// DEFINE FORWARD SUPPORT (cross origin from frontend server)
+		this.allowForward(AllowForwardHeaders.FORWARD);
+		// we can now allow forward header parsing
+		// and in this case only the "X-Forward" headers will be considered
+		this.allowForward(AllowForwardHeaders.X_FORWARD);
+		// we can now allow forward header parsing
+		// and in this case both the "Forward" header and "X-Forward" headers
+		// will be considered, yet the values from "Forward" take precedence
+		// this means if case of a conflict (2 headers for the same value)
+		// the "Forward" value will be taken and the "X-Forward" ignored.
+		this.allowForward(AllowForwardHeaders.ALL);
+
+		// Define safe mechanism for allowing resources to be requested from one domain
+		// (e.g ReactJS frontend server) and served from another (e.g this event bus
+		// provider)
+		// USE VERT.X-WEB CorsHandler handling the CORS protocol
+		Set<String> allowedHeaders = new HashSet<>();
+		allowedHeaders.add("x-requested-with");
+		allowedHeaders.add("Access-Control-Allow-Origin");// All to consume the content
+		allowedHeaders.add("origin");
+		allowedHeaders.add("Content-Type");
+		allowedHeaders.add("accept");
+		allowedHeaders.add("Authorization");
+		allowedHeaders.add("X-Requested-With");
+
+		Set<HttpMethod> allowedMethods = new HashSet<>();
+		allowedMethods.add(HttpMethod.GET);
+		allowedMethods.add(HttpMethod.POST);
+		allowedMethods.add(HttpMethod.OPTIONS);
+		allowedMethods.add(HttpMethod.PUT);
+		// Restrict cross calls only for server domaines using the on event bus channels
+		// (e.g frontend server)
+		List<String> authorizedWhitelistOrigins = new LinkedList<>();
+		authorizedWhitelistOrigins.add("http://" + currentOriginDomainHost + ":8080"); // backend server
+		authorizedWhitelistOrigins.add("http://" + currentOriginDomainHost + ":3000"); // frontend server
+
+		route().handler(CorsHandler.create().addOrigins(authorizedWhitelistOrigins/**
+																					 * Allowed origin pattern
+																					 **/
+		).allowCredentials(true /** Allow credentials property on XMLHttpRequest **/
+		).allowedHeaders(allowedHeaders).allowedMethods(allowedMethods));
+
+		// Add BodyHandler before the SockJS handler which is required to process POST
+		// requests by sub-router
+		this.post().handler(BodyHandler.create());
 
 		// Create a sub-route dedicated to the Asset Control domain
 		route("/eventbus/*")
