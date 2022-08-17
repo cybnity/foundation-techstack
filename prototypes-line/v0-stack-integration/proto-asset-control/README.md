@@ -63,6 +63,7 @@ Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) 
   ```
 
 Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
+Documentation about React-Bootstrap library is available on [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/) github web site.
 
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.
