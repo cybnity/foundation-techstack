@@ -10,8 +10,9 @@
 All the prototype components are built and available into the local Maven artifacts repository.
 
 ### Proto backend UI server
-
 #### Vert.x components layer
+Regarding static web page and contents, [Babel](https://babeljs.io/docs/en/) JavaScript compiler (allowing code to works in current browsers) is used into the backend's static [index.html](proto-backend-ui-server/src/main/resources/static/index.html) page for integration between Vert.x.
+
 During coding activity of this component, the Vert.x modified contents can be considered by the runtime with the shell command lines:
 * Package the server service:
 
@@ -25,9 +26,8 @@ During coding activity of this component, the Vert.x modified contents can be co
   mvn exec:java
   ```
 
-#### ReactJS components layer (frontend)
-[Babel](https://babeljs.io/docs/en/) JavaScript compiler (allowing code to works in current browsers) is used into the backend's static [index.html](proto-backend-ui-server/src/main/resources/static/index.html) page for integration between Vert.x and ReactJS.
-
+### Proto frontend UI server
+#### ReactJS components layer
 Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) and NPM tools according to the development workstation's operating system.
 
 * Check the Node and NPM versions supported by the development workstation via shell command line:
@@ -36,22 +36,6 @@ Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) 
   node --version
 
   npm --version
-  ```
-
-* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
-
-* Start the React web application (usable from web browser at http://localhost:3000) via the execution of the shell command line (which execute the scripts defined by the package.json file):
-
-  ```shell
-  npm start
-  ```
-
-The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console. The frontend development server ensure the backend functions.
-
-* A possible tests execution can be started from shell command line:
-
-  ```shell
-  npm test
   ```
 
 Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
@@ -148,6 +132,27 @@ __From the proto-backend-ui-server__ Maven sub-project directory, start the back
 When start process is executed:
   - The UI backend server instance is started and automatically expose a http service on port 8080;
   - The java console's output show the http requests received from the front end layer (e.g web client or web browser) and treatment logs (e.g return of html static contents, delegation to UI capabilities layer).
+
+### Frontend UI server
+__From the proto-frontend-ui-server__ Maven sub-project directory, start the frontend service ensuring the reactive web exposure of web UI, and CYBNITY UI layer (e.g html/css/Javascript/JSX, reactive components and integration with call to proto-backend-ui-server over Vert.x event bus on HTTP).
+* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
+
+* Start the React web application (usable from web browser at http://localhost:3000) via the execution of the shell command line (which execute the scripts defined by the package.json file):
+
+  ```shell
+  npm start
+  ```
+
+The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console.
+This is a frontend development server started to integrate the API backend functions.
+
+* With the http://localhost:3000 url called from a web browser, a test of asset creation can be tested to validate the integration chains to the RTS computation unit.
+
+* A possible tests execution can be started from shell command line:
+
+  ```shell
+  npm test
+  ```
 
 # INTEGRATION TEST PROTOCOL
 ## TEST OF UI BACKEND ENDPOINTS (static contents)

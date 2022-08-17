@@ -31,6 +31,8 @@ public class CreateAssetFeature extends DomainProcessingFeature {
 
 	@Override
 	protected void registerDomainsInteractionsSpaceHandlers() throws Exception {
+		featureInputListeners.clear();
+		activatedConsumers.clear();
 		// Create the handlers of consumed events according to the use cases supported
 		// by this feature
 		featureInputListeners.add(new EntryPointEventsListener(featureEntryPoint.name()));
@@ -49,11 +51,6 @@ public class CreateAssetFeature extends DomainProcessingFeature {
 				// Identify which type of class type is defined for the event type
 				String eventType = json.getString("type", null);
 				if (eventType != null) {
-					// At least once delivery to be sure that the read messages are processed before
-					// committing the offset
-					featureInputConsumer.commit().onSuccess(v -> System.out
-							.println("Last read message offset committed by " + this.getClass().getSimpleName()));
-
 					switch (eventType) {
 					case "CommandEvent":
 						try {
@@ -88,6 +85,11 @@ public class CreateAssetFeature extends DomainProcessingFeature {
 						}
 						break;
 					}
+
+					// At least once delivery to be sure that the read messages are processed before
+					// committing the offset
+					featureInputConsumer.commit().onSuccess(v -> System.out
+							.println("Last read message offset committed by " + this.getClass().getSimpleName()));
 				} else {
 					// Ignore event that is not supported by this feature queue
 				}
@@ -137,8 +139,6 @@ public class CreateAssetFeature extends DomainProcessingFeature {
 		 */
 		@Override
 		public void onMessage(String channel, Event event) {
-			System.out.println("Event (correlationId: " + event.correlationId()
-					+ ") entry into ACPU.createAsset feature via the " + channel + " channel");
 			// - Sequence of validation (e.g event
 			// conformity, complementary information injection on event)
 
@@ -161,8 +161,8 @@ public class CreateAssetFeature extends DomainProcessingFeature {
 
 			// Simulate event processing and feature realization
 			System.out.println("Event (correlationId: " + event.correlationId()
-					+ ") was successfully processed with success by " + CreateAssetFeature.class.getSimpleName()
-					+ " via " + featureEntryPoint.name() + " channel");
+					+ ") entry into ACPU was successfully processed with success by "
+					+ CreateAssetFeature.class.getSimpleName() + " via " + featureEntryPoint.name() + " channel");
 		}
 	}
 

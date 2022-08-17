@@ -20,16 +20,6 @@ const Create = (props) => {
       }
     };
 
-    const InputWithLabel = ({
-      id, label, value, type = 'text', onInputChange,
-      }) => (
-        <React.Fragment>
-          <label htmlFor={id}>{label}: </label>
-          &nbsp;
-          <input id={id} type={type} vamlue={value} onChange={onInputChange} />
-        </React.Fragment>
-    );
-
     function generateUUIDUsingMathRandom() {
       var d = new Date().getTime();// Timestamp
       var d2 = (performance && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
@@ -42,15 +32,11 @@ const Create = (props) => {
               r = (d2 + r)%16 | 0;
               d2 = Math.floor(d2/16);
           }
-          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+          return (c === 'x' ? r : (r & (0x3 | 0x8))).toString(16);
       });
     }
 
     function handleCreateAsset() {
-      var msgBody = "{occurredOn: '', correlationId: " + generateUUIDUsingMathRandom()
-      + ", id: " + generateUUIDUsingMathRandom() + ", type: 'CommandEvent', name: 'createAsset', inParameters: {domain: 'asset_control', name: '"
-      + assetNameTerm + "', type: 'asset', description: '"
-      + assetDescTerm + "'}}";
       var jsonBody = {
         occurredOn: '',
         correlationId: generateUUIDUsingMathRandom(),
@@ -78,23 +64,21 @@ const Create = (props) => {
         <button onClick={handleCreateAsset}>
           COMMIT
         </button>
-
       </React.Fragment>
     );
 }
 
 const App = (event) => {
-  const initialAssets = React.useState([]);
-  const findAsyncAssets = () =>
-    Promise.resolve({data: {assets: initialAssets}});
+  //const initialAssets = React.useState([]);
+  //const findAsyncAssets = () => Promise.resolve({data: {assets: initialAssets}});
 
-  const [assets, setAssets] = React.useState([]);
+  //const [assets, setAssets] = React.useState([]);
 
   React.useEffect(() => {
     // Read data asynchronouslt from backend server
-    findAsyncAssets().then(result => {
-      setAssets(result.data.assets);
-    });
+    //findAsyncAssets().then(result => {
+      //setAssets(result.data.assets);
+    //});
   },[]);
 
   function getTitle(title) {

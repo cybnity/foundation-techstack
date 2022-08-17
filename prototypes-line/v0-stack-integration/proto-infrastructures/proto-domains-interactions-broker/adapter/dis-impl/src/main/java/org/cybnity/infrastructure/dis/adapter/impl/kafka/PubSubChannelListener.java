@@ -71,8 +71,7 @@ public abstract class PubSubChannelListener implements ChannelListener {
 
 	@Override
 	public void message(String pattern, String channel, String message) {
-		// System.out.println("Got " + message + " on channel" + channel + " based on
-		// pattern " + pattern);
+		System.out.println("Got " + message + " on channel" + channel + " based on pattern " + pattern);
 		// Delegate to message method
 		message(channel, message);
 	}

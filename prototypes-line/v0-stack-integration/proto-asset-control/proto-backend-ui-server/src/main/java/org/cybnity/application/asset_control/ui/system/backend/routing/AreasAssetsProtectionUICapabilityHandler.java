@@ -73,13 +73,8 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 										transactionResult.put("correlationId", correlationId);
 									}
 
-									/*
-									 * System.out.println("Event forwared event bus (address: " + routingAddress +
-									 * ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);
-									 * System.out.println("with event (" + eventId + ") in status: " +
-									 * transactionResult);
-									 */
-
+									/*System.out.println("Event forwared event bus (address: " + routingAddress
+											+ ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);*/
 									// Close the connection or return to the pool
 									conn.close();
 

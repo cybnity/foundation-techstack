@@ -7,8 +7,10 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | TECHNOLOGY | VERSION | COMMENTS | HELP / SUPPORT |
 | :--- | :--- | :--- | :--- |
 | [ReactBootstrap](https://react-bootstrap.github.io/) |v2.4.0 (Bootstrap 5.1)| |- [Getting started](https://react-bootstrap.github.io/getting-started/introduction)|
-| [ReactJS](https://reactjs.org/) |18.1.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)<br>- [Node.js and NPM installation](https://nodejs.org/en/)<br>- [Node.js documentation](https://nodejs.org/docs/latest-v17.x/api/)|
-| [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1|POC state: OK build/run with Vert.x Web| |
+| [ReactJS](https://reactjs.org/) |18.2.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)<br>- [Node.js and NPM installation](https://nodejs.org/en/)<br>- [Node.js documentation](https://nodejs.org/docs/latest-v17.x/api/)|
+| Eclipse Vert.x Event Bus Client |3.9.4|[vertx3-eventbus-client](https://www.demo2s.com/node.js/node-js-library-v-vertx3-eventbus-client.html) NodeJS module used with ReactJS|- [NodeJS tutorial and libraries usage examples](https://www.demo2s.com/node.js/node.js.html) documentation |
+| [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1|Library version 1.6.1 used from Babel script; version 1.0.0-3 library of @vertx/eventbus-bridge-client.js used from ReactJS over NodeJS module| |
+| NodeJS |16.17.0|Used as application container of Frontend UI server<br>- Integrate NPM 8.15.0 version<br>- POC state: OK build/run| |
 | Eclipse Vert.x Web |4.3.2|POC state: OK build/run on Eclipse Temurin JRE|- [Documentation](https://vertx.io/docs/vertx-web/java/)|
 | Eclipse Vert.x Core |4.3.2|POC state: OK build/run with Eclipse Temurin JDK/JRE|Jackson Databind 2.13 required for POJO/JSON mapping of event via Redis channels<br>- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)<br>- Vert.x Vault<br>- Kafka Connector<br>- Lettuce messaging plugin with Redis|
 | Eclipse Vert.x Redis Client |4.3.2|POC state: OK build/run with Vert.x Core and Redis server|- [Documentation](https://vertx.io/docs/vertx-redis-client/java/)|
@@ -94,8 +96,8 @@ Several technologies are selected into the stack version for implementation of c
 
 | SYSTEM | TYPE | TECHNOLOGIES | COMMENTS | STATUS |
 | :--- | :--- | :--- | :--- | :--- |
-|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- ReactBootstrap<br>- ReactJS<br>Vert.x SockJS Client<br>- Google Chrome web browser| | |
-|Asset Control Backend UI server|Reactive BackEnd Server|- Vert.x Web<br>- Vert.x Redis client<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|Integration & runtime OK<br>- TODO: HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
+|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- Google Chrome web browser<br>- ReactBootstrap<br>- ReactJS<br>Vert.x Event Bus Client<br>- NodeJS| |Integration & runtime OK with Vert.x event bus client ensuring call to Asset Control Backend UI server<br>- TODO: HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
+|Asset Control Backend UI server|Reactive BackEnd Server|-Vert.X Event Bus Client<br>- Vert.x Web<br>- Vert.x Redis client<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|Integration & runtime OK with Vert.x web module and Reactive ensured by Babel for html/css/js frontside<br>- TODO: HTTPS with SSO integrated, packaged Docker image, MicroK8s execution|
 |Asset Control & SSO server|Security Services|- Keycloack<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access| |
 |Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer| |
 |Secret Management server|Security Services|- Vault<br>- Ubuntu OS<br>- Docker Image<br>- MicroK8s|Test of storage/retrieve of user token used by Asset Control & SSO server| |

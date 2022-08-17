@@ -95,9 +95,10 @@ The current status of technology already in the analysis stream give a general v
 | UI | Web GUI CSS Components Library | [Pure CSS](https://github.com/pure-css/pure) | `ALT 2` | | | UI widget based on CSS as a set of small responsive CSS modules (minimalism and small size); can be integrated with bootstrap components, 66 contributors |
 | UI | Web GUI CSS Components Library | [Ulkit](https://github.com/uikit/uikit) | `ALT 3` | | | UI widget based on CSS [usable with reactive JS framework](https://getuikit.com/docs/javascript), MIT license, 34 contributors |
 | UI | Web GUI Reactive Frontend Library | [Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) | `WIN` | `WIN` | | JavaScript event bus bridge to Vert.x server-side reactive services |
-| UI | Web GUI Reactive Frontend Library | ReactJS | `WIN` | | | HTML/CSS view from rendering components based with data changes auto-refresh, according to a View / Presenter pattern approach |
+| UI | Web GUI Reactive Frontend Library | ReactJS | `WIN` | `WIN` | | HTML/CSS/JavaScript view from rendering components based with data changes auto-refresh, according to a View / Presenter pattern approach |
 | UI | Client-Side Data Model Format | JSON | `WIN` | `WIN` | | Data and CQRS events (e.g Data Transform Object, Command/Query/Domain events) |
 | UI | Server-Side Reactive Backend Server | Eclipse Vert.x | `WIN` | `WIN` | | UI reactive services (e.g UI cockpit capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Vert.x Redis module) with application(s) services layer via Application Domains Access Hub |
+| UI | Server-Side Reactive Frontend Server | NodeJS | `ALT` | `ALT` | | UI reactive services (e.g pre-compiled UI widgets) and rendering components (e.g UI behavior logic) supporting the integration between the users' web browsers and Server-Side Reactive Backend Server |
 | APPLICATION / DOMAIN | Users Interactions Space Library | Redis Connector | `WIN` | | | Embedded memory database (streamed events store) client for UI messages and application domains integration between UI layer and application layer; Eclipse Vert.x Redis module, or Lettuce java client for Redis cluster discovery |
 | APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Connector | `WIN` | | | Embedded memory database (streamed events store) client for application domains events between applications and domains layer |
 | APPLICATION / DOMAIN | Domains Events Validation | [Kafka processors/consumers api](https://kafka.apache.org/) | `WIN` | | | Stateless Anti-Corruption Layer (e.g Application Services Layer), remote proxy, input/output ports executed into JVM with Kafka connector API (e.g Java client), validators of domain events (e.g quality and conformity control) |
@@ -108,6 +109,7 @@ The current status of technology already in the analysis stream give a general v
 | APPLICATION INFRASTRUCTURE | Domains Interactions Space | [Kafka Cluster](https://kafka.apache.org/) | `WIN` | | | Distributed memory database in event-driven approach for management of domains inputs/outputs via embedded mode (distributed data cluster); [Kafka Backup](https://medium.com/@anatolyz/introducing-kafka-backup-9dc0677ea7ee) consists of two Connectors for Kafka Connect: One for Backup (Implemented as a Sink Connector) and one for the restore of data (Implemented as a Source Connector) |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Eclipse Temurin JDK/JRE 11 | `WIN` | `WIN` | | Execution environment of application service layers; [Documentation](https://www.eclipse.org/openj9/docs/index.html); Temurin version managed by Eclipse project as successor of OpenJ9 (IBM) |
 | APPLICATION INFRASTRUCTURE | Java Runtime Environment | Liberica JDK | `ALT` | | | |
+| APPLICATION INFRASTRUCTURE | JavaScript Runtime Environment | NodeJS | `ALT` | | | Execution environment of server-side Javascript UI application |
 | APPLICATION INFRASTRUCTURE | Access Control & Single-Sign-On | [Keycloack](https://www.keycloak.org/) | `WIN` | | | Dynamic part of the IAM solution that works with the data in the real time; SAML2.0 protocol for user authentication with SSO |
 | APPLICATION INFRASTRUCTURE | Identity & Access Management | midPoint | `WIN` | | | IDM system implement integration part of the IAM solution that move the data around; maintain data in the directory service (identity store); Federation, RBAC or ABAC based on attributes; place to apply policies, such as Role-Based Access Control (RBAC), Segregation of Duties (SoD), and various policies for compliance with regulations; SPML (to create users/permissions as access provisioning) |
 | APPLICATION INFRASTRUCTURE | Identity Repository | Apache Directory Server | `WIN` | | | Identity Management (IDM) static part of the IAM solution that store the data (e.g in LDAP identities repository) |
@@ -244,7 +246,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | ELIGIBLE TECHNOLOGY | INSTALL | STORAGE | START | CPU | RAM | TOOLS | COMMENTS |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | ReactBootstrap | | | | | | | |
-| ReactJS | | | | | | | |
+| ReactJS |OK| |OK| | | | |
 | Eclipse Vert.x SockJS Client |OK| |OK| | | | |
 | Eclipse Vert.x Core |OK| |OK| | | | |
 | Eclipse Vert.x Web |OK| |OK| | | | |

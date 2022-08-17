@@ -5,8 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // --------- VERTX EVENT BUS INTEGRATION -------
-//import SockJS from 'https://unpkg.io/sockjs-client@1.6.1/dist/sockjs.min.js';
-//import EventBus from 'https://unpkg.io/@vertx/eventbus-bridge-client.js@1.0.0-2/vertx-eventbus.js';
+// See https://www.demo2s.com/node.js/node-js-vertx3-eventbus-client-eventbus-send-string-function-call.html
 import EventBus from 'vertx3-eventbus-client';
 
 var busOptions = {
@@ -17,12 +16,13 @@ var busOptions = {
    vertxbus_randomization_factor: 0.5 // Randomization factor between 0 and 1
 };
 
-var eb = new EventBus('http://localhost:8080/eventbus', busOptions);
+var eb = new EventBus('http://localhost:8080/eventbus/', busOptions);
 
 // Set up event bus handlers...
 eb.onopen = function() {
   console.log("Vert.x event bus opened");
   eb.enableReconnect(true);
+
   // Set a handler to receive UI capabilities answers over the event bus
   eb.registerHandler('aap.out', function(error, message) {
     console.log('received a message from assetcontrol.out: ' + JSON.stringify(message));
@@ -33,15 +33,20 @@ eb.onreconnect = function() {
   console.log("Vert.x event bus reconnected");
 }; // Optional, will only be called on re-connections
 
+eb.onerror = function(error) {
+  console.log("Event bus error: " + JSON.stringify(error));
+}
+
 // --------- VERTX EVENT BUS INTEGRATION END -------
 
 const sendToBus = (channel, jsonMessage) => {
-  console.log("message=" + JSON.stringify(jsonMessage));
-  console.log("channel=" + channel.toString());
-  // CONTINUER ICI CAR RIEN NE SE PASSE (mettre en async !)
-  
-  eb.send(channel.toString(), jsonMessage);
-  console.log("Message sent to backend api");
+  try {
+    eb.send(channel.toString(), jsonMessage, function() {
+        console.log("Message successfully sent to backend api (channel: " + channel.toString() + "): " + JSON.stringify(jsonMessage));
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
