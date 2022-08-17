@@ -6,7 +6,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 ## EVALUATED SET
 | TECHNOLOGY | VERSION | COMMENTS | HELP / SUPPORT |
 | :--- | :--- | :--- | :--- |
-| [ReactBootstrap](https://react-bootstrap.github.io/) |v2.4.0 (Bootstrap 5.1)| |- [Getting started](https://react-bootstrap.github.io/getting-started/introduction)|
+| [ReactBootstrap](https://react-bootstrap.github.io/) |v2.5.0 (Bootstrap 5.2)| |- [Getting started](https://react-bootstrap.github.io/getting-started/introduction)|
 | [ReactJS](https://reactjs.org/) |18.2.0| |- [Documentations](https://reactjs.org/docs/getting-started.html)<br>- [Node.js and NPM installation](https://nodejs.org/en/)<br>- [Node.js documentation](https://nodejs.org/docs/latest-v17.x/api/)|
 | Eclipse Vert.x Event Bus Client |3.9.4|[vertx3-eventbus-client](https://www.demo2s.com/node.js/node-js-library-v-vertx3-eventbus-client.html) NodeJS module used with ReactJS|- [NodeJS tutorial and libraries usage examples](https://www.demo2s.com/node.js/node.js.html) documentation |
 | [Eclipse Vert.x SockJS Client](https://github.com/sockjs/sockjs-client) |1.6.1|Library version 1.6.1 used from Babel script; version 1.0.0-3 library of @vertx/eventbus-bridge-client.js used from ReactJS over NodeJS module| |

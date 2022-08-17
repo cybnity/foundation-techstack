@@ -38,6 +38,30 @@ Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) 
   npm --version
   ```
 
+* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
+
+* Install all the project's required modules relative to NodeJS with shell command line (command should be executed under `sudo` to avoid problem of some modules directories installation):
+
+  ```shell
+
+  // install project required modules
+  sudo npm install
+
+  // fix possible sub-modules vulnerabilities
+  sudo npm audit fix --force
+
+  // upgrade to the latest version (install globally)
+  sudo npm i -g npm-check-updates
+
+  sudo ncu -g
+
+  // remove the lock on packages and install the latest versions
+  sudo npm update
+
+  // check outdated modules
+  sudo npm outdated
+  ```
+
 Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
 
 ## START OF SYSTEMS
@@ -143,10 +167,10 @@ __From the proto-frontend-ui-server__ Maven sub-project directory, start the fro
   npm start
   ```
 
-The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console.
-This is a frontend development server started to integrate the API backend functions.
-
-* With the http://localhost:3000 url called from a web browser, a test of asset creation can be tested to validate the integration chains to the RTS computation unit.
+When start process is executed:
+  - The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console;
+  - This is a frontend development server started to integrate the API backend functions;
+  - With the http://localhost:3000 url called from a web browser, a test of asset creation can be tested to validate the integration chains to the RTS computation unit.
 
 * A possible tests execution can be started from shell command line:
 

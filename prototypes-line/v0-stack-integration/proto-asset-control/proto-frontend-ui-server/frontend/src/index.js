@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // --------- VERTX EVENT BUS INTEGRATION -------
 // See https://www.demo2s.com/node.js/node-js-vertx3-eventbus-client-eventbus-send-string-function-call.html

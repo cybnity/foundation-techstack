@@ -1,6 +1,10 @@
 import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
+import Accordion from 'react-bootstrap/Accordion';
+import Form from 'react-bootstrap/Form';
 
 const Create = (props) => {
     const [assetNameTerm, setAssetName] = React.useState('');
@@ -14,9 +18,9 @@ const Create = (props) => {
     const handleDescriptionChange = (event) => {
       setAssetDesc(event.target.value);
       if (event.target.value === '') {
-       	setIsEmpty(': ');
+       	setIsEmpty('');
       } else {
-       	setIsEmpty('including description : ');
+       	setIsEmpty('including description');
       }
     };
 
@@ -56,14 +60,24 @@ const Create = (props) => {
 
     return (
       <React.Fragment>
-        <label htmlFor="asset_name">Named: </label>
-        <input id="asset_name" type="text" onChange={handleNameChange} />
-        <label htmlFor="asset_description"> with description: </label>
-        <input id="asset_description" type="text" onChange={handleDescriptionChange} />
-        <p>Ready to commit the creation of a new asset named {assetNameTerm} {existingAssetDescription}</p>
-        <button onClick={handleCreateAsset}>
-          COMMIT
-        </button>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Asset name</Form.Label>
+            <Form.Control type="text" placeholder="Enter an asset label" id="asset_name" onChange={handleNameChange}/>
+            <Form.Text className="text-muted">
+              Unique label to logically simplify the future search of the asset ;)
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="asset_description">
+            <Form.Label>Asset description</Form.Label>
+            <Form.Control type="text" placeholder="Give a short presentation" onChange={handleDescriptionChange}/>
+          </Form.Group>
+          <Button as="a" variant="primary" onClick={handleCreateAsset}>
+            Validate Creation
+          </Button>
+        </Form>
+        <Form.Text className="text-muted">Ready to commit the creation of a new asset named {assetNameTerm} {existingAssetDescription}</Form.Text>
       </React.Fragment>
     );
 }
@@ -74,12 +88,12 @@ const App = (event) => {
 
   //const [assets, setAssets] = React.useState([]);
 
-  React.useEffect(() => {
+  //React.useEffect(() => {
     // Read data asynchronouslt from backend server
     //findAsyncAssets().then(result => {
       //setAssets(result.data.assets);
     //});
-  },[]);
+  //},[]);
 
   function getTitle(title) {
       return title;
@@ -93,19 +107,27 @@ const App = (event) => {
     <div className="App">
       <header className="App-header">
         <h1>Hello, {getTitle('React')} world!</h1>
-        <h2>Create new asset</h2>
-        <Create onCommit={handleCreate} />
-        <p>
-        <img valign="middle" src={logo} className="App-logo" alt="logo" width="100px"/>Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <br/>
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>How to create a new asset?</Accordion.Header>
+            <Accordion.Body><Create onCommit={handleCreate} /></Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>ReactJS, what is it?</Accordion.Header>
+            <Accordion.Body><p>
+            <img valign="middle" src={logo} className="App-logo" alt="logo" width="100px"/>Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a></Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </header>
     </div>
   );
