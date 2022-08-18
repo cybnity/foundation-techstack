@@ -77,6 +77,9 @@ Presentation of the retained implementation stack resulting of the analysis step
 
 ![image](mpp-domain-systems-stack.png)
 
+## Runtime Model
+![image](scalable-runtime-model.png)
+
 ## Infrastructure Layer
 ![image](mpp-infrastructure-systems-stack.png)
 
