@@ -45,17 +45,20 @@ Register the React frontend app as a new Keycloak's client from the administrati
   - Set client description about web app source to integrate with Keycloak login:
     - Client ID: cybnity-frontend-ui-auth
     - Client Protocol: openid-connect
-    - Root URL: http://localhost:3000/
     - Enabled: ON
     - Implicit Flow enabled: ON
     - Direct Access Grants Enabled: ON
+    - OAuth 2.0 Device Authorization Grant Enabled: ON
     - Access Type: public
+    - Root URL: http://localhost:3000/
+    - Valid Redirect URL: http://localhost:3000/*
+    - Admin URL: http://localhost:3000/
     - Web Origins: http://localhost:3000
   - Navigate to `Realm Settings > Cybnity > Security Defenses` to configure the Clickjacking security:
-    - Change default `SAMEORIGIN` value of X-Frame-Options with `ALLOW-FROM http://localhost:3000` value
+    - Default `SAMEORIGIN` value of X-Frame-Options
       - See https://datatracker.ietf.org/doc/html/rfc7034#section-2.2.1 for more details about X-Frame-Options
       - See https://wjw465150.gitbooks.io/keycloak-documentation/content/server_admin/topics/threat/clickjacking.html for help about mitigation of Clickjacking
-    - Change default value of `Content-Security-Policy`
+    - Default `frame-src 'self'; frame-ancestors 'self'; object-src 'none';` value of `Content-Security-Policy`
       - See https://www.w3.org/TR/CSP/#directive-frame-src about frame-src to restrict the URLS which may be loaded into nested browsing contexts
       - See https://www.w3.org/TR/CSP/#directive-frame-ancestors about frame-ancestors to define the URLs which can embed the resource using frame of iframe
       - See https://www.w3.org/TR/CSP/#directive-object-src about object-src to restrict URLS from which plugin context may be loaded
@@ -69,6 +72,9 @@ When disconnected of any user account:
       - The standard Sign page is shown allowing to authenticate the test user account;
       - Re-use the Tester account credential for try authentication;
       - When authenticated, the personal information screen is shown with success.
+
+#### Test of secured access to frontend
+From [proto-front-end-ui web access](http://localhost:3000), try access to __Secured Screen__ with use of Keycloak test account.
 
 ## MONITOR
 Check that startup log contains (ensuring that desired feature is enabled) the following line:

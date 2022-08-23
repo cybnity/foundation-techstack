@@ -1,33 +1,94 @@
 import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
-import Accordion from 'react-bootstrap/Accordion';
-import Form from 'react-bootstrap/Form';
+import { Button, Stack, Accordion, Form, Navbar, Container, Nav, Spinner } from 'react-bootstrap';
 
-// Integration of keycloak
-// See https://scalac.io/blog/user-authentication-keycloak-1/
+// Integration of keycloak ----------
+// See https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Welcome from "./components/Welcome";
-import Secured from "./components/Secured";
+import Welcome from "./Welcome";
+import Secured from "./Secured";
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import keycloak from './keycloak';
+import SplashScreen from "./SplashScreen";
 // ------------`
 
-function App() {
- return (
-   <BrowserRouter>
-     <div className="App">
-       <ul>
-        <li><Link to="/">Public component</Link></li>
-        <li><Link to="/secured">Secured component</Link></li>
-       </ul>
-       <Routes>
-         <Route exact path="/" element={<Welcome />} />
-         <Route path="/secured" element={<Secured />} />
-       </Routes>
-     </div>
-   </BrowserRouter>
- );
-}
+// A component to be displayed while keycloak is being initialized, if not provided child components will be rendered immediately
+const KeycloakLoading = () => (
+  <div>
+    <Spinner animation="border" role="status" variant="primary">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  </div>
+)
+
+const App = (event) => {
+  const [keycloakReady, setKeycloakReady] = React.useState(false);
+
+  const handleBusEvent = (channel, msg)  => {
+    event.onEvent(channel, msg);
+  };
+
+  const onKeycloakEvent = (event, error) => {
+        console.log(`Keycloak Event ${event}`);
+        // onReady, onInitError, onAuthSuccess, onAuthError, onAuthRefreshSuccess, onAuthRefreshError, onTokenExpired, onAuthLogout
+        if(event && event === 'onReady'){
+          setKeycloakReady(true);
+        }
+  };
+
+  const onKeycloakTokens = (tokens) => {
+      console.log('onKeycloakTokens', tokens);
+  };
+
+  return (
+   <ReactKeycloakProvider authClient={keycloak} initOptions={{
+     onLoad: "login-required"
+   }} LoadingComponent={<KeycloakLoading />}
+    keycloak={keycloak} onEvent={onKeycloakEvent} onTokens={onKeycloakTokens}
+    >
+
+    <SplashScreen keycloakReady={keycloakReady}/>
+
+     <BrowserRouter>
+       <div className="App">
+         <Navbar bg="primary" variant="dark" expand="lg">
+          <Container fluid>
+            <Navbar.Brand href="/">
+              <img
+                alt=""
+                src={logo}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              CYBNITY React
+            </Navbar.Brand>
+
+            <Nav className="me-auto">
+              <Nav.Link href="/">Public Screen</Nav.Link>
+              <Nav.Link href="/secured">Secured Screen</Nav.Link>
+            </Nav>
+
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                {!keycloak.authenticated ? 'Not authenticated user' : ''}
+              </Navbar.Text>
+
+              <Button as="a" onClick={() => keycloak.logout()}>Logout</Button>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+
+         <Routes>
+           <Route exact path="/" element={<Welcome />} />
+           <Route path="/secured" element={<Secured onEvent={handleBusEvent}  />} />
+         </Routes>
+
+       </div>
+     </BrowserRouter>
+   </ReactKeycloakProvider>
+  );
+};
 
 export default App;

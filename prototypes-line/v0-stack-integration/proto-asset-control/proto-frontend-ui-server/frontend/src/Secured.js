@@ -1,11 +1,11 @@
 import * as React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
-import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
-import Accordion from 'react-bootstrap/Accordion';
-import Form from 'react-bootstrap/Form';
-import Keycloak from "keycloak-js";
+import logo from './logo.svg';
+import './App.css';
+import { Button, Stack, Accordion, Form } from 'react-bootstrap/';
+
+// KEYCLOAK integration ------ See https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md
+import { useKeycloak } from '@react-keycloak/web'
+// -------
 
 const Create = (props) => {
     const [assetNameTerm, setAssetName] = React.useState('');
@@ -96,31 +96,10 @@ const Secured = (event) => {
     //});
   //},[]);
 
-  const [authenticated, setAuthenticated] = React.useState([]);
-  const [isInitializing, setIsInitializing] = React.useState(false);
-  const keycloak = Keycloak('/keycloak.json');
-
-  React.useEffect(() => {
-    setIsInitializing(true);
-    keycloak.init({
-      onLoad: 'login-required',
-      // Disabling iframe check by browser avoiding infinite loop when authenticated with success
-      // By default, the JavaScript adapter creates a hidden iframe that is used to detect if a Single-Sign Out has occurred. This does not require any network traffic, instead the status is retrieved by looking at a special status cookie. This feature can be disabled by setting checkLoginIframe: false in the options passed to the init method.
-      checkLoginIframe: false,
-      flow: 'implicit',
-      silentCheckSsoFallback: window.location.origin + '/silent-check-sso.html'
-    }).then(isAuthenticated => {
-          console.log("Keycloak initialized (authenticated: " + isAuthenticated + ", token: " + keycloak.token + ")");
-          setAuthenticated(isAuthenticated);
-          setIsInitializing(false);
-          // Token refresh can be reuse (via getAuthToken call) for call to backend services over Event bus secured by Keycloack
-        });
-  }, []);
-
-  function getAuthToken() {
-    return keycloak.token;
-  }
-
+  const { keycloak, initialized } = useKeycloak();
+  // Here you can access all of keycloak methods and variables.
+  // See https://www.keycloak.org/docs/latest/securing_apps/index.html#javascript-adapter-reference
+  // https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md
   function getTitle(title) {
       return title;
   }
@@ -129,40 +108,34 @@ const Secured = (event) => {
     event.onEvent(channel, msg);
   };
 
-  if (isInitializing) {
-    return <div>Initializing Keycloak...</div>;
-  }
-
   return (
-    <div className="App">
-      {authenticated ? (
-          <header className="App-header">
-            <h1>Welcome, in a protected {getTitle('React')} world!</h1>
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>How to create a new asset?</Accordion.Header>
-                <Accordion.Body><Create onCommit={handleCreate} /></Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>ReactJS, what is it?</Accordion.Header>
-                <Accordion.Body><p>
-                <img valign="middle" src={logo} className="App-logo" alt="logo" width="100px"/>Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn React
-                </a></Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </header>
-      ) : (
-        <div>Unable to authenticate!</div>
-      )}
-    </div>
+      <div className="App">
+        {!!keycloak.authenticated && (
+            <header className="App-header">
+              <h1>Welcome, in a protected {getTitle('React')} world!</h1>
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>How to create a new asset?</Accordion.Header>
+                  <Accordion.Body><Create onCommit={handleCreate} /></Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header>ReactJS, what is it?</Accordion.Header>
+                  <Accordion.Body><p>
+                  <img valign="middle" src={logo} className="App-logo" alt="logo" width="100px"/>Edit <code>src/App.js</code> and save to reload.
+                  </p>
+                  <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Learn React
+                  </a></Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </header>
+        )}
+      </div>
   );
 }
 
