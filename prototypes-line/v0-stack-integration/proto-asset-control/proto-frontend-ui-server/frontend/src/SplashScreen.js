@@ -1,4 +1,4 @@
-import React, {Component, PureComponent, ReactChildren} from "react";
+import React, {PureComponent} from "react";
 import Spinner from 'react-bootstrap/Spinner';
 
 type PassedProps = {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Stack, Accordion, Form } from 'react-bootstrap/';
+import { Button, Accordion, Form } from 'react-bootstrap/';
 
 // KEYCLOAK integration ------ See https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md
 import { useKeycloak } from '@react-keycloak/web'
@@ -96,7 +96,7 @@ const Secured = (event) => {
     //});
   //},[]);
 
-  const { keycloak, initialized } = useKeycloak();
+  const { keycloak, setKeycloak } = useKeycloak();
   // Here you can access all of keycloak methods and variables.
   // See https://www.keycloak.org/docs/latest/securing_apps/index.html#javascript-adapter-reference
   // https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md

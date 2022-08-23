@@ -1,11 +1,11 @@
 import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Stack, Accordion, Form, Navbar, Container, Nav, Spinner } from 'react-bootstrap';
+import { Button, Navbar, Container, Nav, Spinner } from 'react-bootstrap';
 
 // Integration of keycloak ----------
 // See https://github.com/react-keycloak/react-keycloak/blob/master/packages/web/README.md
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Welcome from "./Welcome";
 import Secured from "./Secured";
 import { ReactKeycloakProvider } from '@react-keycloak/web'
@@ -21,6 +21,9 @@ const KeycloakLoading = () => (
     </Spinner>
   </div>
 )
+
+
+// More on routes & roles on https://cagline.medium.com/authenticate-and-authorize-react-routes-component-with-keycloak-666e85662636
 
 const App = (event) => {
   const [keycloakReady, setKeycloakReady] = React.useState(false);
