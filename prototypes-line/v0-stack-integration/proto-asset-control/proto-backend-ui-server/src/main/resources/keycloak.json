@@ -1,9 +1,9 @@
 {
   "realm": "cybnity",
+  "bearer-only": true,
   "auth-server-url": "http://localhost:8082/",
   "ssl-required": "external",
-  "resource": "cybnity-frontend-ui-react",
-  "public-client": true,
+  "resource": "cybnity-backend-api",
   "verify-token-audience": true,
   "use-resource-role-mappings": true,
   "confidential-port": 0

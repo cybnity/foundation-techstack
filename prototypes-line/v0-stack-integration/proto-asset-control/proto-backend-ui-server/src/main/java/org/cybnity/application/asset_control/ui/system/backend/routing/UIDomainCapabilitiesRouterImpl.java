@@ -5,11 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import io.vertx.config.ConfigRetriever;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.auth.authentication.AuthenticationProvider;
+import io.vertx.ext.auth.authorization.AuthorizationProvider;
+import io.vertx.ext.auth.oauth2.authorization.KeycloakAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.AllowForwardHeaders;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -26,9 +29,12 @@ import io.vertx.ext.web.impl.RouterImpl;
  */
 public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
+	private ConfigRetriever config;
+
 	public UIDomainCapabilitiesRouterImpl(Vertx vertx) {
 		super(vertx);
 		initRoutes(vertx);
+		config = ConfigRetriever.create(vertx);
 	}
 
 	/**
@@ -127,11 +133,11 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		// Add the several control capabilities supported by the bridge on the router's
 		// routes about event bus
 		String currentOriginDomainHost = "localhost";
-
 		SockJSHandlerOptions sockJSHandlerOpts = new SockJSHandlerOptions().setRegisterWriteHandler(true)
 				.setLocalWriteHandler(false)// configure the sockJS instance build, that can be retrieved and stored in
 				// local map
 				.setRegisterWriteHandler(true);
+		// Define protocol handler
 		SockJSHandler sockJSHandler = SockJSHandler.create(vertx, sockJSHandlerOpts);
 
 		// DEFINE FORWARD SUPPORT (cross origin from frontend server)
@@ -180,10 +186,23 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		// requests by sub-router
 		this.post().handler(BodyHandler.create());
 
-		// Create a sub-route dedicated to the Asset Control domain
-		route("/eventbus/*")
-				.subRouter(sockJSHandler.bridge(options, new AreasAssetsProtectionUICapabilityHandler(vertx.eventBus(),
-						sessionStore, cqrsResponseChannel, vertx)));
+		// Create a sub-route not under Access Control Layer (ACL)
+		route("/eventbus/*").subRouter(sockJSHandler.bridge(options,
+				new UICapabilityContextBoundaryHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
+
+		// ------- SSO integration with Keycloak ----------
+
+		// Create an Authorization Provider for tokens adhering to the Keycloak token
+		// format
+		AuthorizationProvider keycloackTokenAuthProvider = KeycloakAuthorization.create();
+		// Create a sub-route under Access Control Layer (ACL)
+		route("/eventbus/secure/*").subRouter(
+				/** Protocol handler **/
+				sockJSHandler.bridge(
+						/** Add authorization provider controlling valid access token format **/
+						keycloackTokenAuthProvider, options, new SecuredUICapabilityContextBoundaryHandler(
+								vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
+
 		// Add other domain endpoints routers (per cockpit capability boundary)
 
 	}

@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // --------- VERTX EVENT BUS INTEGRATION -------
-// See https://www.demo2s.com/node.js/node-js-vertx3-eventbus-client-eventbus-send-string-function-call.html
-import EventBus from 'vertx3-eventbus-client';
+// See https://www.npmjs.com/package/@vertx/eventbus-bridge-client.js
+import EventBus from '@vertx/eventbus-bridge-client.js';
 
 var busOptions = {
    vertxbus_reconnect_attempts_max: Infinity, // Max reconnect attempts
@@ -17,7 +17,7 @@ var busOptions = {
    vertxbus_randomization_factor: 0.5 // Randomization factor between 0 and 1
 };
 
-var eb = new EventBus('http://localhost:8080/eventbus/', busOptions);
+var eb = new EventBus('http://localhost:8080/eventbus/secure/', busOptions);
 
 // Set up event bus handlers...
 eb.onopen = function() {
@@ -39,11 +39,10 @@ eb.onerror = function(error) {
 }
 
 // --------- VERTX EVENT BUS INTEGRATION END -------
-
 const sendToBus = (channel, jsonMessage) => {
   try {
     eb.send(channel.toString(), jsonMessage, function() {
-        console.log("Message successfully sent to backend api (channel: " + channel.toString() + "): " + JSON.stringify(jsonMessage));
+        //console.log("Message successfully sent to backend api (channel: " + channel.toString() + "): " + JSON.stringify(jsonMessage));
     });
   } catch (err) {
     console.log(err);

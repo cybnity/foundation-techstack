@@ -22,32 +22,52 @@ const KeycloakLoading = () => (
   </div>
 )
 
-
 // More on routes & roles on https://cagline.medium.com/authenticate-and-authorize-react-routes-component-with-keycloak-666e85662636
 
-const App = (event) => {
+const App = (props) => {
   const [keycloakReady, setKeycloakReady] = React.useState(false);
 
   const handleBusEvent = (channel, msg)  => {
-    event.onEvent(channel, msg);
+    props.onEvent(channel, msg);
   };
 
+  // Variable storage space avoiding to use a localStorage object which can be accessed by any javascript executed in the browser instance
+  // Better could be a Cookye http only
+  // Ordered as accessToken, refreshToken, idToken
+  const [authCredentials, setAuthenticationCredentials] = React.useState([]);
+
+  const saveTokens = (accessToken, refreshToken, idToken) => {
+      // Store access token in global variable, for future call to backend over event bus
+      setAuthenticationCredentials([accessToken, refreshToken, idToken]);
+      //localStorage.setItem("accessToken", JSON.stringify(accessToken));
+      //localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
+      //localStorage.setItem("idToken", JSON.stringify(idToken));
+  };
+
+  function readAccessToken() {
+    return authCredentials[0];
+  }
+
   const onKeycloakEvent = (event, error) => {
-        console.log(`Keycloak Event ${event}`);
-        // onReady, onInitError, onAuthSuccess, onAuthError, onAuthRefreshSuccess, onAuthRefreshError, onTokenExpired, onAuthLogout
-        if(event && event === 'onReady'){
-          setKeycloakReady(true);
-        }
+      //console.log(`Keycloak Event ${event}:${error}`);
+      // onReady, onInitError, onAuthSuccess, onAuthError, onAuthRefreshSuccess, onAuthRefreshError, onTokenExpired, onAuthLogout
+      if(event && event === 'onReady'){
+        setKeycloakReady(true);
+      }
   };
 
   const onKeycloakTokens = (tokens) => {
-      console.log('onKeycloakTokens', tokens);
+      saveTokens(tokens.token, tokens.refreshToken, tokens.idToken);
+  };
+
+  const isLoadingComponentDisplayConditionsValid = (keycloak) => {
+    return !keycloak.authenticated;
   };
 
   return (
    <ReactKeycloakProvider authClient={keycloak} initOptions={{
      onLoad: "login-required"
-   }} LoadingComponent={<KeycloakLoading />}
+   }} LoadingComponent={<KeycloakLoading />} isLoadingCheck={isLoadingComponentDisplayConditionsValid}
     keycloak={keycloak} onEvent={onKeycloakEvent} onTokens={onKeycloakTokens}
     >
 
@@ -85,7 +105,7 @@ const App = (event) => {
 
          <Routes>
            <Route exact path="/" element={<Welcome />} />
-           <Route path="/secured" element={<Secured onEvent={handleBusEvent}  />} />
+           <Route path="/secured" element={<Secured onEvent={handleBusEvent} getAccessToken={readAccessToken} />} />
          </Routes>
 
        </div>

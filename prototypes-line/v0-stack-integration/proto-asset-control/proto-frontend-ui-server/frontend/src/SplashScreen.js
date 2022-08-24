@@ -11,7 +11,7 @@ class SplashScreen extends PureComponent<PassedProps, any> {
     }
 
     render() {
-        console.log(`SplashScreen keycloak ready ${this.props.keycloakReady}`);
+        //console.log(`SplashScreen keycloak ready ${this.props.keycloakReady}`);
         if(!this.props.keycloakReady){
             return <div><Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner></div>
         }else{

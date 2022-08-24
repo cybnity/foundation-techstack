@@ -13,6 +13,8 @@ All the prototype components are built and available into the local Maven artifa
 #### Vert.x components layer
 Regarding static web page and contents, [Babel](https://babeljs.io/docs/en/) JavaScript compiler (allowing code to works in current browsers) is used into the backend's static [index.html](proto-backend-ui-server/src/main/resources/static/index.html) page for integration between Vert.x.
 
+Integration with Keycloak OAuth2 SSO server is supported by Vert.x module (see https://vertx.io/blog/easy-sso-for-vert-x-with-keycloak/ tutorial about SSO integration between Vert.x and Keycloak).
+
 During coding activity of this component, the Vert.x modified contents can be considered by the runtime with the shell command lines:
 * Package the server service:
 
@@ -47,23 +49,28 @@ Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) 
   // install project required modules
   sudo npm install
 
+  // check the security vulnerability and report found issues
+  sudo npm audit
+
   // fix possible sub-modules vulnerabilities
   sudo npm audit fix --force
 
   // upgrade to the latest version (install globally)
   sudo npm i -g npm-check-updates
 
+  // detect which pacakges have newer versions
   sudo ncu -g
 
   // remove the lock on packages and install the latest versions
   sudo npm update
 
-  // check outdated modules
+  // check outdated modules (show latest versions compared to versions specified in package.json)
   sudo npm outdated
   ```
 
 Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
 Documentation about React-Bootstrap library is available on [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/) github web site.
+Tutorial about [security of ReactJS routes with Keycloack](https://cagline.medium.com/authenticate-and-authorize-react-routes-component-with-keycloak-666e85662636).
 
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.

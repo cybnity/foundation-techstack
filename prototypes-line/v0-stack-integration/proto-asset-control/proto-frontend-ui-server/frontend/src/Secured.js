@@ -48,6 +48,12 @@ const Create = (props) => {
         id: generateUUIDUsingMathRandom(),
         type: 'CommandEvent',
         name: 'createAsset',
+        authenticationCredential: {
+          accessType: 'Bearer',
+          attributes: {
+            accessToken: props.onReadAccessToken()
+          }
+        },
         inParameters: {
           domain: 'asset_control',
           name: assetNameTerm,
@@ -83,7 +89,7 @@ const Create = (props) => {
     );
 }
 
-const Secured = (event) => {
+const Secured = (props) => {
   //const initialAssets = React.useState([]);
   //const findAsyncAssets = () => Promise.resolve({data: {assets: initialAssets}});
 
@@ -105,8 +111,12 @@ const Secured = (event) => {
   }
 
   const handleCreate = (channel, msg)  => {
-    event.onEvent(channel, msg);
+    props.onEvent(channel, msg);
   };
+
+  function getAccessToken() {
+    return props.getAccessToken();
+  }
 
   return (
       <div className="App">
@@ -116,7 +126,7 @@ const Secured = (event) => {
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>How to create a new asset?</Accordion.Header>
-                  <Accordion.Body><Create onCommit={handleCreate} /></Accordion.Body>
+                  <Accordion.Body><Create onCommit={handleCreate} onReadAccessToken={getAccessToken}/></Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
                   <Accordion.Header>ReactJS, what is it?</Accordion.Header>

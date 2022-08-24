@@ -14,18 +14,17 @@ import io.vertx.redis.client.Request;
 
 /**
  * Handler of UI events and interactions regarding one boundary of cockpit
- * capabilities (areas & assets protection)
+ * capabilities
  */
-public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHandler {
+public class UICapabilityContextBoundaryHandler extends EventBusBridgeHandler {
 
 	private String cqrsResponseChannel;
 	private Vertx context;
 	private RedisOptions redisOpts;
-	private String refName;
 	private UISDynamicDestinationList destinationMap;
 
-	public AreasAssetsProtectionUICapabilityHandler(EventBus eventBus, SharedData sessionStore,
-			String cqrsResponseChannel, Vertx vertx) {
+	public UICapabilityContextBoundaryHandler(EventBus eventBus, SharedData sessionStore, String cqrsResponseChannel,
+			Vertx vertx) {
 		super(eventBus, sessionStore);
 		this.cqrsResponseChannel = cqrsResponseChannel;
 		this.context = vertx;
@@ -34,6 +33,32 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 		// space (don't use pool that avoid possible usable of channels subscription by
 		// handlers)
 		redisOpts = RedisOptionFactory.createUsersInteractionsSpaceOptions();
+	}
+
+	/**
+	 * Reference name of this handler.
+	 * 
+	 * @return A name.
+	 */
+	protected String refName() {
+		return this.getClass().getSimpleName();
+	}
+
+	/**
+	 * Get the current context.
+	 * 
+	 * @return A context.
+	 */
+	protected Vertx context() {
+		return this.context;
+	}
+
+	/**
+	 * Default implementation without ACL control, which return always true.
+	 */
+	@Override
+	protected boolean authorizedResourceAccess(BridgeEvent event) throws SecurityException {
+		return true;
 	}
 
 	/**
@@ -50,8 +75,9 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 			final String routingAddress = message.getString("address", null);
 			final JsonObject body = message.getJsonObject("body", null);
 			if (eventType != null) {
-				// - quality of event received and integrity WITHOUT TRANSFORMATION of event
-				// message
+				// - quality of event received and integrity WITHOUT TRANSFORMATION of the
+				// message is ensured by parent handle(BridgeEvent event) method
+
 				// - translation into supported event types by the UI interactions layer (Redis
 				// space) when need
 
@@ -73,16 +99,18 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 										transactionResult.put("correlationId", correlationId);
 									}
 
-									/*System.out.println("Event forwared event bus (address: " + routingAddress
-											+ ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);*/
+									/*
+									 * System.out.println("Event forwared event bus (address: " + routingAddress +
+									 * ") to UIS Redis (channel: " + recipientChannel.name() + "): " + body);
+									 */
 									// Close the connection or return to the pool
 									conn.close();
 
 									// Notify the front side via the event bus
 									bus().send(cqrsResponseChannel, transactionResult);
 								}).onFailure(error -> {
-									System.out
-											.println(refName + " connection to UIS broker failed: " + error.getCause());
+									System.out.println(
+											refName() + " connection to UIS broker failed: " + error.getCause());
 									error.printStackTrace();
 								});
 					} else {
@@ -101,7 +129,7 @@ public class AreasAssetsProtectionUICapabilityHandler extends EventBusBridgeHand
 						bus().send(cqrsResponseChannel, transactionResult);
 					}
 				}).onFailure(fail -> {
-					System.out.println(refName + " UIS broker connection failed: ");
+					System.out.println(refName() + " UIS broker connection failed: ");
 					fail.printStackTrace();
 				});
 			}
