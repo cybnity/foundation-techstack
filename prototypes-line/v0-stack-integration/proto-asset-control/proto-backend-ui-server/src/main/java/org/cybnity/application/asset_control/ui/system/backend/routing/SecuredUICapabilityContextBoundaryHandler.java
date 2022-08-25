@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.MissingResourceException;
 
-import org.cybnity.application.asset_control.ui.system.backend.infrastructure.impl.keycloack.JWTHelper;
-
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -15,7 +13,6 @@ import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.auth.authorization.AuthorizationProvider;
-import io.vertx.ext.auth.authorization.Authorizations;
 import io.vertx.ext.auth.oauth2.OAuth2Auth;
 import io.vertx.ext.auth.oauth2.authorization.KeycloakAuthorization;
 import io.vertx.ext.auth.oauth2.providers.KeycloakAuth;
@@ -28,14 +25,12 @@ import io.vertx.ext.web.handler.sockjs.BridgeEvent;
  */
 public class SecuredUICapabilityContextBoundaryHandler extends UICapabilityContextBoundaryHandler {
 
-	private JWTHelper jwtHelper;
 	private OAuth2Auth oauth2Client;
 	private AuthorizationProvider authProvider;
 
 	public SecuredUICapabilityContextBoundaryHandler(EventBus eventBus, SharedData sessionStore,
 			String cqrsResponseChannel, Vertx vertx) {
 		super(eventBus, sessionStore, cqrsResponseChannel, vertx);
-		jwtHelper = new JWTHelper();
 		JsonObject keycloakConfig = getKeycloakJson();
 		authProvider = KeycloakAuthorization.create();
 		// Integrate OAuth2 sso checking with Keycloak server about user's JWT Token
@@ -62,8 +57,9 @@ public class SecuredUICapabilityContextBoundaryHandler extends UICapabilityConte
 					// Read the event authentication credential required by the ACL process
 					JsonObject authenticationCredential = body.getJsonObject("authenticationCredential", null);
 					if (authenticationCredential != null) {
-						String accessType = authenticationCredential.getString("accessType", null);
 						JsonObject attributes = authenticationCredential.getJsonObject("attributes", null);
+						if (attributes == null)
+							throw new SecurityException("Invalid credential information: missing attributes");
 						String accessTokenRaw = attributes.getString("accessToken", null);
 						/*
 						 * System.out.println( "Encoded Token:\naccessType: " + accessType +
@@ -93,7 +89,7 @@ public class SecuredUICapabilityContextBoundaryHandler extends UICapabilityConte
 
 							authProvider.getAuthorizations(user).onSuccess(result -> {
 								// Read the authorizations
-								Authorizations userAuth = user.authorizations();
+								// Authorizations userAuth = user.authorizations();
 							});
 
 							// Check the user role and permission regarding the accessed feature via the

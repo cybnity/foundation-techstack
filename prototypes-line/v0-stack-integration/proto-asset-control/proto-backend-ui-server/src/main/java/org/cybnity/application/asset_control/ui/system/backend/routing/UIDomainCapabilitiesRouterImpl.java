@@ -5,12 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import io.vertx.config.ConfigRetriever;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
-import io.vertx.ext.auth.oauth2.authorization.KeycloakAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.AllowForwardHeaders;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -27,12 +25,9 @@ import io.vertx.ext.web.impl.RouterImpl;
  */
 public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 
-	private ConfigRetriever config;
-
 	public UIDomainCapabilitiesRouterImpl(Vertx vertx) {
 		super(vertx);
 		initRoutes(vertx);
-		config = ConfigRetriever.create(vertx);
 	}
 
 	/**
@@ -184,8 +179,10 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 							 * Add authorization provider (provider adhering to the Keycloak token form)
 							 * controlling valid access token format, used/handled on the bridge events
 							 **
-							KeycloakAuthorization.create(),*/ options, new SecuredUICapabilityContextBoundaryHandler(
-									vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
+							 * KeycloakAuthorization.create(),
+							 */
+							options, new SecuredUICapabilityContextBoundaryHandler(vertx.eventBus(), sessionStore,
+									cqrsResponseChannel, vertx)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
