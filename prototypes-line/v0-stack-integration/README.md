@@ -30,7 +30,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | [Apache Zookeeper](https://zookeeper.apache.org) |3.6.2|POC state: OK build/run based on Bitnami docker image including Debian 10|- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
 | Eclipse Temurin JRE |JDK/JRE 11.0.15|POC state: OK build/run with Linux Alpine|- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium<br>|
 | Linux Alpine OS |3.16.0|POC state: OK build/run with Docker| |
-| Docker |Engine 20.10.17, Compose v2.6.1| |- [Documentations](https://docs.docker.com/)|
+| Docker |Engine 20.10.17, Compose v2.6.1|POC state: OK image build and run over docker-compose|- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
 
 ## TARGETED ACTIONS
@@ -98,7 +98,7 @@ Several technologies are selected into the stack version for implementation of c
 
 | SYSTEM | TYPE | TECHNOLOGIES | COMMENTS | STATUS |
 | :--- | :--- | :--- | :--- | :--- |
-|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- Google Chrome web browser<br>- ReactBootstrap<br>- Keycloak js module <br>- ReactJS<br>Vert.x Event Bus Client<br>- NodeJS| |Integration & runtime OK with Vert.x event bus client ensuring call to Asset Control Backend UI server (with SSO token collected during user's authentication)<br>- TODO: HTTPS support, packaged Docker image, MicroK8s execution|
+|Asset Control FrontEnd UI server|Web Reactive FrontEnd|- Google Chrome web browser<br>- ReactBootstrap<br>- Keycloak js module <br>- ReactJS<br>Vert.x Event Bus Client<br>- NodeJS|Keycloak authentication integrated, with SSO token reused for collaboration with independent (CORS approach) other systems|Integration & runtime OK with Vert.x event bus client ensuring call to Asset Control Backend UI server (with SSO token collected during user's authentication)<br>- TODO: HTTPS support, packaged Docker image, MicroK8s execution|
 |Asset Control Backend UI server|Reactive BackEnd Server|-Vert.X Event Bus Client<br>- Vert.x Web<br>- Vert.x Redis client<br>- OAuth2 auth provider<br>- Vert.x Core<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|JSON/HTTPS over SSO|Integration & runtime OK with Vert.x web module, Reactive ensured by Babel for html/css/js frontside, Keycloak server for accessToken check (got by connected user from FrontEnd server) used during event bus usage<br>- TODO: HTTPS support, packaged Docker image, MicroK8s execution|
 |Asset Control & SSO server|Security Services|- Keycloak<br>- PostgreSQL database<br>- OpenJDK JVM<br>- Debian Linux OS<br>- Docker Image<br>- MicroK8s|Token management for front/backend's user access|- TODO: HTTPS configuration, MicroK8s execution|
 |Identities Access Management server|Security Services|- midPoint<br>- Apache Directory Server<br>- Temurin JVM<br>- Alpine Linux OS<br>- Docker Image<br>- MicroK8s|Include test account allowing call of Access domain read feature, and access check by application layer when coming from UI layer| |
