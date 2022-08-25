@@ -2,6 +2,8 @@ package org.cybnity.application.asset_control.ui.system.backend.routing;
 
 import org.cybnity.application.asset_control.ui.system.backend.infrastructure.impl.redis.RedisOptionFactory;
 
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
@@ -57,8 +59,10 @@ public class UICapabilityContextBoundaryHandler extends EventBusBridgeHandler {
 	 * Default implementation without ACL control, which return always true.
 	 */
 	@Override
-	protected boolean authorizedResourceAccess(BridgeEvent event) throws SecurityException {
-		return true;
+	protected void authorizedResourceAccess(BridgeEvent event, Handler<AsyncResult<Boolean>> callback)
+			throws SecurityException {
+		if (callback != null)
+			callback.handle(new ResourceAccessAuthorizationResult<Boolean>(Boolean.TRUE, null));
 	}
 
 	/**

@@ -42,7 +42,7 @@ eb.onerror = function(error) {
 const sendToBus = (channel, jsonMessage) => {
   try {
     eb.send(channel.toString(), jsonMessage, function() {
-        //console.log("Message successfully sent to backend api (channel: " + channel.toString() + "): " + JSON.stringify(jsonMessage));
+      //console.log("Message successfully sent to backend api (channel: " + channel.toString() + "): " + JSON.stringify(jsonMessage));
     });
   } catch (err) {
     console.log(err);

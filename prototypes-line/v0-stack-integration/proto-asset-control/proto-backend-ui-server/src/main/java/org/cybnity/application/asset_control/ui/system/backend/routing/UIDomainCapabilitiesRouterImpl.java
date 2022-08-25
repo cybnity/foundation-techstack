@@ -10,8 +10,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.SharedData;
-import io.vertx.ext.auth.authentication.AuthenticationProvider;
-import io.vertx.ext.auth.authorization.AuthorizationProvider;
 import io.vertx.ext.auth.oauth2.authorization.KeycloakAuthorization;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.AllowForwardHeaders;
@@ -46,14 +44,6 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		createRoutes(vertx);
 	}
 
-	private AuthenticationProvider authProvider() {
-		AuthenticationProvider provider = null;
-		// TODO créer le procider de demo d'authorization et décommenter l'assignation
-		// de requiredAuthority pour place_cqrs dans les permittedoptions
-
-		return provider;
-	}
-
 	/**
 	 * Define input/outputs permitted channels (addresses) and event types rules
 	 * regarding the event bus bridge.
@@ -62,12 +52,6 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 	 * @return
 	 */
 	private void createRoutes(Vertx vertx) {
-		// --- DEFINE BASIC AUTH HANDLING ---
-		// route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
-		// AuthenticationHandler basicAuthHandler =
-		// BasicAuthHandler.create(authProvider());
-		// route("/eventbus/*").handler(basicAuthHandler);
-
 		// --- DEFINE PERMITTED INPUT EVENT TYPES (will look through inbound permitted
 		// matches when it is received from client side Javascript to the server) ---
 		// Let through any message sent directly to a capability service from the client
@@ -170,7 +154,7 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 		allowedMethods.add(HttpMethod.POST);
 		allowedMethods.add(HttpMethod.OPTIONS);
 		allowedMethods.add(HttpMethod.PUT);
-		// Restrict cross calls only for server domaines using the on event bus channels
+		// Restrict cross calls only for server domains using the on event bus channels
 		// (e.g frontend server)
 		List<String> authorizedWhitelistOrigins = new LinkedList<>();
 		authorizedWhitelistOrigins.add("http://" + currentOriginDomainHost + ":8080"); // backend server
@@ -191,18 +175,20 @@ public class UIDomainCapabilitiesRouterImpl extends RouterImpl {
 				new UICapabilityContextBoundaryHandler(vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
 
 		// ------- SSO integration with Keycloak ----------
-
-		// Create an Authorization Provider for tokens adhering to the Keycloak token
-		// format
-		AuthorizationProvider keycloackTokenAuthProvider = KeycloakAuthorization.create();
-		// Create a sub-route under Access Control Layer (ACL)
-		route("/eventbus/secure/*").subRouter(
-				/** Protocol handler **/
-				sockJSHandler.bridge(
-						/** Add authorization provider controlling valid access token format **/
-						keycloackTokenAuthProvider, options, new SecuredUICapabilityContextBoundaryHandler(
-								vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
-
+		try {
+			// Create a sub-route under Access Control Layer (ACL)
+			route("/eventbus/secure/*").subRouter(
+					/** Protocol handler **/
+					sockJSHandler.bridge(
+							/**
+							 * Add authorization provider (provider adhering to the Keycloak token form)
+							 * controlling valid access token format, used/handled on the bridge events
+							 **
+							KeycloakAuthorization.create(),*/ options, new SecuredUICapabilityContextBoundaryHandler(
+									vertx.eventBus(), sessionStore, cqrsResponseChannel, vertx)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// Add other domain endpoints routers (per cockpit capability boundary)
 
 	}

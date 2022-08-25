@@ -67,25 +67,64 @@ Register a new Keycloak client dedicated to proto-backend-ui-server (allowing ss
     - Client ID: cybnity-backend-api
     - Client Protocol: openid-connect
     - Enabled: ON
-    - Access Type: bearer-only
-    - Admin URL: http://localhost:3000/
+    - Access Type: confidential
+    - Standard Flow Enabled: ON
+    - Implicit Flow Enabled: ON
+    - Direct Access Grants Enabled: ON
+    - Service Accounts Enabled: ON
+    - Authorization Enabled: ON
+    - Root URL: http://localhost:8080/
+    - Valid Redirect URIs: http://localhost:8080/*
+    - Admin URL: http://localhost:8080/
+    - Web Origins: http://localhost:8080
+    - Backchannel Logout Session Required: ON
     - OpenID Connect Compatibility Mode:
       - Use Refresh Token: ON
+    - Authentication Flow Overrides:
+      - Direct Grant Flow: direct grant
   - Go to `Credentials` section and define:
     - Client Authenticator: Client Id and Secret
     - Generate secret from button
   - Go to `Keys` section and define:
     - Certificate via button
+  - Go to `Client Scopes` section and assign the "client_roles_react_app" as Assigned Default Client Scopes
+  - Go to `Mappers` and create a role named "roles":
+    - Name: roles
+    - Mapper Type: User Realm Role
+    - Multivalued: ON
+    - Claim JSON Type: String
+    - Add to ID token: ON
+    - Add to access token: ON
+    - Add to userinfo: ON
+  - Go to `Service Account Roles` section and assign "app-user" role
+
+  From the Installation panel (allowing download of keycloack.json setting file to store into the resources folder of proto-backend-ui-server Maven project), the Keycloak OIDC JSON file is similar to the sample:
+
+  ```json
+  {
+  "realm": "cybnity",
+  "auth-server-url": "http://localhost:8082/",
+  "ssl-required": "external",
+  "resource": "cybnity-backend-api",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "eNnieaQ63RE33bugdVJBHXe69XcfHbEX"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "policy-enforcer": {}
+  }
+  ```
 
 #### Applicative roles definition
 - From `Clients > cybnity-frontend-ui-react > Roles` section, add a new standard role named "user"
-  - From `Clients > cybnity-backend-api > Roles` section, add a new standard role named "user"
+- From `Clients > cybnity-backend-api > Roles` section, add a new standard role named "user"
 - From `Roles > Realm Roles` section, add a new realm role named "app-user"
   - Set `Composite Roles` value to ON
   - In `Composite Roles` sub-panel:
     - Associate each client's role with the "app-user" realm role:
       - Select and associate "user" role to cybnity-backend-api
-      - Select and associate "user" role to cybnity-frontend-ui-react client
+      - Select and associate "user" role to cybnity-frontend-ui-react
 
 #### Test user account creation
 By default, new created Realm has none user.
@@ -130,7 +169,7 @@ Go to `Client Scopes > client_roles_react_app > Mappers` panel:
     - Token Claim Name: roles
     - Claim JSON Type: String
 
-Go to `Clients > cybnity-frontend-ui > Client Scopes` panel for add the custom scope previously created:
+Go to `Clients > cybnity-frontend-ui-react > Client Scopes` panel for add the custom scope previously created:
   - Select client_roles_react_app from the "Default Client Scopes" list, and assign it via the "Add selected" button
 
 From now, we can get the client roles from the JWT token with __roles__ key, allowing to enable/disable proto-frontend-ui-server's view to particular roles received from the token.

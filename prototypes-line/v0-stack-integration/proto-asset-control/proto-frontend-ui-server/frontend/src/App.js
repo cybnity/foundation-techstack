@@ -39,9 +39,6 @@ const App = (props) => {
   const saveTokens = (accessToken, refreshToken, idToken) => {
       // Store access token in global variable, for future call to backend over event bus
       setAuthenticationCredentials([accessToken, refreshToken, idToken]);
-      //localStorage.setItem("accessToken", JSON.stringify(accessToken));
-      //localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-      //localStorage.setItem("idToken", JSON.stringify(idToken));
   };
 
   function readAccessToken() {
@@ -57,7 +54,8 @@ const App = (props) => {
   };
 
   const onKeycloakTokens = (tokens) => {
-      saveTokens(tokens.token, tokens.refreshToken, tokens.idToken);
+    console.log(tokens);
+    saveTokens(tokens.token, tokens.refreshToken, tokens.idToken);
   };
 
   const isLoadingComponentDisplayConditionsValid = (keycloak) => {

@@ -6,6 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import io.vertx.core.Vertx;
+import io.vertx.ext.auth.PubSecKeyOptions;
+import io.vertx.ext.auth.jwt.JWTAuth;
+import io.vertx.ext.auth.jwt.JWTAuthOptions;
+
 /**
  * Utility class for JWT management
  */
@@ -18,7 +23,31 @@ public class JWTHelper {
 	}
 
 	/**
-	 * Help for management of server public and private keys used for JWT cyphering
+	 * Create a JWTAuth instance based on private and public keys stored in the
+	 * service folder or application project root.
+	 * 
+	 * @param vertx     Mandatory context.
+	 * @param algorithm Mandatory algorithm (e.g ES256, RS256, HS256) used for
+	 *                  signing of the JWT token.
+	 * @return Instance of authentication provider which can manage authentication
+	 *         of token.
+	 * @throws IllegalArgumentException When problem during instantiation (e.g null
+	 *                                  parameter).
+	 * @throws IOException              When inaccessible public or private key file
+	 *                                  from project folder.
+	 */
+	public JWTAuth create(Vertx vertx, String algorithm) throws IllegalArgumentException, IOException {
+		if (vertx == null || algorithm == null || "".equals(algorithm))
+			throw new IllegalArgumentException("Missing parameter!");
+
+		return JWTAuth.create(vertx,
+				new JWTAuthOptions()
+						.addPubSecKey(new PubSecKeyOptions().setAlgorithm(algorithm).setBuffer(crypto.publicKey()))
+						.addPubSecKey(new PubSecKeyOptions().setAlgorithm(algorithm).setBuffer(crypto.privateKey())));
+	}
+
+	/**
+	 * Help for management of server public and private keys used for JWT signing
 	 * during event bus communications.
 	 */
 	class CryptoHelper {

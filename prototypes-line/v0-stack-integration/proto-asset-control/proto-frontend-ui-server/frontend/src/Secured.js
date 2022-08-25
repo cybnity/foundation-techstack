@@ -51,7 +51,7 @@ const Create = (props) => {
         authenticationCredential: {
           accessType: 'Bearer',
           attributes: {
-            accessToken: props.onReadAccessToken()
+            accessToken: props.onReadAccessToken().toString()
           }
         },
         inParameters: {

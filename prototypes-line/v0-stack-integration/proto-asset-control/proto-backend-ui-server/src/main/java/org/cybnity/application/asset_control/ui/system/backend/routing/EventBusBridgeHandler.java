@@ -1,5 +1,6 @@
 package org.cybnity.application.asset_control.ui.system.backend.routing;
 
+import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
@@ -44,17 +45,20 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 	 * method for each even handled, before to delegate treatment via a call to
 	 * toUsersInteractionsSpace(BridgeEvent event).
 	 * 
-	 * @param event The subject to control.
-	 * @return True if authorized (e.g command permitted according to an authorized
-	 *         RBAC result). False when resource access not authorized.
+	 * @param event    The subject to control.
+	 * @param callback True if authorized (e.g command permitted according to an
+	 *                 authorized RBAC result). False when resource access not
+	 *                 authorized.
 	 * @throws SecurityException When a security problem (e.g missing security
 	 *                           information required for ACL check) is detected on
 	 *                           the controlled event.
 	 */
-	protected abstract boolean authorizedResourceAccess(BridgeEvent event) throws SecurityException;
+	protected abstract void authorizedResourceAccess(BridgeEvent event, Handler<AsyncResult<Boolean>> callback)
+			throws SecurityException;
 
 	@Override
 	public void handle(BridgeEvent event) {
+		boolean alreadyCompleted = false;
 		if (event != null) {
 			if (event.type() == BridgeEventType.SOCKET_IDLE) {
 				// This even will occur when SockJS socket is on idle for longer period of time
@@ -80,6 +84,7 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 					// violation)
 					System.out.println("Event rejected caused by content violation");
 					event.complete(false);
+					alreadyCompleted = true;
 					return;
 				}
 				if (event.type() == BridgeEventType.RECEIVE) {
@@ -92,25 +97,35 @@ public abstract class EventBusBridgeHandler implements Handler<BridgeEvent> {
 			if (event.type() == BridgeEventType.PUBLISH || event.type() == BridgeEventType.SEND) {
 				// A message is attempted to be published from the client to the server (PUBLISH
 				// = too all the handler; SEND = only to one of the handler instances)
-
-				// --- CHECK THE AUTHORIZATION OF EVENT TREATMENT ACCORDING TO ACL ---
-				if (authorizedResourceAccess(event)) {
-					try {
-						// Delegate to inputs handling about UI capabilities treatment/control by the UI
-						// interaction logic
-						toUsersInteractionsSpace(event);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else {
-					System.out.println("Event rejected caused by unauthorized processing");
+				try {
+					// --- ASYNCHRONOUSLY CHECK THE AUTHORIZATION OF EVENT TREATMENT ACCORDING TO
+					// ACL ---
+					authorizedResourceAccess(event, new Handler<AsyncResult<Boolean>>() {
+						@Override
+						public void handle(AsyncResult<Boolean> authResult) {
+							if (authResult.result()) {
+								try {
+									// Delegate to inputs handling about UI capabilities treatment/control by the UI
+									// interaction logic
+									toUsersInteractionsSpace(event);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							} else {
+								System.out.println("Event rejected caused by unauthorized resource access");
+							}
+						}
+					});
+				} catch (Exception ee) {
+					ee.printStackTrace();
 					event.complete(false);
+					alreadyCompleted = true;
 					return;
 				}
 			}
-
-			// Complete the event delegation status
-			event.complete(true);
+			if (!alreadyCompleted)
+				// Complete the event delegation status
+				event.complete(true);
 		}
 	}
 
