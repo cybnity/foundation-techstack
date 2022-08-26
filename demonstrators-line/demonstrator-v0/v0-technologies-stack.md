@@ -128,6 +128,7 @@ Presentation of the technologies and frameworks used for implementation of the C
 ### Infrastructure Layer
 ![image](mpp-infrastructure-systems-stack.png)
 
+## ARCHITECTURE CONCEPTS
 ### Event-Based Principles
 ![image](mvf-event-based-architecture.png)
 
