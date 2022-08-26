@@ -1,5 +1,5 @@
 > _Let's Make Safe Digital World!_
-> 
+>
 > _CYBNITY Tech Stack open source build an deliver demonstrators allowing to validate technologies set catalog which standardize the implementation of CYBNITY software and projects._
 
 ## PURPOSE
@@ -31,7 +31,8 @@ The MPP and demonstrators delivery is a contributor sub-process of the global CY
 The documentations produced during a demonstrator delivery are managed and store per version in sub-directory named "demonstrators-line".
 
 ## CURRENT MPP OFFICIAL VERSION
-- [Official Technologies Stack](docs/official-technologies-stack.md) for demonstrator developers, testers and managers.
+- Version: V0
+- [Official Technologies Stack](demonstrators-line/demonstrator-v0/v0-technologies-stack.md) for demonstrator developers, testers and managers.
 
 ## FUTURE MPPs & DEMONSTRATORS
 See the [future stack releases plan](docs/releases-plan.md).
