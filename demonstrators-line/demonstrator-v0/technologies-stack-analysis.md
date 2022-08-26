@@ -65,7 +65,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 | :--- | :--- | :--- | :--- | :--- |
 |ReactBootstrap|Web|Local, Dev, Test, Staging, Production|UI Layer|version >= 2.5.0|
 |Vert.x SockJS Client|Web|Local, Dev, Test, Staging, Production|UI Layer|version >= 1.6.1|
-|Vert.x Event Bus Client|Web|Local, Dev, Test, Staging, Production|UI Layer|version >= 1.0.0-3|
+|Vert.x Event Bus Bridge|Web|Local, Dev, Test, Staging, Production|UI Layer|version >= 1.0.0-3|
 |ReactJS|Web|Local, Dev, Test, Staging, Production|UI Layer|version >= 18.2.0|
 |NodeJS|Web|Local, Dev, Test|UI Layer|version >= 16.17.0|
 |JavaScript|Web|Local, Dev, Test, Staging, Production|UI Layer| |
@@ -90,27 +90,6 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Docker|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= 20.10.17|
 |x86 CPU|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Physical Infrastructure| |
 
-## UI Layer
-![image](mpp-ui-technology-stack.png)
-
-![image](mpp-ui-systems-stack.png)
-
-## Application Layer
-![image](mpp-app-technology-stack.png)
-
-![image](mpp-app-systems-stack.png)
-
-## Application-Domain Layer
-![image](mpp-domain-technology-stack.png)
-
-![image](mpp-domain-systems-stack.png)
-
-## Runtime Model
-![image](scalable-runtime-model.png)
-
-## Infrastructure Layer
-![image](mpp-infrastructure-systems-stack.png)
-
 # STACK DEFINITION PROCESS CURRENT STATUS
 Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
 The current status of technology already in the analysis stream give a general view which one is always in the race:
@@ -131,8 +110,8 @@ The current status of technology already in the analysis stream give a general v
 | UI | Server-Side Reactive Backend Server | Eclipse Vert.x | `WIN` | `WIN` | `WIN` | UI reactive services (e.g UI cockpit capabilities) and processors (e.g UI behavior logic) managing access control, controllers collaboration (e.g event bus) and command/data events integration (via Vert.x Redis module) with application(s) services layer via Application Domains Access Hub |
 | UI | Server-Side Reactive Frontend Server | NodeJS | `ALT` | `ALT` | `WIN` | UI reactive services (e.g pre-compiled UI widgets) and rendering components (e.g UI behavior logic) based on Web GUI Reactive Frontend Libraries and supporting the integration between the users' web browsers and Server-Side Reactive Backend Server via NodeJS modules |
 | APPLICATION / DOMAIN | Users Interactions Space Library | Redis Client | `WIN` | `WIN` | `WIN` | Embedded memory database (streamed events store) client for UI messages and application domains integration between UI layer and application layer; Eclipse Vert.x Redis module, and Lettuce java client for Redis cluster discovery were validated |
-| APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Connector | `WIN` | `WIN` | `WIN` | Embedded memory database (streamed events store) client for application domains events between applications and domains layer |
-| APPLICATION / DOMAIN | Domains Events Validation | Java Vertx.x & Kafka processors/consumers | `WIN` | `WIN` | `WIN` | Stateless Anti-Corruption Layer (e.g Application Services Layer), remote proxy, input/output ports executed into JVM (Java POJO) as Vert.x Verticle using Kafka connector API, that ensure validation stream of domain events (e.g quality and conformity control) |
+| APPLICATION / DOMAIN | Domains Interactions Space Library | Kafka Client | `WIN` | `WIN` | `WIN` | Embedded memory database (streamed events store) client for application domains events between applications and domains layer |
+| APPLICATION / DOMAIN | Domains Events Validation | Java Vertx.x & Kafka processors/consumers | `WIN` | `WIN` | `WIN` | Stateless Anti-Corruption Layer (e.g Application Services Layer), remote proxy, input/output ports executed into JVM (Java POJO) as Vert.x Verticle using Kafka client API, that ensure validation stream of domain events (e.g quality and conformity control) |
 | APPLICATION / DOMAIN | Real-Time Stream Computation | Apache Flink | `WIN` | | | Cluster framework for stateful data processing, CEP, data pipeline job running into a Flink cluster, Saga [Pattern](https://microservices.io/patterns/data/saga.html) for transactional flow |
 | APPLICATION / DOMAIN | Real-Time Data Stream Computation | [Kafka Streams](https://kafka.apache.org/documentation/streams/) Client Library | `ALT` | | | Library for stateful data processing (e.g CYBNITY process / feature modules) and pipeline running into independent application implementation |
 | APPLICATION INFRASTRUCTURE | Services Discovery | Zookeeper Client | `WIN` | `WIN` | `WIN ` | Client for discovery of services (e.g Kafka brokers) and/or to maintained configuration information (e.g service names, properties) as connector to contents |
