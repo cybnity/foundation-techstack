@@ -14,7 +14,8 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | Eclipse Vert.x Web |4.3.2|POC state: OK build/run on Eclipse Temurin JRE|- [Documentation](https://vertx.io/docs/vertx-web/java/)|
 | Eclipse Vert.x Core |4.3.2|POC state: OK build/run with Eclipse Temurin JDK/JRE|Jackson Databind 2.13 required for POJO/JSON mapping of event via Redis channels<br>- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)<br>- Vert.x Vault<br>- Kafka Connector<br>- Lettuce messaging plugin with Redis<br>- Vert.x OAuth2 Provider|
 | Eclipse Vert.x Redis Client |4.3.2|POC state: OK build/run with Vert.x Core and Redis server|- [Documentation](https://vertx.io/docs/vertx-redis-client/java/)|
-| Eclipse Vert.x OAuth2 Provider |4.3.3|POC state: OK build/run with Vert.x Core|- vertx-auth-oauth2 [extension module documentation](https://vertx.io/docs/vertx-auth-oauth2/java/)|
+| Eclipse Vert.x JWT |4.3.2|POC state: OK build/run with Vert.x Core| vertx-auth-jwt extension module|
+| Eclipse Vert.x OAuth2 Provider |4.3.2|POC state: OK build/run with Vert.x Core|- vertx-auth-oauth2 [extension module documentation](https://vertx.io/docs/vertx-auth-oauth2/java/)|
 | [Lettuce Client](https://lettuce.io) |6.2.0|POC state: OK build/run with Vert.x Core and Redis server|- [Documentation](https://lettuce.io/docs/)|
 | Eclipse Vert.x Kafka Client |4.3.2|POC state: OK build/run with Vert.x kafka client and Kafka server|- [Documentation](https://vertx.io/docs/vertx-kafka-client/java)|
 | [Apache Directory Server](https://directory.apache.org/) |2.0.0| |- [Apache directory studio](https://directory.apache.org/studio/) LDAP browser|
@@ -30,6 +31,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | [Apache Zookeeper](https://zookeeper.apache.org) |3.6.2|POC state: OK build/run based on Bitnami docker image including Debian 10|- [Documentation](https://zookeeper.apache.org/doc/r3.8.0/index.html)<br>- [Java example](https://zookeeper.apache.org/doc/r3.8.0/javaExample.html)<br>- [Standalone local instance installation](https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html#sc_InstallingSingleMode)|
 | Eclipse Temurin JRE |JDK/JRE 11.0.15|POC state: OK build/run with Linux Alpine|- OpenJDK distribution from Adoptium<br>- Installation of [Eclipse Adoptium Temurin JDK](https://adoptium.net/installation/)<br>- Official images for OpenJDK [binaries built by Eclipse ](https://hub.docker.com/_/eclipse-temurin/) maintained by Adoptium<br>|
 | Linux Alpine OS |3.16.0|POC state: OK build/run with Docker| |
+| Linux Debian OS |10|POC state: OK build/run with Docker| |
 | Docker |Engine 20.10.17, Compose v2.6.1|POC state: OK image build and run over docker-compose|- [Documentations](https://docs.docker.com/)|
 | MicroK8s | | |- [Snapd install](https://snapcraft.io/snapd)|
 
