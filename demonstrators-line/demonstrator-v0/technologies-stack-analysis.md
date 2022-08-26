@@ -1,16 +1,17 @@
 ## PURPOSE
-This section develop, document and elaborate detailed design progressively using agreed-on and rapid agile development techniques, addressing all components (business processes and related automated and manual controls, supporting IT applications, infrastructure services and technology products, and partners/suppliers). Ensure that the detailed design includes internal and external SLAs and OLAs.
+This section develop, document and elaborate detailed design using agreed-on and rapid agile development techniques, addressing all components (business processes and related automated and manual controls, supporting IT applications, infrastructure services and technology products, and partners/suppliers). Ensure that the detailed design includes internal and external SLAs and OLAs.
 
-This section presents the design specifications about the solutions and technology approved for build.
+This section presents the design specifications about the technologies approved as usable for CYBNITY solutions build.
 
 # WHY & WHAT TARGETED OBJECTIVES
 ## GOALS
 Respond to the set of common requirements defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
 Definition of a minimal set of components allowing to:
 - build and deliver a first version of CYBNITY demonstrator regarding UI cockpits principles;
-- build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem.
+- build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem;
+- identification of basic set of technologies usable as first version of TechStack official catalog.
 
-## REQUIREMENTS
+## MPP REQUIREMENTS
 ### Architecture
 Should allow build of a first implementation architecture respecting the target architecture defined by Foundation project ready for deployment as an Internet platform usable for demonstration and motivation of partnerships.
 
