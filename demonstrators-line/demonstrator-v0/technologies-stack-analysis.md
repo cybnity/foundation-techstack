@@ -274,7 +274,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Eclipse OpenJ9 8/11 JRE |OK| | | | | | |
 | Consul | | | | | | | |
 | Linux Alpine |OK| | | | | | |
-| Docker |OK| | | | | | |
+| Docker |OK| |OK| | |OK| |
 | MicroK8s | | | | | | | |
 | Kubernetes | | | | | | | |
 
