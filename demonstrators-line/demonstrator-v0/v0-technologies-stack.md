@@ -5,6 +5,7 @@ This section presents the design specifications about the solutions and technolo
 
 # MPP LONG TERM GOALS AND REQUIREMENTS
 Presents the standard goals that should be reached and benefits that are targeted to be collected from the official technology stack by CYBNITY projects.
+
 A set of common requirements is defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
 It's possible that new goals entry enhance the common goals, regarding specific technology and/or implementation layers during a new version development of the standards catalog.
 
@@ -34,11 +35,13 @@ Should proposed personal management of real-time data dedicated to the connected
 
 **Integration with domains**
 
-Should be integrated in real-time with domain over bridge to event bus and data spaces shared with security domains (e.g centralized), in a standard mode allowing scalable backend/frontend services, but with a standard integration to the domain applications (e.g application components) via middleware platform (e.g Redis).
+Should be integrated in real-time with domain over bridge to event bus and data spaces shared with security domains (e.g centralized), in a standard mode allowing scalable backend/frontend services, but with a standard integration to the domain applications (e.g application components) via middleware platform (e.g messaging system).
 
 #### APPLICATION LAYER
 **Processing and distribution of load**
+
 Should start in a moderate time duration, but should have an acceptable reactivity SLA during the demonstration period allowing to check a realistic behavior of the UI Cockpits principles.
+
 None requirement about support of data volume operated by the demonstrator using the stack (first phase of the CYBNITY project without challenges about the data load performance).
 
 **Access and usage via Internet**
