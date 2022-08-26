@@ -26,7 +26,7 @@ Should provide basic technologies set allowing the development of a first protot
 #### USER INTERFACE LAYER
 **Dynamics**
 
-Should be real-time: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-time between several CYBNITY users connected via their CYBNITY cockpits).
+Should be reactive: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-time between several CYBNITY users connected via their CYBNITY cockpits).
 
 **Context and local persistence**
 
