@@ -60,10 +60,11 @@ Should support implementation of applications capable to run on several infrastr
 
 **Hosting and execution platform**
 
-Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop (e.g OS on x64, ARM64 processing unit) without Internet connection.
+Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop without Internet connection.
 
 #### TOOLING & SUPERVISION
 Should allow definition and test of basic software factory implementation allowing to deliver Dockerized systems.
+
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
