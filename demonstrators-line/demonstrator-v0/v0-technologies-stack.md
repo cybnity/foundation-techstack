@@ -8,20 +8,20 @@ Presents the standard goals that should be reached and benefits that are targete
 A set of common requirements is defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
 It's possible that new goals entry enhance the common goals, regarding specific technology and/or implementation layers during a new version development of the standards catalog.
 
-### Objectives
+### OBJECTIVES
 Respond to the set of common requirements defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
 Definition of a minimal set of components allowing to:
 - build and deliver a first version of CYBNITY demonstrator regarding UI cockpits principles;
 - build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem.
 
-### Requirements
-#### Architecture
+### REQUIREMENTS
+#### ARCHITECTURE
 Should allow build of a first implementation architecture respecting the target architecture defined by Foundation project ready for deployment as an Internet platform usable for demonstration and motivation of partnerships.
 
-#### Design & Demonstrator
+#### DESIGN & DEMONSTRATOR
 Should provide basic technologies set allowing the development of a first prototype aligned with the visual demonstrator of Cockpits concept.
 
-#### User Interface Layer
+#### USER INTERFACE LAYER
 **Dynamics**
 Should be real-time: frontend and backend components should maintain up-to-date states of domain events (e.g domain data state changes) and collaboration data (e.g shared data, contextualized capabilities during a security crisis situation) when collaboration data are managed in real-time between several CYBNITY users connected via their CYBNITY cockpits).
 
@@ -31,7 +31,7 @@ Should proposed personal management of real-time data dedicated to the connected
 **Integration with domains**
 Should be integrated in real-time with domain over bridge to event bus and data spaces shared with security domains (e.g centralized), in a standard mode allowing scalable backend/frontend services, but with a standard integration to the domain applications (e.g application components) via middleware platform (e.g Redis).
 
-#### Application Layer
+#### APPLICATION LAYER
 **Processing and distribution of load**
 Should start in a moderate time duration, but should have an acceptable reactivity SLA during the demonstration period allowing to check a realistic behavior of the UI Cockpits principles.
 None requirement about support of data volume operated by the demonstrator using the stack (first phase of the CYBNITY project without challenges about the data load performance).
@@ -39,7 +39,7 @@ None requirement about support of data volume operated by the demonstrator using
 **Access and usage via Internet**
 Should be usable via Internet for remote demonstration through a web browser hosted on a laptop or tablet, connected to Internet over a 4G bandwidth.
 
-#### Infrastructure Layer
+#### INFRASTRUCTURE LAYER
 **Environments and locations**
 Should support implementation of applications capable to run on several infrastructure environment types (environment profiles):
   - **local**: developer's workstation during unit development activities;
@@ -51,7 +51,7 @@ Should support implementation of applications capable to run on several infrastr
 **Hosting and execution platform**
 Should be virtualizable (e.g Docker containerized) allowing an installation/execution on a public cloud host (e.g IAS, PAAS), or an independent laptop (e.g OS on x64, ARM64 processing unit) without Internet connection.
 
-#### Tooling & Supervision
+#### TOOLING & SUPERVISION
 Should allow definition and test of basic software factory implementation allowing to deliver Dockerized systems.
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
