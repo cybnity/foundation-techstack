@@ -70,7 +70,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 # CURRENT MPP OFFICIAL VERSION
 - Version: 0.0
 - Released at: Sept, 01, 2022
-- Status: released
+- Status: `released`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 
 ## STANDARD TECHNOLOGIES STACK
