@@ -6,9 +6,7 @@ This section presents the design specifications about the solutions and technolo
 # WHY & WHAT TARGETED OBJECTIVES
 ## GOALS
 Respond to the set of common requirements defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
-
 Definition of a minimal set of components allowing to:
-
 - build and deliver a first version of CYBNITY demonstrator regarding UI cockpits principles;
 - build and deliver a first version of a CYBNITY prototype of basic features for demonstration to potential partners' ecosystem.
 
