@@ -9,6 +9,6 @@
 
 	<groupId>org.cybnity.techstack.prototypes.infrastructures</groupId>
 	<artifactId>sso-server</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>  - Single-Sign-On server</name>
 </project>

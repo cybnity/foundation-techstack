@@ -1,0 +1,96 @@
+# Build and run the Keycloak image and required additional components
+version: '3.5'
+services:
+  postgresql:
+    # See https://hub.docker.com/r/bitnami/keycloak/#configuration for more detail
+    # Debian base image
+    image: bitnami/postgresql:latest
+    container_name: cybnity-sso-server-db
+    restart: always
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=no
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_PASSWORD=mydbpassword
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # change for embedding into vm from DockerFile shell command in place of direct link to project directory
+      #- /certs
+      - 'postgresql_data:/bitnami/postgres/cybnity-sso-db'
+    networks:
+      - cybnity-dmz
+    tty: true
+
+  keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile-keycloak
+    #image: docker.io/bitnami/keycloak:18
+    image: agnet/cybnity-keycloak-distribution
+    container_name: cybnity-sso-server
+    restart: always
+    environment:
+      # Environment variables used at only RUN phase (include redefined value of built image's environment variables' default values)
+      # Should create administrator user on boot?
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      # Administrator default user
+      - KEYCLOAK_ADMIN_USER=admin
+      # Administrator default password
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      # WildFly default management user
+      - KEYCLOAK_MANAGEMENT_USER=manager
+      # WildFly default management password
+      - KEYCLOAK_MANAGEMENT_PASSWORD=manager
+
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_USER=bn_keycloak
+      - KEYCLOAK_DATABASE_PASSWORD=mydbpassword
+      - KEYCLOAK_DATABASE_NAME=bitnami_keycloak
+      # PostgreSQL database JDBC parameters (example: sslmode=verify-full&connectTimeout=30000). No defaults.
+      #- KEYCLOAK_JDBC_PARAMS=sslmode=verify-full&connectTimeout=30000
+
+      # Ports and listening address configuration
+      - KEYCLOAK_HTTP_PORT=8080
+      - KEYCLOAK_HTTPS_PORT=8443
+      # Keycloak bind address. Default: 0.0.0.0.
+      - KEYCLOAK_BIND_ADDRESS=0.0.0.0
+
+      # For production requiring TLS configuration
+      #- KEYCLOAK_PRODUCTION=true
+
+      # TLS encryption settings
+      #- KEYCLOAK_ENABLE_TLS=true
+      #- KEYCLOAK_TLS_KEYSTORE_FILE="/opt/bitnami/keycloak/certs/hrms.truststore"
+      #- KEYCLOAK_TLS_KEYSTORE_PASSWORD="234567"
+      #- KEYCLOAK_TLS_TRUSTSTORE_FILE="/opt/bitnami/keycloak/certs/truststore.jks"
+      #- KEYCLOAK_TLS_TRUSTSTORE_PASSWORD="123456"
+
+      # Enabling statistics
+      - KEYCLOACK_ENABLE_STATISTICS=true
+    depends_on:
+      - postgresql
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # change for embedding into vm from DockerFile shell command in place of direct link to project directory
+      #- /certs
+      - 'keycloak_data:/keycloack/cybnity-sso-server'
+    ports:
+      # Map the host port with the container port HOST:CONTAINER
+      - '8082:8080'
+      - '8443:8443'
+    networks:
+      - cybnity-dmz
+    # Activate image console
+    tty: true
+networks:
+  # Specify custom network and network drivers about DMZ zone
+  cybnity-dmz:
+    name: user_interfaces_area
+    driver: bridge
+volumes:
+  postgresql_data:
+    driver: local
+  keycloak_data:
+    driver: local

@@ -10,6 +10,11 @@
 All the prototype components are built and available into the local Maven artifacts repository.
 
 ### Proto backend UI server
+#### Vert.x components layer
+Regarding static web page and contents, [Babel](https://babeljs.io/docs/en/) JavaScript compiler (allowing code to works in current browsers) is used into the backend's static [index.html](proto-backend-ui-server/src/main/resources/static/index.html) page for integration between Vert.x.
+
+Integration with Keycloak OAuth2 SSO server is supported by Vert.x module (see https://vertx.io/blog/easy-sso-for-vert-x-with-keycloak/ tutorial about SSO integration between Vert.x and Keycloak).
+
 During coding activity of this component, the Vert.x modified contents can be considered by the runtime with the shell command lines:
 * Package the server service:
 
@@ -23,10 +28,110 @@ During coding activity of this component, the Vert.x modified contents can be co
   mvn exec:java
   ```
 
+### Proto frontend UI server
+#### ReactJS components layer
+Requirements: install Node (see [Nodejs](https://nodejs.org/en/) documentation) and NPM tools according to the development workstation's operating system.
+
+* Check the Node and NPM versions supported by the development workstation via shell command line:
+
+  ```shell
+  node --version
+
+  npm --version
+  ```
+
+* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
+
+* Install all the project's required modules relative to NodeJS with shell command line (command should be executed under `sudo` to avoid problem of some modules directories installation):
+
+  ```shell
+
+  // install project required modules
+  sudo npm install
+
+  // check the security vulnerability and report found issues
+  sudo npm audit
+
+  // fix possible sub-modules vulnerabilities
+  sudo npm audit fix --force
+
+  // upgrade to the latest version (install globally)
+  sudo npm i -g npm-check-updates
+
+  // detect which pacakges have newer versions
+  sudo ncu -g
+
+  // remove the lock on packages and install the latest versions
+  sudo npm update
+
+  // check outdated modules (show latest versions compared to versions specified in package.json)
+  sudo npm outdated
+  ```
+
+Documentation about integration between Vert.x and ReactJS is available on [Eclipse Vert.x How-To](https://how-to.vertx.io/single-page-react-vertx-howto/).
+Documentation about React-Bootstrap library is available on [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/) github web site.
+Tutorial about [security of ReactJS routes with Keycloack](https://cagline.medium.com/authenticate-and-authorize-react-routes-component-with-keycloak-666e85662636).
+
 ## START OF SYSTEMS
 The start of [infrastructure services](../proto-infrastructures/README.md) is __required before to execute the start of prototyped systems__.
 
 The CYBNITY prototyped systems are managed into the Maven sub-project named __proto-asset-control__.
+
+The systems are integrated according to an even-based architecture supported by an integration chain of events (e.g Command, Query, Notification):
+
+```mermaid
+flowchart LR
+	subgraph cybnity_systems[POC CYBNITY systems]
+		subgraph uibackend[Proto Backend UI Server]
+			AreasAssetsProtectionUICapabilityHandler:::system;
+		end
+		subgraph areasassetsprotectiongateway[Proto Domain Gateways Server]
+			AreasAssetsProtectionSecurityCapabilitiesDispatcher:::system;
+			DownloadReportProcessingCapabilityHandler:::system;
+			AssetControlSecurityFeaturesDispatcher:::system;
+		end
+		subgraph assetcontrol_cpunit[Proto RTS Computation Unit Server]
+			CreateAssetFeature:::system;
+		end
+	end
+	subgraph dmbroker[Domains Interactions Space]
+		ac_createAsset:::techcomp;
+		ac_findAssets:::techcomp;
+	end
+	subgraph uibroker[Users Interactions Space]
+		aapdp[aap_downloadReport]:::techcomp;
+		aap[areas_assets_protection]:::techcomp;
+		asset_control_api[asset_control]:::techcomp;
+	end
+	subgraph busbroker[localhost:8080/eventbus]
+		aap_in[aap.in]:::techcomp;
+		aap_out[aap.out]:::techcomp;
+	end
+	AreasAssetsProtectionUICapabilityHandler -- 1.2, 2.2 : in progress notification --> aap_out;
+	aap_in -- 2: findAssets query --> AreasAssetsProtectionUICapabilityHandler -- 2.1 findAsset event --> aap --> AreasAssetsProtectionSecurityCapabilitiesDispatcher;
+	aap_in -- 1: createAsset command --> AreasAssetsProtectionUICapabilityHandler -- 1.1 createAsset event --> aap --> AreasAssetsProtectionSecurityCapabilitiesDispatcher;
+	aap_in -- 3: downloadReport command --> AreasAssetsProtectionUICapabilityHandler;
+	AreasAssetsProtectionUICapabilityHandler -- 3.1 downloadReport event --> aapdp --> DownloadReportProcessingCapabilityHandler;
+	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 1.3: createAsset event --> asset_control_api;
+	AreasAssetsProtectionSecurityCapabilitiesDispatcher -- 2.3: findAsset event --> asset_control_api;
+	asset_control_api --> AssetControlSecurityFeaturesDispatcher;
+	AssetControlSecurityFeaturesDispatcher -- 1.4: createAsset command --> ac_createAsset -- 1.5: createAsset event --> CreateAssetFeature;
+	AssetControlSecurityFeaturesDispatcher -- 2.4: findAssets query --> ac_findAssets;
+
+	uibackend:::componentlayer;
+	areasassetsprotectiongateway:::componentlayer;
+	assetcontrol_cpunit:::componentlayer;
+	busbroker:::area;
+	uibroker:::area;
+	dmbroker:::area;
+	cybnity_systems:::techsys;
+
+	classDef system fill:#3a5572,stroke:#3a5572,color:#fff;
+	classDef componentlayer fill:#97A5B5,stroke:#97A5B5,color:#fff;
+	classDef techcomp fill:#fff,stroke:#3a5572,color:#3a5572;
+	classDef techsys fill:#fff,stroke:#e5302a,color:#e5302a;
+	classDef area fill:#fff,stroke:#3a5572,color:#3a5572,stroke-width:1px,stroke-dasharray: 5 5;
+```
 
 ### RTS Computation Unit server
 Start the RTS Computation Unit server __from the proto-rts-computation-unit-server__ Maven sub-project directory:
@@ -59,6 +164,27 @@ __From the proto-backend-ui-server__ Maven sub-project directory, start the back
 When start process is executed:
   - The UI backend server instance is started and automatically expose a http service on port 8080;
   - The java console's output show the http requests received from the front end layer (e.g web client or web browser) and treatment logs (e.g return of html static contents, delegation to UI capabilities layer).
+
+### Frontend UI server
+__From the proto-frontend-ui-server__ Maven sub-project directory, start the frontend service ensuring the reactive web exposure of web UI, and CYBNITY UI layer (e.g html/css/Javascript/JSX, reactive components and integration with call to proto-backend-ui-server over Vert.x event bus on HTTP).
+* Navigate into the [proto-frontend-ui-server](proto-frontend-ui-server) directory
+
+* Start the React web application (usable from web browser at http://localhost:3000) via the execution of the shell command line (which execute the scripts defined by the package.json file):
+
+  ```shell
+  npm start
+  ```
+
+When start process is executed:
+  - The workstation's default web browser is automatically opened on the React App, and the NodeJS process is started as web application into the command line console;
+  - This is a frontend development server started to integrate the API backend functions;
+  - With the http://localhost:3000 url called from a web browser, a test of asset creation can be tested to validate the integration chains to the RTS computation unit.
+
+* A possible tests execution can be started from shell command line:
+
+  ```shell
+  npm test
+  ```
 
 # INTEGRATION TEST PROTOCOL
 ## TEST OF UI BACKEND ENDPOINTS (static contents)

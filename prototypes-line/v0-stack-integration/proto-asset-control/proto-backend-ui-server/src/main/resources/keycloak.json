@@ -1,0 +1,13 @@
+{
+  "realm": "cybnity",
+  "auth-server-url": "http://localhost:8082/",
+  "ssl-required": "external",
+  "resource": "cybnity-backend-api",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "eNnieaQ63RE33bugdVJBHXe69XcfHbEX"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "policy-enforcer": {}
+}

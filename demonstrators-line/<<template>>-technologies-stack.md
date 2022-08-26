@@ -8,13 +8,13 @@ Presents the standard goals that should be reached and benefits that are targete
 A set of common requirements is defined as frame of principles need to be maintained by any version of the CYBNITY official technology stack.
 It's possible that new goals entry enhance the common goals, regarding specific technology and/or implementation layers during a new version development of the standards catalog.
 
-### Objectives
-### Requirements
+### OBJECTIVES
+### REQUIREMENTS
 
 # CURRENT MPP OFFICIAL VERSION
 - Version:
 - Released at:
-- Status: 
+- Status:
 - Documentation
 
 ## LAYER ARCHITECTURE

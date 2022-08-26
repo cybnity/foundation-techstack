@@ -63,4 +63,12 @@ public interface Event {
 	 */
 	public String type();
 
+	/**
+	 * Get a credential regarding authentication that is used during the exchange of
+	 * the event, and that can be read to known more about the event producer.
+	 * 
+	 * @return A credential or null.
+	 */
+	public AuthenticationCredential authenticationCredential();
+
 }

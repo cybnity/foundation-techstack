@@ -15,4 +15,4 @@ Prototypes are built via Maven tool using a [standard Maven project structure](h
 # MANAGED PROTOTYPES
 | PROTOTYPE NAME | TYPE | RELATED TO | PROJECT DIRECTORY | COMMENTS |
 | :--- | :--: | :--- | :--- | :--- |
-| Foundation TechStack V0 | `TECHSTACK` | [Demonstrator V0](https://github.com/cybnity/foundation-techstack/blob/0aa4d70e4b1c880e1ebec00f51ea7dd7947fee4d/demonstrators-line/demonstrator-v0/technologies-stack-analysis.md) | [Prototype space](v0-stack-integration) | Technologies integration validation |
+| Foundation TechStack V0 | `TECHSTACK` | [Demonstrator V0](../demonstrators-line/demonstrator-v0/technologies-stack-analysis.md) | [Prototype space](v0-stack-integration) | Technologies integration validation |

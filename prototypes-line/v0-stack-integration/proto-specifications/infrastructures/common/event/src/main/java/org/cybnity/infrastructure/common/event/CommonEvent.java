@@ -15,6 +15,7 @@ public class CommonEvent implements Event, Identifiable {
 	public String id;
 	public String body, tenantId;
 	public Integer version;
+	public AuthenticationCredential authenticationCredential;
 
 	/**
 	 * Constructor of event using a specific time area.
@@ -29,6 +30,11 @@ public class CommonEvent implements Event, Identifiable {
 
 	public CommonEvent() {
 		wasOccurredOn(Calendar.getInstance().getTime());
+	}
+
+	@Override
+	public AuthenticationCredential authenticationCredential() {
+		return this.authenticationCredential;
 	}
 
 	@Override
@@ -67,6 +73,16 @@ public class CommonEvent implements Event, Identifiable {
 	@Override
 	public Date occurredOn() {
 		return this.occurredOn;
+	}
+
+	/**
+	 * Define the credential that is attached to this event regarding the producer
+	 * who generated him.
+	 * 
+	 * @param credential A credential.
+	 */
+	protected void setAuthenticationCredential(AuthenticationCredential credential) {
+		this.authenticationCredential = credential;
 	}
 
 	/**

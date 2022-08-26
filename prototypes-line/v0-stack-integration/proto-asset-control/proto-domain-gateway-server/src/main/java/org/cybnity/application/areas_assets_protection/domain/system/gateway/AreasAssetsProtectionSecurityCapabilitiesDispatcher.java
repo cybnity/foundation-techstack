@@ -47,6 +47,7 @@ public class AreasAssetsProtectionSecurityCapabilitiesDispatcher extends UISecur
 		// to any capability
 		connection = uiSpace().redisClient().connectPubSub();
 		// Create set of listener manager by this handler
+		activeListeners.clear();
 		activeListeners.add(new EntryPointEventsListener(apiEntryPoint.name()));
 
 		// Install listeners on connection

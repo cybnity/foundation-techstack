@@ -45,6 +45,7 @@ public class AssetControlSecurityFeaturesDispatcher extends SecurityFeatureDomai
 
 	@Override
 	protected void registerUsersInteractionsSpaceHandlers() throws Exception {
+		capabilitiesLayerListeners.clear();
 		// Create the subscription consumer attached to UIS events managed by this
 		// features domain
 		// Attach the listener of channel to delegate treatment of each event relative
@@ -62,6 +63,7 @@ public class AssetControlSecurityFeaturesDispatcher extends SecurityFeatureDomai
 
 	@Override
 	protected void registerDomainsInteractionsSpaceHandlers() throws Exception {
+		domainsLayerListeners.clear();
 		// TODO Create the subscription consumer attached to DIS events managed by this
 		// domain (regarding domain events to promote on the UI space)
 		// TODO Attach the listener of channel to delegated notification/answer of
