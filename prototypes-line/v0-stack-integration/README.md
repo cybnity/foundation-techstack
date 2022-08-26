@@ -14,7 +14,7 @@ Main goal is to validate the compatibility of technologies set assembly, their p
 | Eclipse Vert.x Web |4.3.2|POC state: OK build/run on Eclipse Temurin JRE|- [Documentation](https://vertx.io/docs/vertx-web/java/)|
 | Eclipse Vert.x Core |4.3.2|POC state: OK build/run with Eclipse Temurin JDK/JRE|Jackson Databind 2.13 required for POJO/JSON mapping of event via Redis channels<br>- [Documentation](https://vertx.io/docs/vertx-core/java/)<br>- JDK 1.8+<br>- [GitHub project](https://github.com/eclipse-vertx/vert.x/releases)<br>- Vert.x Vault<br>- Kafka Connector<br>- Lettuce messaging plugin with Redis<br>- Vert.x OAuth2 Provider|
 | Eclipse Vert.x Redis Client |4.3.2|POC state: OK build/run with Vert.x Core and Redis server|- [Documentation](https://vertx.io/docs/vertx-redis-client/java/)|
-| Eclipse Vert.x JWT |4.3.2|POC state: OK build/run with Vert.x Core| vertx-auth-jwt extension module|
+| Eclipse Vert.x JWT |4.3.2|POC state: OK build/run with Vert.x Core|- vertx-auth-jwt extension module|
 | Eclipse Vert.x OAuth2 Provider |4.3.2|POC state: OK build/run with Vert.x Core|- vertx-auth-oauth2 [extension module documentation](https://vertx.io/docs/vertx-auth-oauth2/java/)|
 | [Lettuce Client](https://lettuce.io) |6.2.0|POC state: OK build/run with Vert.x Core and Redis server|- [Documentation](https://lettuce.io/docs/)|
 | Eclipse Vert.x Kafka Client |4.3.2|POC state: OK build/run with Vert.x kafka client and Kafka server|- [Documentation](https://vertx.io/docs/vertx-kafka-client/java)|
