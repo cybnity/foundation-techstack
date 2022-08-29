@@ -116,7 +116,7 @@ Presentation of the technologies and frameworks used for implementation of the C
 
 | Name | Usage | Solution Type | Technology | Runtime Infrastructure Target |
 | :--- | :--- | :--- | :--- | :--- |
-|x86 CPU|Processing of systems and OS|Computation Processing Unit|x86 instruction set| |
+|x86 CPU|Processing of systems and OS|Computation Processing Unit|x86 instructions set| |
 
 ## LAYER ARCHITECTURE
 ### UI Layer
