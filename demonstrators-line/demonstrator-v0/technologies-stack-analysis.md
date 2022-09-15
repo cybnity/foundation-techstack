@@ -147,8 +147,6 @@ The current status of technology already in the analysis stream give a general v
 | OPERATING INFRASTRUCTURE | Linux Operating System | Alpine 64bits kernel | `WIN` | `WIN` | `WIN` | Docker optimized |
 | OPERATING INFRASTRUCTURE | Linux Operating System | Debian 64bits kernel | `WIN` | `WIN` | `WIN` | Docker image base for several infrastructure applications |
 | OPERATING INFRASTRUCTURE | Executable System | Docker Image | `WIN` | `WIN` | `WIN` | Template of CYBNITY packaged system ready for run on a virtualized infrastructure (Infra-As-Code Execution type) |
-| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | MicroK8s | `WIN` | | | Kubernetes for laptop, local dev deployment |
-| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Minikube | `ALT` | | | Kubernetes for laptop, local dev deployment |
 | OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Kubernetes orchestrator | `WIN FOR SERVER-SIDE` | | | Server deployment; execution of Flink functions/CEP/data stream processors, and of Docker images |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | x86 | `WIN` | `WIN` | `WIN` | |
 | PHYSICAL INFRASTRUCTURE | Processing Unit | ARM | `WIN` | | | |
@@ -159,6 +157,7 @@ The current status of technology already in the analysis stream give a general v
 | Layer / Role | Component Name | IDEA STAGE - Implementation Technology Opportunity | ANALYSIS STAGE - Specification Validated | DESIGN STAGE - Design Tested | IMPL STAGE - Implementation Tested | Comments |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | OPERATING TOOL | Kafka Cluster Management| [CMAK](https://github.com/yahoo/CMAK) | `WIN` | `WIN` | `WIN` | Simple web console, which could be only used for development but replaced by a more rich tool supporting the administration and monitoring of a Kafka cluster |
+| OPERATING TOOLS | Kubernetes Cluster Monitoring | [Kubernetes Dashboard](https://sysdig.com/learn-cloud-native/kubernetes-101/what-is-the-kubernetes-dashboard/) | `WIN` | | | web-based UI to perform basic operating tasks and review Kubernetes cluster events |
 | BUILD TOOL | Components Builder | [Maven](https://maven.apache.org/) | `WIN` | `WIN` | `WIN` | Build binaries (e.g application components) from VCS, install into local repository, and deploy to Artifacts Repository |
 | BUILD TOOL | Components Builder | [Node.js & NPM](https://nodejs.org/en/) | `WIN` | `WIN` | `WIN` | JavaScript runtime built on Chrome's V8 JS engine for development/test of ReactJS application (e.g frontend web server components) |
 | BUILD TOOL | System Docker Images Builder | [Docker](https://www.docker.com/) | `WIN` | | | Build immutable containerized systems (e.g docker image template of packaged system ready for run), push and tag images into System Images Repository |
@@ -176,7 +175,9 @@ The current status of technology already in the analysis stream give a general v
 | DELIVERY TOOL | Infrastructure & Resources Configuration | [Helm](https://helm.sh/) | `WIN` | | | Configuration of systems' resources, logs, forwarding ports of Docker image, Kubernetes objects (e.g baseline/live replica cluster allowing pre-prod dress rehearsal, canary cluster for code changed and rollout with automated recovery, production/live cluster) supporting environments/infrastructures deployment |
 | DELIVERY TOOL | Continuous Delivery Orchestrator | [Spinnaker](https://spinnaker.io/) | `WIN` | | | Deploy systems versions via deployment pipeline (e.g staging environment, Canary strategy to Live/Production), and release platform changed versions to infrastructures (e.g environments templates defined by Helm chart manifests, red/black rollout strategy) |
 | DELIVERY TOOL | Continuous Delivery Orchestrator | [HashiCorp Waypoint](https://www.waypointproject.io/) | `X` | | | Build, deploy, release and publish Dockerized systems images on Kubernetes infrastructure |
-| INFRASTRUCTURE TOOL | Platform-As-A-Service | [Kubernetes](https://kubernetes.io/) | `WIN` | | | Automated deployment, scaling and management of containerized systems and applications |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | [Kubernetes](https://kubernetes.io/) | `WIN` | | | Automated deployment, scaling and management of containerized systems and applications |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | [MicroK8s](https://microk8s.io/) | `WIN` | | | Pure-upstream Kubernetes for developer workstation to production |
+| OPERATING INFRASTRUCTURE | Infra-As-Code Execution | Minikube | `ALT` | | | Kubernetes for laptop, local dev deployment |
 
 # TECHNOLOGY ANALYSIS STREAM
 
