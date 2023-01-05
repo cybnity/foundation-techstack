@@ -59,7 +59,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 
 ```
   | TECHNOLOGY | USABLE ON PLATFORM TYPES | AUTHORIZED ENVIRONMENTS | AUTHORIZED ROLES | MINIMUM REQUIREMENTS |
-  | |Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
+  | |Web, Monitoring, Centralized Storage, Middlewares, Tooling|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating/Physical Infrastructure, Delivery Tool|
 ```
 
 | TECHNOLOGY | USABLE ON PLATFORM TYPES | AUTHORIZED ENVIRONMENTS | AUTHORIZED ROLES | MINIMUM REQUIREMENTS |
@@ -86,10 +86,17 @@ Presentation of the retained implementation stack resulting of the analysis step
 |PostgreSQL|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistence Infrastructure|version >= 14.0.5|
 |Redis|Web, Middlewares|Local, Dev, Test, Staging, Production|Integration/Persistence Infrastructure|version >= 7.0.4|
 |Eclipse Temurin JDK/JRE|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 11.0.15|
+|Maven|Tooling|Local, Dev, Test, Staging|Delivery Tool|version >= 3.8.5|
 |Linux Alpine|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 3.16.0|
 |Linux Debian|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 10|
 |Docker|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= 20.10.17|
+|Helm|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Delivery Tool|version >= TBD|
+|Terraform|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
+|Kubernetes Cluster|Web, Monitoring, Centralized Storage, Middlewares|Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
+|MicroK8s|Web, Monitoring, Centralized Storage, Middlewares|Local|Operating Infrastructure, Delivery Tool|version >= TBD|
 |x86 CPU|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Physical Infrastructure| |
+
+*TBD: To Be Defined*
 
 # STACK DEFINITION PROCESS CURRENT STATUS
 Find here the current selected technologies set which are finally retained as valid stack after their analysis steps passed with success. This is the conclusions that are coming as outputs from the technology analysis stream executed.
@@ -319,7 +326,9 @@ The acceptance level per differentiation criteria is evaluated as:
 | Eclipse OpenJ9 8/11 JRE |OK| |OK| | | | |
 | Consul | | | | | | | |
 | Linux Alpine |OK| |OK| | | | |
+| Helm | | | | | | | |
 | Docker |OK| |OK| | | | |
+| Terraform | | | | | | | |
 | MicroK8s | | | | | | | |
 | Kubernetes | | | | | | | |
 
@@ -335,6 +344,9 @@ See the [technologies stack](v0-technologies-stack.md) page as eligible official
 See [pattern language for microservices](https://microservices.io/patterns/index.html) approach.
 
 ![image](MicroservicePatternLanguage.jpeg)
+
+### Overview of software tools
+![image](software-tools-2022-overview.jpeg)
 
 #
 [Back To Home](README.md)
