@@ -110,7 +110,10 @@ Presentation of the technologies and frameworks used for implementation of the C
 |PostgreSQL|Persistence of SSO elements|Database of security elements regarding users' access controls|SQL|OS, Docker|
 |Linux Alpine|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
 |Linux Debian|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
-|Docker|Virtualization of applicative/infrastructure systems|Virtualized system image assembly and runtime|Linux Kernel|Docker|
+|Helm|Resources definition and instantiation (via manifesto) of components runnable into a Kubernetes cluster|Infrastructure-As-Code tool|Helm Chart|Kubernetes|
+|Docker Container|Server virtualization management of applicative/infrastructure systems|Templated system image instance and runtime|YAML file|Docker Runtime, Linux libraries|
+|Kubernetes Cluster|Orchestration management of services components and application nodes|Infrastructure-As-Code tool|Kubernetes|OS, Kubernetes orchestrator|
+|Terraform|Provisioning management of networking, load balancing, database, users, permissions and services values defining a runtime environment as Kubernetes cluster, and building configuration (Helm manifesto) of provisionable components|Infrastructure-As-Code tool|Terraform files|OS|
 
 ### Physical Infrastructure Layer
 
