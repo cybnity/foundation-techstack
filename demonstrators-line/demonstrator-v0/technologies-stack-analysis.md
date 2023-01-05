@@ -87,6 +87,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Redis|Web, Middlewares|Local, Dev, Test, Staging, Production|Integration/Persistence Infrastructure|version >= 7.0.4|
 |Eclipse Temurin JDK/JRE|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 11.0.15|
 |Maven|Tooling|Local, Dev, Test, Staging|Delivery Tool|version >= 3.8.5|
+|GitHub Actions|Tooling|Dev, Test, Staging|Delivery Tool| |
 |Linux Alpine|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 3.16.0|
 |Linux Debian|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 10|
 |Docker|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= 20.10.17|
