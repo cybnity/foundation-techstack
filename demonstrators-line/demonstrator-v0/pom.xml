@@ -2,10 +2,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>${revision}</version>
+	<version>0.1.0</version>
 	<packaging>pom</packaging>
-	<name>CYBNITY technologies stack prototypes line</name>
+	<name>CYBNITY technologies stack</name>
+
 	<properties>
+		<!-- CYBNITY project default revision -->
+		<revision>0.1.0</revision>
+		<!-- Tooling -->
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
 		<!-- Align Maven default configuration about JDK version to use -->
@@ -19,15 +23,7 @@
 		<lint.activation>deprecation</lint.activation>
 		<junit.version>[4.13.1,)</junit.version>
 		<javafx.version>13</javafx.version>
-
-		<!-- CYBNITY project revision -->
-		<revision>0.0.1-SNAPSHOT</revision>
 	</properties>
-
-	<modules>
-		<!-- Technology stack implementation sub-project (e.g framework, customized open source dependency...) -->
-		<module>prototypes-line</module>
-	</modules>
 
 	<organization>
 		<name>CYBNITY</name>
@@ -35,22 +31,30 @@
 	</organization>
 
 	<distributionManagement>
-		<!-- Artifacts distribution -->
+		<repository>
+      <id>space-cybnity-open-source</id>
+			<name>CYBNITY OS Releases</name>
+			<uniqueVersion>false</uniqueVersion>
+      <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+			<layout>default</layout>
+    </repository>
 	</distributionManagement>
 
-	<repositories></repositories>
+	<repositories>
+		<repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+				<releases>
+				    <enabled>true</enabled>
+				</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories></pluginRepositories>
 
-	<pluginRepositories>
-		<!--
-		<pluginRepository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net repository for Maven</name>
-			<url>http://download.java.net/maven/2</url>
-			<layout>default</layout>
-		</pluginRepository>-->
-	</pluginRepositories>
-
-	<!-- Generalized dependency versions -->
+	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
 		<dependencies></dependencies>
 	</dependencyManagement>
@@ -63,17 +67,6 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!--
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>-->
 	</dependencies>
 
 	<!-- Lits of advise about project -->
@@ -94,14 +87,16 @@
 		<developer>
 			<id>o.lemee</id>
 			<name>Olivier Lemee</name>
-			<email>olivier@agnet.fr</email>
-			<organization>AG Net</organization>
-			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<email>olivier@cybnity.org</email>
+			<organization>CYBNITY</organization>
+			<organizationUrl>http://www.cybnity.org</organizationUrl>
 			<timezone>FR</timezone>
 			<roles>
-				<role>Product Owner</role>
-				<role>Software Architect</role>
-				<role>Release Manager</role>
+				<role>Product Leader</role>
+				<role>Product Designer</role>
+				<role>Software Designer</role>
+				<role>Software Developer</role>
+				<role>Software Reviewer</role>
 			</roles>
 		</developer>
 	</developers>
@@ -210,6 +205,10 @@
 					<version>3.0.0-M5</version>
 				</plugin>
 				<plugin>
+				  <artifactId>maven-install-plugin</artifactId>
+				  <version>2.4</version>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>3.3.0</version>
@@ -219,23 +218,15 @@
 						</descriptorRefs>
 					</configuration>
 				</plugin>
-
-				<!--
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
-                <executions>
-                    <execution>
-                        Default configuration for running
-                        Usage: mvn clean javafx:run
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>com.cybnity.ui.App</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>flatten-maven-plugin</artifactId>
+          <version>1.3.0</version>
+					<configuration>
+						<flattenMode>resolveCiFriendliesOnly</flattenMode>
+						<updatePomFile>true</updatePomFile>
+					</configuration>
+        </plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -258,6 +249,33 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+			<plugin>
+			  <artifactId>maven-install-plugin</artifactId>
+			  <configuration>
+					<!-- Generate checksum validated during deployment process -->
+			    <createChecksum>true</createChecksum>
+			  </configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -274,8 +292,8 @@
 		</profile>
 
 		<profile>
-			<!-- Build regarding a development version on development platforms -->
-			<id>dev</id>
+			<!-- Build regarding a development version on shared development platform -->
+			<id>dev_deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -283,23 +301,7 @@
 
 		<profile>
 			<!-- Build regarding a qualification version on test environment -->
-			<id>test</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a release version on pre-production environment -->
-			<id>pre-prod</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a release version on production environment -->
-			<id>prod</id>
+			<id>QA</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
