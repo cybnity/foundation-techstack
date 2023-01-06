@@ -73,8 +73,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
-  - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions
-    - [dependency tree](mpp-official-version-pom-tree.txt)
+  - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions. See [dependencies tree report](mpp-official-version-pom-tree.txt)
 
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
