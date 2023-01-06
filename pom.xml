@@ -36,9 +36,27 @@
 
 	<distributionManagement>
 		<!-- Artifacts distribution -->
+		<repository>
+      <id>space-cybnity-open-source</id>
+			<name>CYBNITY OS Releases</name>
+			<uniqueVersion>false</uniqueVersion>
+      <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+			<layout>default</layout>
+    </repository>
 	</distributionManagement>
 
-	<repositories></repositories>
+	<repositories>
+		<repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+				<releases>
+				    <enabled>true</enabled>
+				</releases>
+		</repository>
+	</repositories>
 
 	<pluginRepositories>
 		<!--
@@ -219,23 +237,6 @@
 						</descriptorRefs>
 					</configuration>
 				</plugin>
-
-				<!--
-            <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
-                <executions>
-                    <execution>
-                        Default configuration for running
-                        Usage: mvn clean javafx:run
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>com.cybnity.ui.App</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -264,45 +265,4 @@
 		<outputDirectory>target/site</outputDirectory>
 	</reporting>
 
-	<profiles>
-		<profile>
-			<!-- Build regarding a development version on developer station -->
-			<id>localhost</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a development version on development platforms -->
-			<id>dev</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a qualification version on test environment -->
-			<id>test</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a release version on pre-production environment -->
-			<id>pre-prod</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<!-- Build regarding a release version on production environment -->
-			<id>prod</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
 </project>

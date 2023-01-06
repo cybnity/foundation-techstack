@@ -9,7 +9,8 @@
 	<properties>
 		<!-- CYBNITY project default revision -->
 		<revision>0.1.0</revision>
-		<!-- Tooling -->
+
+		<!-- JAVA TOOLING -->
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
 		<!-- Align Maven default configuration about JDK version to use -->
@@ -18,11 +19,13 @@
 		<maven.compiler.release>${java.versions}</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
 		<junit.version>[4.13.1,)</junit.version>
-		<javafx.version>13</javafx.version>
+
+		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
+		<vertx.version>4.3.2</vertx.version>
+		<junit-jupiter.version>5.7.0</junit-jupiter.version>
 	</properties>
 
 	<organization>
@@ -56,7 +59,87 @@
 
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
-		<dependencies></dependencies>
+		<dependencies>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-core</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-web</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-web-client</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+					<version>${junit.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-junit5</artifactId>
+					<version>${vertx.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter-api</artifactId>
+					<version>${junit-jupiter.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter-engine</artifactId>
+					<version>${junit-jupiter.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-redis-client</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-auth-oauth2</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-auth-jwt</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-config</artifactId>
+					<version>4.3.3</version>
+				</dependency>
+				<dependency>
+					<groupId>io.vertx</groupId>
+					<artifactId>vertx-kafka-client</artifactId>
+					<version>${vertx.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>redis.clients</groupId>
+					<artifactId>jedis</artifactId>
+					<version>4.2.3</version>
+				</dependency>
+				<dependency>
+					<groupId>io.lettuce</groupId>
+					<artifactId>lettuce-core</artifactId>
+					<version>6.2.0.RELEASE</version>
+				</dependency>
+				<dependency>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+					<version>[2.13.2.1,)</version>
+				</dependency>
+		</dependencies>
 	</dependencyManagement>
 
 	<!-- Common and projects transversal dependencies -->
@@ -64,8 +147,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -92,6 +173,7 @@
 			<organizationUrl>http://www.cybnity.org</organizationUrl>
 			<timezone>FR</timezone>
 			<roles>
+				<role>CYBNITY Founder</role>
 				<role>Product Leader</role>
 				<role>Product Designer</role>
 				<role>Software Designer</role>
@@ -140,7 +222,6 @@
 						<showDeprecation>false</showDeprecation>
 						<showWarnings>true</showWarnings>
 						<!-- Use release node alone in place of source & target nodes when equals value (8, 9, 11, 12) -->
-
 						<source>${java.version}</source>
 						<target>${java.version}</target>
 						<compilerVersion>${java.version}</compilerVersion>
@@ -227,6 +308,51 @@
 						<updatePomFile>true</updatePomFile>
 					</configuration>
         </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.4.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.2.4</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+							<configuration>
+								<transformers>
+									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+										<manifestEntries>
+											<Main-Class>io.vertx.core.Launcher</Main-Class>
+											<!--
+											<Main-Verticle>${main.verticle}</Main-Verticle>
+											-->
+										</manifestEntries>
+									</transformer>
+									<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								</transformers>
+								<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.0.0</version>
+					<configuration>
+						<mainClass>io.vertx.core.Launcher</mainClass>
+						<!--
+						<arguments>
+							<argument>run</argument>
+							<argument>${main.verticle}</argument>
+						</arguments>
+						-->
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
