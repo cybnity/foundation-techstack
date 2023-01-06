@@ -9,9 +9,9 @@
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
 		<!-- Align Maven default configuration about JDK version to use -->
-		<maven.compiler.source>${java.versions}</maven.compiler.source>
-		<maven.compiler.target>${java.versions}</maven.compiler.target>
-		<maven.compiler.release>${java.versions}</maven.compiler.release>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
