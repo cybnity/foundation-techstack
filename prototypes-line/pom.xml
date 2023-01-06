@@ -11,7 +11,7 @@
 	<artifactId>prototypes</artifactId>
 	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
-	<name>CYBNITY prototypes</name>
+	<name>CYBNITY Techstack prototypes line</name>
 
 	<modules>
 		<!-- Prototyping modules -->

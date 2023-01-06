@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cybnity</groupId>
 		<artifactId>techstack</artifactId>
-		<version>0.1.0</version>
+		<version>0.2.0</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.quality</groupId>
@@ -14,8 +14,21 @@
 
 	<properties>
 		<!-- CYBNITY project default revision -->
-		<revision>0.1.0</revision>
+		<revision>0.2.0</revision>
 	</properties>
+
+	<repositories>
+		<repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+				<releases>
+				    <enabled>true</enabled>
+				</releases>
+		</repository>
+	</repositories>
 
 	<!-- Define all standard dependencies reusable by any type of project supported by this techstack version -->
 	<dependencies>

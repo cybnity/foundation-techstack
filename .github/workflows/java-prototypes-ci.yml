@@ -1,0 +1,184 @@
+# Main COMMIT STAGE workflow regarding the Maven projects managed via Maven tool
+name: Java Prototypes CI (COMMIT STAGE)
+run-name: COMMIT STAGE - Java prototypes build & quality verification
+on:
+  push:
+    # execution when development maven codes commit is pushed by a techstack developer
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when changes detected on files or java sub-projects contents
+    # becarefull, path filters are not evaluated on tags
+    paths:
+      - 'pom.xml'
+      - 'prototypes-line/**'
+      - '.github/workflows/java-prototypes-ci.yml'
+      - '.github/workflows/publish-version-to-repository.yml'
+    # execute when a alpha tag is added on the feature branch as "finished work" (e.g by developer)
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-*'
+      - '*-reviewed'
+      - 'reviewed*'
+      - '*-alpha'
+
+  pull_request:
+    # execution when pull request is requested by a developer (e.g to reviewer)
+    types: [opened, reopened, review_requested]
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when reviewed files or prototype sub-projects
+    paths:
+      - 'pom.xml'
+      - 'prototypes-line/**'
+
+  pull_request_target:
+    # when a pull request merges, the pull request is automatically closed (so check the merged state)
+    types: [closed]
+    # execution when feature's artifacts (e.g implementation doc, java source code) were reviewed
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when reviewed files or java sub-projects
+    paths:
+      - 'pom.xml'
+      - 'prototypes-line/**'
+
+# The commit stage workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  define_project_release_name:
+    name: Release name preparation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      release_name: ${{ env.release_name }}
+      is_snapshot: ${{ env.is_snapshot }}
+    steps:
+      - name: Check existing project defined version name
+        if: ${{ github.event.release.tag_name != '' }}
+        # Read the release name defined into the GitHub project
+        run: |
+          echo The current release tag is ${{ github.event.release.tag_name }}
+          echo "TAG_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "is_snapshot=${{ contains(github.event.release.tag_name, 'snapshot') || contains(github.event.release.tag_name, 'reviewed') }}" >> $GITHUB_ENV
+
+      - name: Set the release name of the project based on GitHub tag name
+        if: ${{ env.TAG_VERSION != '' }}
+        run : |
+            echo "Define the final version identifier from the GitHub project's current tag name"
+            echo "release_name=$TAG_VERSION" >> $GITHUB_ENV
+            echo "Development version type is detected from the GitHub tag name as ${{ env.is_snapshot }}"
+
+      # Build specific release name because none tag is existing on GitHub project
+      - name: Define reusable environment variables about current commit
+        if: ${{ env.TAG_VERSION == '' }}
+        uses: FranzDiebold/github-env-vars-action@v2.7.0
+
+      - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>) regarding development release
+        if: ${{ env.TAG_VERSION == '' }}
+        run: |
+            echo "Git commit revision $CI_SHA_SHORT abbreviation based on 7 characters (default) maximum (origin based: $CI_SHA)"
+            echo "COMMIT_ID=$CI_SHA_SHORT" >> $GITHUB_ENV
+            echo "FEATURE_NAME=$CI_ACTION_REF_NAME_SLUG" >> $GITHUB_ENV
+            echo "is_snapshot=true" >> $GITHUB_ENV
+            echo "Development version type is defined as snapshot based on $CI_SHA_SHORT commit revision number"
+
+      - name: Set a snapshot feature name based on unique commit id
+        # Build final name about featureX name, but avoiding COMMIT_ID and SNAPSHOT suffix
+        if: ${{ env.TAG_VERSION == '' && ( !contains(env.FEATURE_NAME, 'alpha') && !contains(env.FEATURE_NAME, 'reviewed') ) }}
+        # Build unique name including commit_id suffix based
+        # Example of output name: feature-133.9efbb506-SNAPSHOT
+        run: echo "release_name=$FEATURE_NAME.$COMMIT_ID-SNAPSHOT" >> $GITHUB_ENV
+
+      - name: Set a snapshot reviewed version name of the project based on CYBNITY versioning strategy
+        # Build final name about any tag named branch (maybe don't include feature name including -reviewed or -alpha)
+        if: ${{ env.TAG_VERSION == '' && env.release_name == '' }}
+        # Build name based on a potential included tag (e.g 0.0.7-reviewed, 0.0.7-alpha, 0.0.7) without commit_id suffix
+        # Example of output name 0.0.7-reviewed-SNAPSHOT, feature133-alpha-SNAPSHOT
+        run: echo "release_name=$FEATURE_NAME-SNAPSHOT" >> $GITHUB_ENV
+
+  prototypes_packaging:
+    name: Prototypes packaging
+    if: success() && github.event_name == 'push'
+    needs: [define_project_release_name]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      RELEASE_NAME: ${{ needs.define_project_release_name.outputs.release_name }}
+    outputs:
+      release_name: ${{ env.RELEASE_NAME }}
+    steps:
+      - name: Checkout source codes from branch
+        id: checkout_step
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
+          ref: ${{ inputs.branch_name }}
+
+      - name: Set up java runtime (Temurin JDK)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+          # defined settings.xml values allowing use of CYBNITY Maven remote repository
+          server-id: space-cybnity-open-source
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      - name: Build prototypes java code in their distributable formats (e.g JAR)
+        run: |
+          echo "Set the project artifacts version in pom files"
+          mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.RELEASE_NAME }}
+          mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.RELEASE_NAME }} --fail-fast --file pom.xml clean install -Dmaven.test.skip=true
+        env:
+            MAVEN_USERNAME: ${{ secrets.SPACE_CYBNITY_OS_REPO_USERNAME }}
+            MAVEN_PASSWORD: ${{ secrets.SPACE_CYBNITY_OS_REPO_PASSWORD }}
+
+  # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
+  # Publish release of parent pom.xml and sub-projects (reusable by other development) that potentially replace previous equals version named
+  publish_version_to_release_remote_repository:
+    name: Prototypes release publishing (remote repo)
+    if: ${{ success() && !needs.prototypes_packaging.outputs.is_snapshot }}
+    needs: [define_project_release_name, prototypes_packaging]
+    uses: ./.github/workflows/publish-version-to-repository.yml
+    with:
+      config-path: ${{ needs.prototypes_packaging.steps.checkout_step.ref }}
+      target_repository: RELEASE
+      package_release_name: ${{ needs.prototypes_packaging.outputs.release_name }}
+      pom-base-path: .
+    secrets: inherit
+
+  # Prepare only a snapshot version for remote repository installation
+  publish_version_to_snapshot_remote_repository:
+    name: Snapshot prototypes publishing (remote repo)
+    # By default, don't publish snapshot version on other repository than the local developer workstation's maven repository
+    # The Pull Request (PR) of development revision was approved and merged, but maybe work is not finished
+
+    # Publish snapshot version (parent pom.xml and prototyping sub-projects available for other features' developers) on remote repository
+      # it's a development version publishable as 'snapshot'
+      # only when approved, merged and tagged as 'reviewed' (e.g by reviewer)
+      # or only when a reviewed tag is pushed only on the branch (e.g after a review already executed after closed PR)
+      # or only when a alpha tag is pushed only on the branch (e.g when feature developer or reviewer indicate that work is finished)
+    if: ${{ success()
+          && needs.prototypes_packaging.outputs.is_snapshot
+          && (
+           (github.event.pull_request.merged == true && github.event.pull_request.reviewDecision == 'approved')
+           ||
+           ( github.event_name == 'push' && github.ref_type == 'tag' && ( contains(github.ref_name, 'reviewed') || contains(github.ref_name, 'alpha') ))
+          )
+          }}
+    needs: [define_project_release_name, prototypes_packaging]
+    uses: ./.github/workflows/publish-version-to-repository.yml
+    with:
+      config-path: ${{ needs.prototypes_packaging.steps.checkout_step.ref }}
+      target_repository: SNAPSHOT
+      package_release_name: ${{ needs.prototypes_packaging.outputs.release_name }}
+      pom-base-path: .
+    secrets: inherit
