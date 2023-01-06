@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.cybnity.techstack.prototypes</groupId>
+		<groupId>org.cybnity.techstack.ref.prototypes</groupId>
 		<artifactId>asset-control</artifactId>
 		<version>${proto-revision}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<groupId>org.cybnity.techstack.prototypes.asset-control</groupId>
+	<groupId>org.cybnity.techstack.ref.prototypes.asset-control</groupId>
 	<artifactId>rts-computation-unit-server</artifactId>
 	<packaging>jar</packaging>
 	<name>  - Asset Control rts computation unit</name>
@@ -47,17 +47,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.cybnity.techstack.prototypes.specifications.infrastructure.common</groupId>
+			<groupId>org.cybnity.techstack.ref.prototypes.specifications.infrastructure.common</groupId>
 			<artifactId>event</artifactId>
 			<version>${proto-revision}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.cybnity.techstack.prototypes.infrastructure.dis.adapter</groupId>
+			<groupId>org.cybnity.techstack.ref.prototypes.infrastructure.dis.adapter</groupId>
 			<artifactId>impl</artifactId>
 			<version>${proto-revision}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.cybnity.techstack.prototypes.areas-assets-protection.capabilities</groupId>
+			<groupId>org.cybnity.techstack.ref.prototypes.areas-assets-protection.capabilities</groupId>
 			<artifactId>api</artifactId>
 			<version>${proto-revision}</version>
 		</dependency>

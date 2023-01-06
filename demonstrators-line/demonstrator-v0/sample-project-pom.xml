@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.cybnity</groupId>
+		<artifactId>techstack</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>org.cybnity.techstack.quality</groupId>
+	<artifactId>sample-project</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+	<name>CYBNITY ${revision} techstack project</name>
+
+	<properties>
+		<!-- CYBNITY project default revision -->
+		<revision>0.1.0</revision>
+	</properties>
+
+	<!-- Define all standard dependencies reusable by any type of project supported by this techstack version -->
+	<dependencies>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-web-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-junit5</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-redis-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-auth-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-auth-jwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-kafka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>resolve-dependency</id>
+						<phase>validate</phase>
+						<configuration>
+							<silent>false</silent>
+						</configuration>
+						<goals>
+							<!-- Try to resolve all test scope -->
+							<goal>resolve</goal>
+							<!-- Try to resolve plugins and optionnaly their dependencies -->
+							<goal>resolve-plugins</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>analyze-dependencies</id>
+						<phase>validate</phase>
+						<goals>
+							<!-- Determine missing or unused dependencies -->
+							<goal>analyze-dep-mgt</goal>
+							<goal>analyze-duplicate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report-tree</id>
+						<phase>validate</phase>
+						<configuration>
+								<outputFile>mpp-official-version-pom-tree.txt</outputFile>
+								<outputType>text</outputType>
+								<appendOutput>false</appendOutput>
+						</configuration>
+						<goals>
+							<!-- Show the dependency hierarchy of the project and dependencies versions managed by the parent pom.xml -->
+							<goal>tree</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
