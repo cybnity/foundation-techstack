@@ -11,7 +11,6 @@ on:
     # execute only when changes detected on pom.xml files
     # becarefull, path filters are not evaluated on tags
     paths:
-      - 'demonstrators-line/pom.xml'
       - 'demonstrators-line/demonstrator-v*/pom.xml'
       - '.github/workflows/techstack-demonstrator-ci.yml'
       - '.github/workflows/publish-version-to-repository.yml'
@@ -32,7 +31,6 @@ on:
       - 'fix*'
     # execute only when reviewed files or demonstrator sub-projects
     paths:
-      - 'demonstrators-line/pom.xml'
       - 'demonstrators-line/demonstrator-v*/pom.xml'
 
   pull_request_target:
