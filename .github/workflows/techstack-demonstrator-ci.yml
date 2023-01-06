@@ -152,9 +152,9 @@ jobs:
 
       - name: Build techstack official demonstrators in their distributable formats (e.g Maven pom.xml)
         run: |
+          cd demonstrators-line
           echo "Set the demonstrators line version"
           mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.RELEASE_NAME }}
-          cd demonstrators-line
           mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.RELEASE_NAME }} --fail-fast --file pom.xml clean install -Dmaven.test.skip=true
         env:
             MAVEN_USERNAME: ${{ secrets.SPACE_CYBNITY_OS_REPO_USERNAME }}
