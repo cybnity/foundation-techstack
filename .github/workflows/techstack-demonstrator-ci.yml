@@ -1,0 +1,199 @@
+# Main COMMIT STAGE workflow regarding the Official Techstack version managed via Maven tool
+name: Techstack Official Version CI (COMMIT STAGE)
+run-name: COMMIT STAGE - Demonstrators build
+on:
+  push:
+    # execution when development pom codes commit is pushed by a demonstrator developer
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when changes detected on pom.xml files
+    # becarefull, path filters are not evaluated on tags
+    paths:
+      - 'demonstrators-line/pom.xml'
+      - 'demonstrators-line/demonstrator-v*/pom.xml'
+      - '.github/workflows/techstack-demonstrator-ci.yml'
+      - '.github/workflows/publish-version-to-repository.yml'
+    # execute when a alpha tag is added on the feature branch as "finished work" (e.g by techstack implementation developer)
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-*'
+      - '*-reviewed'
+      - 'reviewed*'
+      - '*-alpha'
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+  pull_request:
+    # execution when pull request is requested by a developer (e.g to reviewer)
+    types: [opened, reopened, review_requested]
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when reviewed files or demonstrator sub-projects
+    paths:
+      - 'demonstrators-line/pom.xml'
+      - 'demonstrators-line/demonstrator-v*/pom.xml'
+
+  pull_request_target:
+    # when a pull request merges, the pull request is automatically closed (so check the merged state)
+    types: [closed]
+    # execution when feature's artifacts (e.g implementation doc, maven pom.xml) were reviewed
+    branches:
+      - 'feature*'
+      - 'hotfix*'
+      - 'fix*'
+    # execute only when reviewed files
+    paths:
+      - 'demonstrators-line/pom.xml'
+      - 'demonstrators-line/demonstrator-v*/pom.xml'
+
+# The commit stage workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  define_project_release_name:
+    name: Release name preparation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      release_name: ${{ env.release_name }}
+      is_snapshot: ${{ env.is_snapshot }}
+    steps:
+      - name: Check existing project defined version name
+        if: ${{ github.event.release.tag_name != '' }}
+        # Read the release name defined into the GitHub project
+        run: |
+          echo The current release tag is ${{ github.event.release.tag_name }}
+          echo "TAG_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "is_snapshot=${{ contains(github.event.release.tag_name, 'snapshot') || contains(github.event.release.tag_name, 'reviewed') }}" >> $GITHUB_ENV
+
+      # Build specific release name because none tag is existing on GitHub project
+      - name: Define reusable environment variables about current commit
+      if: ${{ env.TAG_VERSION == '' }}
+      uses: FranzDiebold/github-env-vars-action@v2.7.0
+
+      #- name: Check existing tag on branch defining a release name
+      #  if: ${{ env.TAG_VERSION == '' }}
+      #  run: |
+      #      echo Search existent tag about official release from ${{ github.ref_name }} branch
+      #      echo "TAG_VERSION=${{ $GITHUB_REF#refs/tags/ }}" >> $GITHUB_ENV
+
+      - name: Check the tag pattern (x.z.y) identifying a final release
+        if: ${{ env.TAG_VERSION == '' }}
+        run: |
+            if [[ ${{ github.event.ref }} =~ ^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "is_snapshot=true" >> $GITHUB_ENV
+            else
+              echo "is_snapshot=true" >> $GITHUB_ENV
+            fi
+
+      - name: Set the identified release name of the demonstrators line from tag
+        if: ${{ env.TAG_VERSION != '' }}
+        run: |
+            echo "Define the final version identifier from the current tag name"
+            echo "release_name=$TAG_VERSION" >> $GITHUB_ENV
+            echo "Version type is detected as snapshot=${{ env.is_snapshot }}"
+
+      - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>) regarding development alpha
+        if: ${{ env.TAG_VERSION == '' }}
+        run: |
+            echo "Git commit revision $CI_SHA_SHORT abbreviation based on 7 characters (default) maximum (origin based: $CI_SHA)"
+            echo "COMMIT_ID=$CI_SHA_SHORT" >> $GITHUB_ENV
+            echo "FEATURE_NAME=$CI_ACTION_REF_NAME_SLUG" >> $GITHUB_ENV
+            echo "is_snapshot=true" >> $GITHUB_ENV
+            echo "Development version type is defined as snapshot based on $CI_SHA_SHORT commit revision number"
+
+      - name: Set a snapshot feature name based on unique commit id
+        # Build final name about featureX name, but avoiding COMMIT_ID and SNAPSHOT suffix
+        if: ${{ env.TAG_VERSION == '' && ( !contains(env.FEATURE_NAME, 'alpha') && !contains(env.FEATURE_NAME, 'reviewed') ) }}
+        # Build unique name including commit_id suffix based
+        # Example of output name: feature-133.9efbb506-SNAPSHOT
+        run: echo "release_name=$FEATURE_NAME.$COMMIT_ID-SNAPSHOT" >> $GITHUB_ENV
+
+      - name: Set a snapshot reviewed version name of the demonstration line based on CYBNITY versioning strategy
+        # Build final name about any tag named branch (maybe don't include feature name including -reviewed or -release)
+        if: ${{ env.TAG_VERSION == '' && env.release_name == '' }}
+        # Build name based on a potential included tag (e.g 0.0.7-reviewed, 0.0.7-release, 0.0.7) without commit_id suffix
+        # Example of output name 0.0.7-reviewed-SNAPSHOT, feature133-release-SNAPSHOT
+        # THE NAMING IMPACT ONLY THE DEMONSTRATION LINE (not the demonstrators which managed themselve their statically defined pom.xml versions)
+        run: echo "release_name=$FEATURE_NAME-SNAPSHOT" >> $GITHUB_ENV
+
+  demonstrators_line_build:
+    name: Demonstrators build
+    if: success() && github.event_name == 'push'
+    needs: [define_project_release_name]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      RELEASE_NAME: ${{ needs.define_project_release_name.outputs.release_name }}
+    outputs:
+      release_name: ${{ env.RELEASE_NAME }}
+    steps:
+      - name: Checkout source codes from branch
+        id: checkout_step
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
+          ref: ${{ inputs.branch_name }}
+
+      - name: Set up java runtime (Temurin JDK)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+          # defined settings.xml values allowing use of CYBNITY Maven remote repository
+          server-id: space-cybnity-open-source
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      - name: Build techstack official demonstrators in their distributable formats (e.g Maven pom.xml)
+        run: |
+          echo "Set the demonstrators line version"
+          mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.RELEASE_NAME }}
+          mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.RELEASE_NAME }} --fail-fast --file pom.xml clean install -Dmaven.test.skip=true
+        env:
+            MAVEN_USERNAME: ${{ secrets.SPACE_CYBNITY_OS_REPO_USERNAME }}
+            MAVEN_PASSWORD: ${{ secrets.SPACE_CYBNITY_OS_REPO_PASSWORD }}
+
+  # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
+  # Publish release of Maven pom.xml (reusable by other development) that potentially replace previous equals version named
+  publish_version_to_release_remote_repository:
+    name: Official Techstack releases publishing (remote repo)
+    if: ${{ success() && !needs.define_project_release_name.outputs.is_snapshot }}
+    needs: [define_project_release_name, demonstrators_line_build]
+    uses: ./.github/workflows/publish-version-to-repository.yml
+    with:
+      config-path: ${{ needs.demonstrators_line_build.steps.checkout_step.ref }}
+      target_repository: RELEASE
+      package_release_name: ${{ needs.demonstrators_line_build.outputs.release_name }}
+    secrets: inherit
+
+  # Prepare only a snapshot version for remote repository installation
+  publish_version_to_snapshot_remote_repository:
+    name: Techstack snapshots publishing (remote repo)
+    # By default, don't publish snapshot version on other repository than the local developer workstation's maven repository
+    # The Pull Request (PR) of development revision was approved and merged, but maybe work is not finished
+
+    # Publish snapshot version (parent pom.xml of demonstration sub-projects available for other features' developers) on remote repository
+      # it's a development version publishable as 'snapshot'
+      # only when approved, merged and tagged as 'reviewed' (e.g by reviewer)
+      # or only when a reviewed tag is pushed only on the branch (e.g after a review already executed after closed PR)
+      # or only when an alpha tag is pushed only on the branch (e.g when feature developer or reviewer indicate that work is finished)
+    if: ${{ success()
+          && needs.define_project_release_name.outputs.is_snapshot
+          && (
+           (github.event.pull_request.merged == true && github.event.pull_request.reviewDecision == 'approved')
+           ||
+           ( github.event_name == 'push' && github.ref_type == 'tag' && ( contains(github.ref_name, 'reviewed') || contains(github.ref_name, 'alpha') ))
+          )
+          }}
+    needs: [define_project_release_name, demonstrators_line_build]
+    uses: ./.github/workflows/publish-version-to-repository.yml
+    with:
+      config-path: ${{ needs.demonstrators_line_build.steps.checkout_step.ref }}
+      target_repository: SNAPSHOT
+      package_release_name: ${{ needs.demonstrators_line_build.outputs.release_name }}
+    secrets: inherit

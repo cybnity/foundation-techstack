@@ -25,6 +25,7 @@
 	</properties>
 
 	<modules>
+		<!-- MANAGED ONLY PROTOTYPES LINE'S MODULES -->
 		<!-- Technology stack implementation sub-project (e.g framework, customized open source dependency...) -->
 		<module>prototypes-line</module>
 	</modules>
