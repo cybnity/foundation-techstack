@@ -24,8 +24,8 @@
 		<junit.version>[4.13.1,)</junit.version>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>4.3.2</vertx.version>
-		<junit-jupiter.version>5.7.0</junit-jupiter.version>
+		<vertx.version>[4.3.2,)</vertx.version>
+		<junit-jupiter.version>[5.7.0,)</junit-jupiter.version>
 	</properties>
 
 	<organization>
@@ -55,6 +55,7 @@
 				</releases>
 		</repository>
 	</repositories>
+
 	<pluginRepositories></pluginRepositories>
 
 	<!-- Tech stack official dependency versions -->
@@ -117,7 +118,7 @@
 				<dependency>
 					<groupId>io.vertx</groupId>
 					<artifactId>vertx-config</artifactId>
-					<version>4.3.3</version>
+					<version>[4.3.3,)</version>
 				</dependency>
 				<dependency>
 					<groupId>io.vertx</groupId>
@@ -127,12 +128,12 @@
 				<dependency>
 					<groupId>redis.clients</groupId>
 					<artifactId>jedis</artifactId>
-					<version>4.2.3</version>
+					<version>[4.2.3,)</version>
 				</dependency>
 				<dependency>
 					<groupId>io.lettuce</groupId>
 					<artifactId>lettuce-core</artifactId>
-					<version>6.2.0.RELEASE</version>
+					<version>[6.2.0.RELEASE,)</version>
 				</dependency>
 				<dependency>
 					<groupId>com.fasterxml.jackson.core</groupId>
@@ -401,6 +402,10 @@
 					<!-- Generate checksum validated during deployment process -->
 			    <createChecksum>true</createChecksum>
 			  </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
