@@ -2,12 +2,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.cybnity</groupId>
-		<artifactId>techstack</artifactId>
+		<artifactId>techstack-ref</artifactId>
 		<version>${revision}</version>
 		<relativePath>..</relativePath>
 	</parent>
 
-	<groupId>org.cybnity.techstack</groupId>
+	<groupId>org.cybnity.techstack.ref</groupId>
 	<artifactId>prototypes</artifactId>
 	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
@@ -20,7 +20,7 @@
 
 	<properties>
 		<!-- CYBNITY prototype default revision number -->
-		<revision>0.0.1-SNAPSHOT</revision>
+		<revision>1.0.0-SNAPSHOT</revision>
 		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
 	</properties>
 </project>
