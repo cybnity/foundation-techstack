@@ -61,7 +61,7 @@ jobs:
         if: ${{ github.event.release.tag_name != '' }}
         # Read the release name defined into the GitHub project
         run: |
-          echo The current release tag is ${{ github.event.release.tag_name }}
+          echo The current demonstration line release tag is ${{ github.event.release.tag_name }}
           echo "TAG_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
           echo "is_snapshot=${{ contains(github.event.release.tag_name, 'snapshot') || contains(github.event.release.tag_name, 'reviewed') }}" >> $GITHUB_ENV
 
@@ -71,7 +71,7 @@ jobs:
         uses: FranzDiebold/github-env-vars-action@v2.7.0
 
       # Only tagged version based on x.y.z format are published on remote releases repository
-      - name: Check the tag pattern (x.z.y) identifying a final release
+      - name: Check the demonstration line tag pattern (x.z.y) identifying a final release
         if: ${{ env.TAG_VERSION == '' }}
         run: |
             if [[ ${{ github.event.ref }} =~ ^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
