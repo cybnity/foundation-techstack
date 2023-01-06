@@ -170,6 +170,7 @@ jobs:
       config-path: ${{ needs.demonstrators_line_build.steps.checkout_step.ref }}
       target_repository: RELEASE
       package_release_name: ${{ needs.demonstrators_line_build.outputs.release_name }}
+      pom-base-path: 'demonstrators-line/pom.xml'
     secrets: inherit
 
   # Prepare only a snapshot version for remote repository installation
@@ -197,4 +198,5 @@ jobs:
       config-path: ${{ needs.demonstrators_line_build.steps.checkout_step.ref }}
       target_repository: SNAPSHOT
       package_release_name: ${{ needs.demonstrators_line_build.outputs.release_name }}
+      pom-base-path: 'demonstrators-line/pom.xml'
     secrets: inherit
