@@ -77,11 +77,11 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
   - A parent node in any implementation project to be supported by Techstack
 
     ```xml
-        <parent>
-      		<groupId>org.cybnity</groupId>
-      		<artifactId>techstack</artifactId>
-      		<version>0.2.0</version>
-    	 </parent>
+    <parent>
+    		<groupId>org.cybnity</groupId>
+    		<artifactId>techstack</artifactId>
+        <version>0.2.0</version>
+    </parent>
     ```
 
 ## STANDARD TECHNOLOGIES STACK
