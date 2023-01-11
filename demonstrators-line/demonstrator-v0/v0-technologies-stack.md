@@ -78,9 +78,9 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 
     ```xml
     <parent>
-    		<groupId>org.cybnity</groupId>
-    		<artifactId>techstack</artifactId>
-        <version>0.2.0</version>
+      <groupId>org.cybnity</groupId>
+      <artifactId>techstack</artifactId>
+      <version>0.2.0</version>
     </parent>
     ```
 
