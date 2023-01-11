@@ -74,7 +74,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
   - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions. See [dependencies tree report](mpp-official-version-pom-tree.txt)
-  - A parent node in any implementation project to be supported by Techstack
+  - Add parent node in any Maven implementation project to be supported by Techstack, and repository reference for automatic parent download
 
     ```xml
     <parent>
@@ -82,6 +82,19 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
       <artifactId>techstack</artifactId>
       <version>0.2.0</version>
     </parent>
+
+    <repositories>
+      <repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+  			<snapshots>
+  			    <enabled>false</enabled>
+  			</snapshots>
+  			<releases>
+  			    <enabled>true</enabled>
+  			</releases>
+      </repository>
+    </repositories>
     ```
 
 ## STANDARD TECHNOLOGIES STACK
