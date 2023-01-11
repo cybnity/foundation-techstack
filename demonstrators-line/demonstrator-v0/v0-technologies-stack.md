@@ -75,6 +75,14 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 - Deliverables:
   - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions. See [dependencies tree report](mpp-official-version-pom-tree.txt)
 
+```xml
+  <parent>
+		<groupId>org.cybnity</groupId>
+		<artifactId>techstack</artifactId>
+		<version>0.2.0</version>
+	</parent>
+```
+
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
 
