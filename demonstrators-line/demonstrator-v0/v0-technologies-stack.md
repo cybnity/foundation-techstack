@@ -85,14 +85,14 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 
     <repositories>
       <repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-  			<snapshots>
-  			    <enabled>false</enabled>
-  			</snapshots>
-  			<releases>
-  			    <enabled>true</enabled>
-  			</releases>
+        <id>space-cybnity-open-source</id>
+        <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
       </repository>
     </repositories>
     ```
