@@ -21,7 +21,7 @@
 		<junit.version>[4.13.1,)</junit.version>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>[4.3.2,)</vertx.version>
+		<vertx.version>4.3.7</vertx.version> <!-- [4.3.2,) -->
 		<junit-jupiter.version>[5.7.0,)</junit-jupiter.version>
 	</properties>
 
@@ -58,6 +58,13 @@
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
 		<dependencies>
+	      <dependency>
+	        <groupId>io.vertx</groupId>
+	        <artifactId>vertx-stack-depchain</artifactId>
+	        <version>${vertx.version}</version>
+	        <type>pom</type>
+	        <scope>import</scope>
+	      </dependency>
 				<dependency>
 					<groupId>io.vertx</groupId>
 					<artifactId>vertx-core</artifactId>
