@@ -74,6 +74,28 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
   - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions. See [dependencies tree report](mpp-official-version-pom-tree.txt)
+  - Add parent node in any Maven implementation project to be supported by Techstack, and a reference to the CYBNITY public repository for automatic parent download
+
+    ```xml
+    <parent>
+      <groupId>org.cybnity</groupId>
+      <artifactId>techstack</artifactId>
+      <version>0.2.0</version>
+    </parent>
+
+    <repositories>
+      <repository>
+        <id>space-cybnity-open-source</id>
+        <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
+    </repositories>
+    ```
 
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
