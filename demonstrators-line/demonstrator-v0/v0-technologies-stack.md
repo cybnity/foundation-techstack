@@ -97,9 +97,10 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     </repositories>
     ```
 
-  - Usages:
+  - Tooling:
     - Profiles are available for developer and build chain regarding environment, CYBNITY stages:
       - Profile id: technical-quality-stage
+      
         Activation via command line with ```-Dstage=technical-quality```
 
 
