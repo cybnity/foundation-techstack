@@ -99,22 +99,27 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 
   - Tooling:
     - Profiles are available for developer and build chain regarding CYBNITY stages:
-      - Profile id: **technical-quality-stage**
+      - id: **technical-quality-stage**
+
         Build regarding a technical quality stage.
+
         Activation via command line with ```-Dstage=technical-quality```
 
     - Profiles are available for developer and build chain regarding execution environment:
-      - Profile id: **localhost**
+      - id: **localhost**
 
         Build regarding a development version on developer station.
+
         Active by default.
-      - Profile id: **dev-deploy-environment**
+      - id: **dev-deploy-environment**
 
         Build regarding a development version on shared development platform.
+
         Activation via command line with ```-Denvironment=dev-deploy```
-      - Profile id: **qa-environment**
+      - id: **qa-environment**
 
         Build regarding a qualification version on test environment.
+
         Activation via command line with ```-Denvironment=qa```
 
 
