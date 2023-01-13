@@ -86,7 +86,7 @@ jobs:
         run: |
             echo "Define the final version identifier from the current tag name"
             echo "release_name=$TAG_VERSION" >> $GITHUB_ENV
-            echo "Version type is detected as snapshot=${{ env.is_snapshot }}"
+            echo "Version type is detected as is_snapshot=${{ env.is_snapshot }}"
 
       - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>) regarding development alpha
         if: ${{ env.TAG_VERSION == '' }}
@@ -157,7 +157,7 @@ jobs:
   # Publish release of Maven pom.xml (reusable by other development) that potentially replace previous equals version named
   # All demonstrator are always published on release repository only because they are statically versioned
   publish_version_to_release_remote_repository:
-    name: Techstack releases publishing (remote repo)
+    name: Techstack releases publishing
     if: ${{ success() && !needs.define_project_release_name.outputs.is_snapshot }}
     needs: [define_project_release_name, demonstrators_line_build]
     uses: ./.github/workflows/publish-version-to-repository.yml
