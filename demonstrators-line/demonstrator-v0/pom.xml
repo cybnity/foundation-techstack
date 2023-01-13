@@ -446,7 +446,7 @@
 				<!-- Build regarding a technical quality stage -->
 				<id>technical-quality-stage</id>
 				<activation>
-					<activationByDefault>false</activationByDefault>
+					<activeByDefault>false</activeByDefault>
 					<property>
 						<!-- Activation based on -D system property (e.g command line with -Dstage=technical-quality) -->
 						<name>stage</name>
