@@ -68,8 +68,8 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.3.0
-- Released at: Jan, 12, 2023
+- Version: 0.4.0
+- Released at: Jan, 13, 2023
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
@@ -80,7 +80,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.3.0</version>
+      <version>0.4.0</version>
     </parent>
 
     <repositories>
@@ -96,6 +96,12 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
       </repository>
     </repositories>
     ```
+
+  - Usages:
+    - Profiles are available for developer and build chain regarding environment, CYBNITY stages:
+      - Profile id: technical-quality-stage
+        Activation via command line with ```-Dstage=technical-quality```
+
 
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
