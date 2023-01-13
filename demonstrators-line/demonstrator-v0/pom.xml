@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -428,17 +428,25 @@
 
 		<profile>
 			<!-- Build regarding a development version on shared development platform -->
-			<id>dev_deploy</id>
+			<id>dev-deploy-environment</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=dev-deploy) -->
+					<name>environment</name>
+					<value>dev-deploy</value>
+				</property>
 			</activation>
 		</profile>
 
 		<profile>
 			<!-- Build regarding a qualification version on test environment -->
-			<id>QA</id>
+			<id>qa-environment</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=qa) -->
+					<name>environment</name>
+					<value>qa</value>
+				</property>
 			</activation>
 		</profile>
 
