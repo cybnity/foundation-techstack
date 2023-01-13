@@ -158,7 +158,7 @@ jobs:
   # All demonstrator are always published on release repository only because they are statically versioned
   publish_version_to_release_remote_repository:
     name: Techstack releases publishing (remote repo)
-    if: ${{ success() && !needs.demonstrators_line_build.outputs.is_snapshot }}
+    if: ${{ success() && !needs.define_project_release_name.outputs.is_snapshot }}
     needs: [define_project_release_name, demonstrators_line_build]
     uses: ./.github/workflows/publish-version-to-repository.yml
     with:
