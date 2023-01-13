@@ -441,5 +441,64 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
+
+		<profile>
+				<!-- Build regarding a technical quality stage -->
+				<id>technical-quality-stage</id>
+				<activation>
+					<activationByDefault>false</activationByDefault>
+					<property>
+						<!-- Activation based on -D system property (e.g command line with -Dstage=technical-quality) -->
+						<name>stage</name>
+						<value>technical-quality</value>
+					</property>
+				</activation>
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-dependency-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>resolve-dependency</id>
+									<phase>validate</phase>
+									<configuration>
+										<silent>false</silent>
+									</configuration>
+									<goals>
+										<!-- Try to resolve all test scope -->
+										<goal>resolve</goal>
+										<!-- Try to resolve plugins and optionnaly their dependencies -->
+										<goal>resolve-plugins</goal>
+									</goals>
+								</execution>
+								<execution>
+									<id>analyze-dependencies</id>
+									<phase>validate</phase>
+									<goals>
+										<!-- Determine missing or unused dependencies -->
+										<goal>analyze-dep-mgt</goal>
+										<goal>analyze-duplicate</goal>
+									</goals>
+								</execution>
+								<execution>
+									<id>report-tree</id>
+									<phase>validate</phase>
+									<configuration>
+											<outputFile>mpp-official-version-pom-tree.txt</outputFile>
+											<outputType>text</outputType>
+											<appendOutput>false</appendOutput>
+									</configuration>
+									<goals>
+										<!-- Show the dependency hierarchy of the project and dependencies versions managed by the parent pom.xml -->
+										<goal>tree</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</build>
+		</profile>
+
 	</profiles>
 </project>
