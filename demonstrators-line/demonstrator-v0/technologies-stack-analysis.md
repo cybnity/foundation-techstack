@@ -95,6 +95,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Terraform|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
 |Kubernetes Cluster|Web, Monitoring, Centralized Storage, Middlewares|Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
 |MicroK8s|Web, Monitoring, Centralized Storage, Middlewares|Local|Operating Infrastructure, Delivery Tool|version >= TBD|
+|Minikube|Web, Monitoring, Centralized Storage, Middlewares|Local|Operating Infrastructure, Delivery Tool|version >= TBD|
 |x86 CPU|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Physical Infrastructure| |
 
 *TBD: To Be Defined*
