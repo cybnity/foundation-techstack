@@ -25,6 +25,9 @@
 		<junit-jupiter.version>[5.7.0,)</junit-jupiter.version>
 
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
+
+		<!-- The JRE base image extended (based on https://hub.docker.com/_/eclipse-temurin description) including pre-installed Temurin JVM -->
+		<!-- Example of other images based on Temurin JVM (eclipse-temurin:11-alpine, eclipse-temurin:11.0.15_10-jre-alpine -->
 		<docker.jre.image.name>eclipse-temurin:11-jre-alpine</docker.jre.image.name>
 	</properties>
 
