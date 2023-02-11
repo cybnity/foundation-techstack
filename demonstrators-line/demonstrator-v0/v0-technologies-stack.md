@@ -68,8 +68,8 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.7.0
-- Released at: Feb, 9, 2023
+- Version: 0.8.0
+- Released at: Feb, 11, 2023
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
@@ -80,7 +80,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.7.0</version>
+      <version>0.8.0</version>
     </parent>
 
     <repositories>
@@ -99,26 +99,46 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
 
   - Tooling:
     - Profiles are available for developer and build chain regarding CYBNITY stages:
+      - id: **commit-stage**
+
+        Build phase regarding a software version development (e.g coding of feature).
+
+        Activation via command line with ```-Dstage=commit```
+
       - id: **technical-quality-stage**
 
-        Build regarding a technical quality stage.
+        Phase of technical quality validation of a software version (e.g alpha version).
 
         Activation via command line with ```-Dstage=technical-quality```
 
-    - Profiles are available for developer and build chain regarding execution environment:
+      - id: **integration-quality-stage**
+
+        Phase of integration quality validation of a software version (e.g on an test environment).
+
+        Activation via command line with ```-Dstage=integration-quality```
+
+      - id: **user-acceptance-test-stage**
+
+        Step of software behavior validation by testers community (e.g regarding a software beta release).
+
+        Activation via command line with ```-Dstage=user-acceptance-test```
+
+    - Profiles are available for developer and build chain regarding execution environments:
       - id: **localhost**
 
-        Build regarding a development version on developer station.
+        Developer workstation environment.
 
         Active by default.
+
       - id: **dev-deploy-environment**
 
-        Build regarding a development version on shared development platform.
+        Shared development platform between developers.
 
         Activation via command line with ```-Denvironment=dev-deploy```
+
       - id: **qa-environment**
 
-        Build regarding a qualification version on test environment.
+        Test environment.
 
         Activation via command line with ```-Denvironment=qa```
 
