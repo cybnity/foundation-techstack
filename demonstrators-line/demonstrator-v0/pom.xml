@@ -547,7 +547,7 @@
 			<id>user-acceptance-test-stage</id>
 			<activation>
 				<property>
-					<!-- Activation based on -D system property (e.g command line with -Dstage=integration-quality) -->
+					<!-- Activation based on -D system property (e.g command line with -Dstage=user-acceptance-test) -->
 					<name>stage</name>
 					<value>user-acceptance-test</value>
 				</property>
