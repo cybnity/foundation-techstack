@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.8.0</version>
+	<version>0.9.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -29,6 +29,9 @@
 		<!-- The JRE base image extended (based on https://hub.docker.com/_/eclipse-temurin description) including pre-installed Temurin JVM -->
 		<!-- Example of other images based on Temurin JVM (eclipse-temurin:11-alpine, eclipse-temurin:11.0.15_10-jre-alpine -->
 		<docker.jre.image.name>eclipse-temurin:11-jre-alpine</docker.jre.image.name>
+
+		<!-- The stable Zookeeper (3.7.1) base image (see https://hub.docker.com/_/zookeeper), based on Temurin JVM -->
+		<docker.zookeeper.image.name>zookeeper:3.7.1-temurin</docker.zookeeper.image.name>
 	</properties>
 
 	<organization>

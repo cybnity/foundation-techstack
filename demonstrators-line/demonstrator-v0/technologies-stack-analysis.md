@@ -80,7 +80,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Vert.x Kafka Client|Web|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 4.3.2|
 |Lettuce Redis Client|Web|Local, Dev, Test, Staging, Production|Application/Integration/Persistence Infrastructure|version >= 6.2.0|
 |Java|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|UI Layer, Application/Domain Layer, Application/Integration/Persistence/Indexing/Monitoring/Operating Infrastructure, Delivery Tool|version >= 11|
-|Apache Zookeeper|Web, Middlewares|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 3.6.2|
+|Apache Zookeeper|Web, Middlewares|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 3.7.1|
 |Kafka|Middlewares|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 2.7.0|
 |Keycloak|Web|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 18.0.2|
 |PostgreSQL|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistence Infrastructure|version >= 14.0.5|
