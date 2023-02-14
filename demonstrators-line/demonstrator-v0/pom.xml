@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.9.0</version>
+	<version>0.10.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -21,7 +21,7 @@
 		<junit.version>[4.13.1,)</junit.version>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>4.3.7</vertx.version> <!-- [4.3.2,) -->
+		<vertx.version>4.3.8</vertx.version> <!-- [4.3.2,) -->
 		<junit-jupiter.version>[5.7.0,)</junit-jupiter.version>
 
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
