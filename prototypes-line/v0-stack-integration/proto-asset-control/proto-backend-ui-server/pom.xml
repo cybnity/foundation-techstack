@@ -17,7 +17,7 @@
 		<maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 		<exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-		<vertx.version>4.3.2</vertx.version>
+		<vertx.version>4.3.8</vertx.version>
 		<junit-jupiter.version>5.7.0</junit-jupiter.version>
 
 		<main.verticle>org.cybnity.application.asset_control.ui.system.backend.SockJSReactiveBackendServer</main.verticle>
