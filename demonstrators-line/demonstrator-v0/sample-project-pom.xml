@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cybnity</groupId>
 		<artifactId>techstack</artifactId>
-		<version>0.14.0</version>
+		<version>0.15.0</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.quality</groupId>
@@ -43,15 +43,6 @@
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-junit5</artifactId>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-		</dependency>-->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-redis-client</artifactId>

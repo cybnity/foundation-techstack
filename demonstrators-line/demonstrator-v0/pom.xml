@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.14.0</version>
+	<version>0.15.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -24,8 +24,7 @@
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.0</vertx.version> <!-- [4.3.2,) -->
 		<junit-jupiter.version>5.9.2</junit-jupiter.version> <!-- 5.7.0 -->
-		<!--
-		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>-->
+		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
 
@@ -77,47 +76,18 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!--
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>-->
-				<!-- jupiter module api drived by JUnit 5 tests
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-api</artifactId>
-				<version>${junit-jupiter.version}</version>
-				<scope>test</scope>
-			</dependency>-->
-			<!-- jupiter module implementation discovered by api, running the matching test and realize the platform engine execution
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<version>${junit-jupiter.version}</version>
-				<scope>test</scope>
-			</dependency>-->
-			<!-- run parameterized tests
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-params</artifactId>
-				<version>${junit-jupiter.version}</version>
-				<scope>test</scope>
-			</dependency>-->
-			<!-- Runner and annotations for configuring and executing tests on the JUnit Platform in a JUnit environment
-			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-runner</artifactId>
-				<version>${junit-jupiter-platform.version}</version>
-				<scope>test</scope>
-			</dependency>-->
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
 				<version>${junit-jupiter.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.platform</groupId>
+				<artifactId>junit-platform-suite</artifactId>
+				<version>${junit-jupiter-platform.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>io.vertx</groupId>
@@ -191,27 +161,16 @@
 
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
-		<!--
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-launcher</artifactId>
+			<artifactId>junit-platform-suite</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<scope>test</scope>
-		</dependency>-->
 	</dependencies>
 
 	<!-- Lits of advise about project -->

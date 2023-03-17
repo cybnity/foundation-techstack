@@ -47,4 +47,9 @@ org.cybnity.techstack.quality:sample-project:pom:0.6.0
 |     \- org.reactivestreams:reactive-streams:jar:1.0.4:compile
 +- com.fasterxml.jackson.core:jackson-databind:jar:2.14.2:compile
 |  \- com.fasterxml.jackson.core:jackson-annotations:jar:2.14.0:compile
-\- org.junit.jupiter:junit-jupiter:jar:5.9.2:test
++- org.junit.jupiter:junit-jupiter:jar:5.9.2:test
+\- org.junit.platform:junit-platform-suite:jar:1.9.2:test
+   +- org.junit.platform:junit-platform-suite-api:jar:1.9.2:test
+   \- org.junit.platform:junit-platform-suite-engine:jar:1.9.2:test
+      \- org.junit.platform:junit-platform-suite-commons:jar:1.9.2:test
+         \- org.junit.platform:junit-platform-launcher:jar:1.9.2:test
