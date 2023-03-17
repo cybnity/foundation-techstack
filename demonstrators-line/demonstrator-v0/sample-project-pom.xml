@@ -3,19 +3,14 @@
 	<parent>
 		<groupId>org.cybnity</groupId>
 		<artifactId>techstack</artifactId>
-		<version>0.13.0</version>
+		<version>0.14.0</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.quality</groupId>
 	<artifactId>sample-project</artifactId>
-	<version>${revision}</version>
+	<version>0.6.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY ${revision} techstack project</name>
-
-	<properties>
-		<!-- CYBNITY project default revision -->
-		<revision>0.5.0</revision>
-	</properties>
 
 	<repositories>
 		<repository>
@@ -45,13 +40,10 @@
 			<artifactId>vertx-web-client</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-junit5</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -59,7 +51,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-redis-client</artifactId>
@@ -96,6 +88,10 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
