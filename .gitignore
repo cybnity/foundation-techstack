@@ -22,3 +22,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 demonstrators-line/demonstrator-v0/.flattened-pom.xml
+prototypes-line/v0-stack-integration/proto-infrastructures/proto-domains-interactions-broker/adapter/dis-impl/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-infrastructures/proto-domains-interactions-broker/adapter/dis-api/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/features/aap-impl/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/features/aap-api/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/application/ac-ui/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/application/ac-translator/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/application/ac-service/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/application/ac-domain-model/target/maven-archiver/pom.properties
+prototypes-line/v0-stack-integration/proto-asset-control/application/ac-adapter/target/maven-archiver/pom.properties
