@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.2.0</version>
+	<version>0.17.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -18,11 +18,22 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
-		<junit.version>[4.13.1,)</junit.version>
+		<!--
+		<junit.version>[4.13.1,)</junit.version>-->
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>[4.3.2,)</vertx.version>
-		<junit-jupiter.version>[5.7.0,)</junit-jupiter.version>
+		<vertx.version>4.4.0</vertx.version> <!-- [4.3.2,) -->
+		<junit-jupiter.version>5.9.2</junit-jupiter.version> <!-- 5.7.0 -->
+		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
+
+		<!-- Docker base images reusable by CYBNITY containerized modules -->
+
+		<!-- The JRE base image extended (based on https://hub.docker.com/_/eclipse-temurin description) including pre-installed Temurin JVM -->
+		<!-- Example of other images based on Temurin JVM (eclipse-temurin:11-alpine, eclipse-temurin:11.0.15_10-jre-alpine -->
+		<docker.jre.image.name>eclipse-temurin:11-jre-alpine</docker.jre.image.name>
+
+		<!-- The stable Zookeeper (3.7.1) base image (see https://hub.docker.com/_/zookeeper), based on Temurin JVM -->
+		<docker.zookeeper.image.name>zookeeper:3.7.1-temurin</docker.zookeeper.image.name>
 	</properties>
 
 	<organization>
@@ -32,10 +43,10 @@
 
 	<distributionManagement>
 		<repository>
-      <id>space-cybnity-open-source</id>
+			<id>space-cybnity-open-source</id>
 			<name>CYBNITY OS Releases</name>
 			<uniqueVersion>false</uniqueVersion>
-      <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
 			<layout>default</layout>
     </repository>
 	</distributionManagement>
@@ -58,93 +69,107 @@
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
 		<dependencies>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-core</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-web</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-web-client</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-					<version>${junit.version}</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-junit5</artifactId>
-					<version>${vertx.version}</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.junit.jupiter</groupId>
-					<artifactId>junit-jupiter-api</artifactId>
-					<version>${junit-jupiter.version}</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.junit.jupiter</groupId>
-					<artifactId>junit-jupiter-engine</artifactId>
-					<version>${junit-jupiter.version}</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-redis-client</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-auth-oauth2</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-auth-jwt</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-config</artifactId>
-					<version>[4.3.3,)</version>
-				</dependency>
-				<dependency>
-					<groupId>io.vertx</groupId>
-					<artifactId>vertx-kafka-client</artifactId>
-					<version>${vertx.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>redis.clients</groupId>
-					<artifactId>jedis</artifactId>
-					<version>[4.2.3,)</version>
-				</dependency>
-				<dependency>
-					<groupId>io.lettuce</groupId>
-					<artifactId>lettuce-core</artifactId>
-					<version>[6.2.0.RELEASE,)</version>
-				</dependency>
-				<dependency>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-databind</artifactId>
-					<version>[2.13.2.1,)</version>
-				</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-stack-depchain</artifactId>
+				<version>${vertx.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit-jupiter.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.platform</groupId>
+				<artifactId>junit-platform-suite</artifactId>
+				<version>${junit-jupiter-platform.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-junit5</artifactId>
+				<version>${vertx.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-unit</artifactId>
+				<version>${vertx.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-core</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-web</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-web-client</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-redis-client</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-auth-oauth2</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-auth-jwt</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-config</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-kafka-client</artifactId>
+				<version>${vertx.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>[4.2.3,)</version>
+			</dependency>
+			<dependency>
+				<groupId>io.lettuce</groupId>
+				<artifactId>lettuce-core</artifactId>
+				<version>[6.2.0.RELEASE,)</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>[2.13.2.1,)</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -232,7 +257,15 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.0.0-M6</version>
+					<version>3.0.0-M7</version>
+					<!--
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.platform</groupId>
+							<artifactId>junit-platform-surefire-provider</artifactId>
+							<version>[1.3.2,)</version>
+						</dependency>
+					</dependencies>-->
 					<configuration>
 						<includes>
 							<include>**/*UseCaseTest.java</include>
@@ -275,8 +308,8 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-changes-plugin</artifactId>
-					<version>2.12.1</version>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>4.0.0-M5</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -297,15 +330,20 @@
 						</descriptorRefs>
 					</configuration>
 				</plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>flatten-maven-plugin</artifactId>
-          <version>1.3.0</version>
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.41.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>1.3.0</version>
 					<configuration>
 						<flattenMode>resolveCiFriendliesOnly</flattenMode>
 						<updatePomFile>true</updatePomFile>
 					</configuration>
-        </plugin>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
@@ -367,32 +405,40 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
+				<artifactId>maven-site-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>site</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>flatten-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>flatten</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>flatten</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>flatten.clean</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<executions>
+				<execution>
+					<id>flatten</id>
+					<phase>process-resources</phase>
+					<goals>
+					<goal>flatten</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>flatten.clean</id>
+					<phase>clean</phase>
+					<goals>
+					<goal>clean</goal>
+					</goals>
+				</execution>
+				</executions>
+			</plugin>
 			<plugin>
 			  <artifactId>maven-install-plugin</artifactId>
 			  <configuration>
@@ -412,7 +458,7 @@
 
 	<profiles>
 		<profile>
-			<!-- Build regarding a development version on developer station -->
+			<!-- Developer workstation environment -->
 			<id>localhost</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -420,18 +466,119 @@
 		</profile>
 
 		<profile>
-			<!-- Build regarding a development version on shared development platform -->
-			<id>dev_deploy</id>
+			<!-- Shared development platform between developers -->
+			<id>dev-deploy-environment</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=dev-deploy) -->
+					<name>environment</name>
+					<value>dev-deploy</value>
+				</property>
 			</activation>
 		</profile>
 
 		<profile>
-			<!-- Build regarding a qualification version on test environment -->
-			<id>QA</id>
+			<!-- Test environment -->
+			<id>qa-environment</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=qa) -->
+					<name>environment</name>
+					<value>qa</value>
+				</property>
+			</activation>
+		</profile>
+
+		<profile>
+			<!-- Build phase regarding a software version development -->
+			<id>commit-stage</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Dstage=commit) -->
+					<name>stage</name>
+					<value>commit</value>
+				</property>
+			</activation>
+		</profile>
+
+		<profile>
+			<!-- Phase of technical quality validation of a software version -->
+			<id>technical-quality-stage</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Dstage=technical-quality) -->
+					<name>stage</name>
+					<value>technical-quality</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>resolve-dependency</id>
+								<phase>validate</phase>
+								<configuration>
+									<silent>false</silent>
+								</configuration>
+								<goals>
+									<!-- Try to resolve all test scope -->
+									<goal>resolve</goal>
+									<!-- Try to resolve plugins and optionnaly their dependencies -->
+									<goal>resolve-plugins</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>analyze-dependencies</id>
+								<phase>validate</phase>
+								<goals>
+									<!-- Determine missing or unused dependencies -->
+									<goal>analyze-dep-mgt</goal>
+									<goal>analyze-duplicate</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report-tree</id>
+								<phase>validate</phase>
+								<configuration>
+										<outputFile>mpp-official-version-pom-tree.txt</outputFile>
+										<outputType>text</outputType>
+										<appendOutput>false</appendOutput>
+								</configuration>
+								<goals>
+									<!-- Show the dependency hierarchy of the project and dependencies versions managed by the parent pom.xml -->
+									<goal>tree</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- Phase of integration quality validation of a software version (e.g on an test environment) -->
+			<id>integration-quality-stage</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Dstage=integration-quality) -->
+					<name>stage</name>
+					<value>integration-quality</value>
+				</property>
+			</activation>
+		</profile>
+
+		<profile>
+			<!-- Step of software behavior validation by testers community (e.g regarding a software beta release) -->
+			<id>user-acceptance-test-stage</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Dstage=user-acceptance-test) -->
+					<name>stage</name>
+					<value>user-acceptance-test</value>
+				</property>
 			</activation>
 		</profile>
 	</profiles>

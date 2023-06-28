@@ -68,12 +68,80 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.2.0
-- Released at: Jan, 06, 2023
+- Version: 0.17.0
+- Released at: Mar, 17, 2023
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
   - [Maven pom.xml](pom.xml) reusable by Java projects implementation which standardize their structure and usable authorized libraries versions. See [dependencies tree report](mpp-official-version-pom-tree.txt)
+  - Add parent node in any Maven implementation project to be supported by Techstack, and a reference to the CYBNITY public repository for automatic parent download
+
+    ```xml
+    <parent>
+      <groupId>org.cybnity</groupId>
+      <artifactId>techstack</artifactId>
+      <version>0.17.0</version>
+    </parent>
+
+    <repositories>
+      <repository>
+        <id>space-cybnity-open-source</id>
+        <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
+    </repositories>
+    ```
+
+  - Tooling:
+    - Profiles are available for developer and build chain regarding CYBNITY stages:
+      - id: **commit-stage**
+
+        Build phase regarding a software version development (e.g coding of feature).
+
+        Activation via command line with ```-Dstage=commit```
+
+      - id: **technical-quality-stage**
+
+        Phase of technical quality validation of a software version (e.g alpha version).
+
+        Activation via command line with ```-Dstage=technical-quality```
+
+      - id: **integration-quality-stage**
+
+        Phase of integration quality validation of a software version (e.g on an test environment).
+
+        Activation via command line with ```-Dstage=integration-quality```
+
+      - id: **user-acceptance-test-stage**
+
+        Step of software behavior validation by testers community (e.g regarding a software beta release).
+
+        Activation via command line with ```-Dstage=user-acceptance-test```
+
+    - Profiles are available for developer and build chain regarding execution environments:
+      - id: **localhost**
+
+        Developer workstation environment.
+
+        Active by default.
+
+      - id: **dev-deploy-environment**
+
+        Shared development platform between developers.
+
+        Activation via command line with ```-Denvironment=dev-deploy```
+
+      - id: **qa-environment**
+
+        Test environment.
+
+        Activation via command line with ```-Denvironment=qa```
+
 
 ## STANDARD TECHNOLOGIES STACK
 Presentation of the technologies and frameworks used for implementation of the CYBNITY software projects.
