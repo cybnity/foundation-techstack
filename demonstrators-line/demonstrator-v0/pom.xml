@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.17.0</version>
+	<version>0.18.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -220,10 +220,11 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			<!--
 			<resource>
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
-			</resource>
+			</resource>-->
 		</resources>
 		<testResources>
 			<testResource>
@@ -280,6 +281,7 @@
 					<version>3.2.0</version>
 					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
+						<propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
 						<nonFilteredFileExtensions>
 							<nonFilteredFileExtension>jar</nonFilteredFileExtension>
 							<nonFilteredFileExtension>gif</nonFilteredFileExtension>
