@@ -31,3 +31,9 @@ prototypes-line/v0-stack-integration/proto-asset-control/application/ac-translat
 prototypes-line/v0-stack-integration/proto-asset-control/application/ac-service/target/maven-archiver/pom.properties
 prototypes-line/v0-stack-integration/proto-asset-control/application/ac-domain-model/target/maven-archiver/pom.properties
 prototypes-line/v0-stack-integration/proto-asset-control/application/ac-adapter/target/maven-archiver/pom.properties
+.idea/vcs.xml
+.idea/misc.xml
+.idea/jarRepositories.xml
+.idea/encodings.xml
+.idea/compiler.xml
+prototypes-line/v0-stack-integration/proto-asset-control/proto-frontend-ui-server/frontend/package-lock.json
