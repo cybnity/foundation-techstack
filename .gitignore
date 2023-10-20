@@ -36,3 +36,4 @@ prototypes-line/v0-stack-integration/proto-asset-control/application/ac-adapter/
 .idea/jarRepositories.xml
 .idea/encodings.xml
 .idea/compiler.xml
+prototypes-line/v0-stack-integration/proto-asset-control/proto-frontend-ui-server/frontend/package-lock.json
