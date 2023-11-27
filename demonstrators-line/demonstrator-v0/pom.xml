@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.24.0</version>
+	<version>0.25.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -93,6 +93,13 @@
 				<groupId>org.junit.platform</groupId>
 				<artifactId>junit-platform-suite</artifactId>
 				<version>${junit-jupiter-platform.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<!-- Embedded Redis test server (https://github.com/signalapp/embedded-redis) -->
+				<groupId>org.signal</groupId>
+				<artifactId>embedded-redis</artifactId>
+				<version>[0.8.3,)</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
