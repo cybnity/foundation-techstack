@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.25.0</version>
+	<version>0.26.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -165,15 +165,23 @@
 				<version>[6.2.0.RELEASE,)</version>
 			</dependency>
 			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>2.16.0</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<!--
+			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.15.0</version> <!-- 2.16.0-rc1 is buggued with other sub-dependencies run -->
-			</dependency>
+			<version>2.15.0</version>--> <!-- 2.16.0-rc1 is buggued with other sub-dependencies run -->
+			<!--</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.datatype</groupId>
 				<artifactId>jackson-datatype-jsr310</artifactId>
 				<version>[2.13.2.1,)</version>
-			</dependency>
+			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
