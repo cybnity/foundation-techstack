@@ -22,7 +22,7 @@
 		<junit.version>[4.13.1,)</junit.version>-->
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>4.4.6</vertx.version> <!-- [4.3.2,) -->
+		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
 		<junit-jupiter.version>5.9.2</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 
