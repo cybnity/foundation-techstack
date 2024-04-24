@@ -68,8 +68,8 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.26.0
-- Released at: Dec, 14, 2023
+- Version: 0.27.0
+- Released at: April, 24, 2024
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
@@ -80,7 +80,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.26.0</version>
+      <version>0.27.0</version>
     </parent>
 
     <repositories>
@@ -174,6 +174,7 @@ Presentation of the technologies and frameworks used for implementation of the C
 |Vert.x Kafka Client|Interactions with Kafka messaging system(s)|Client library for integration with Kafka broker(s)|Java, JSON|Vert.x Core|
 |Zookeeper Client|Interactions with Zookeeper directory|Client library for access to resources directory (e.g Kafka, Redis brokers)|Java|JVM|
 |Redis|Interactions between UI layer's service components|Broker of distributed events, persistence of shared data|Java, JSON|JVM|
+|ArangoDB|Application domain data management and query|Graph database|AQL, RocksDB, Javascript|Linux OS, Docker|
 |Kafka|Interactions between application layer's service components|Broker of distributed events|Java, JSON|JVM|
 |Temurin JVM|Runtime of application service layers|Execution environment of Java components|Java|OS, Docker|
 |Zookeeper|Discovery and systems' access configurations management|Directory/broker of access informations to services components (e.g Kafka, Redis brokers)|Java|JVM|

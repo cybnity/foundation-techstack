@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.26.0</version>
+	<version>0.27.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -23,6 +23,7 @@
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.6</vertx.version> <!-- [4.3.2,) -->
+		<arangodb.version>[7.6.0,)</arangodb.version>
 		<junit-jupiter.version>5.9.2</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 
@@ -163,6 +164,12 @@
 				<groupId>io.lettuce</groupId>
 				<artifactId>lettuce-core</artifactId>
 				<version>[6.2.0.RELEASE,)</version>
+			</dependency>
+			<dependency>
+				<groupId>com.arangodb</groupId>
+				<artifactId>arangodb-java-driver</artifactId>
+				<version>${arangodb.version}</version>
+				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>

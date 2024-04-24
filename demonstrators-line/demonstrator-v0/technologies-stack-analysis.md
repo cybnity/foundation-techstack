@@ -85,6 +85,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Keycloak|Web|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 18.0.2|
 |PostgreSQL|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistence Infrastructure|version >= 14.0.5|
 |Redis|Web, Middlewares|Local, Dev, Test, Staging, Production|Integration/Persistence Infrastructure|version >= 7.0.4|
+|ArangoDB|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistent Infrastructure|version >= 7.6.0|
 |Eclipse Temurin JDK/JRE|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 11.0.15|
 |Maven|Tooling|Local, Dev, Test, Staging|Delivery Tool|version >= 3.8.5|
 |GitHub Actions|Tooling|Dev, Test, Staging|Delivery Tool| |
@@ -137,7 +138,8 @@ The current status of technology already in the analysis stream give a general v
 | INTEGRATION INFRASTRUCTURE | Services Registry & Coordination | Apache Zookeeper | `WIN` | `WIN` | `WIN` | Services and data registry, configuration management with resources directory (e.g Kafka broker instances) |
 | INTEGRATION INFRASTRUCTURE | APIs Gateway & Management | Gravitee.io | `WIN` | | | HTTP Reverse Proxy, CYBNITY API access control, API documentation/management/analytics/administration/design for User Interface Layer access (e.g reverse proxy, load balancing, access policies) and external APIs connections management |
 | INTEGRATION INFRASTRUCTURE | Remote Services Integration | Resilience4J | `ALT WITHOUT SERVER-SIDE API GATEWAY` | | | Embedded library for integration with external APIs without APIs Gateway support (circuit breaker, rate limiting for executions/period, bulkhead for concurrent execution limitation, automatic retry of failed executions, timeout handling, successful result caching, fallback to result failures; add-on for Spring, Vert.x) |
-| INDEXING INFRASTRUCTURE | Contents Indexing & Search | Apache Solr | `WIN` | | | Lucene indexing and query of time series contents (e.g logs, backups), documents (e.g pdf) |
+| INDEXING INFRASTRUCTURE | Contents Indexing & Search | Apache Solr | `ALT` | | | Lucene indexing and query of time series contents (e.g logs, backups), documents (e.g pdf) |
+| PERSISTENCE INFRASTRUCTURE | Domains data Management & Search | [ArangoDB](https://arangodb.com/) | `WIN` | | | Graph data platform as knowledge database for efficient query (read optimized) of application domains's data |
 | PERSISTENCE INFRASTRUCTURE | Activity / Event Logs Store | [InfluxDB](https://www.influxdata.com/) | `WIN` | | | Time series data platform as NoSQL database for efficient storage (write optimized) of systems' metrics, traces, events, and logs |
 | PERSISTENCE INFRASTRUCTURE | Streams State Async Backup | MongoDB | `WIN` | | | Autonomous dynamic backup/recovery of distributed data, collection-oriented repository |
 | PERSISTENCE INFRASTRUCTURE | In-Memory Data Grid (Cluster Manager) | Infinispan | `ALT` | | | In-memory distributed data store storing, managing, and processing data; [Doc](https://infinispan.org/) |
