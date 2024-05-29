@@ -26,7 +26,7 @@
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
-		<cucumber.version>[7.12.1,)</cucumber.version>
+		<cucumber.version>7.12.1</cucumber.version>
 
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
 
