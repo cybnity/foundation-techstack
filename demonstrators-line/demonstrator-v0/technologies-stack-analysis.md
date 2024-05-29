@@ -85,7 +85,8 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Keycloak|Web|Local, Dev, Test, Staging, Production|Application/Integration Infrastructure|version >= 18.0.2|
 |PostgreSQL|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistence Infrastructure|version >= 14.0.5|
 |Redis|Web, Middlewares|Local, Dev, Test, Staging, Production|Integration/Persistence Infrastructure|version >= 7.0.4|
-|ArangoDB|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistent Infrastructure|version >= 7.6.0|
+|JanusGraph|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistent Infrastructure|version >= 1.0.0|
+|Cassandra|Web, Centralized Storage|Local, Dev, Test, Staging, Production|Persistent Infrastructure|version >= 4.1.4|
 |Eclipse Temurin JDK/JRE|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 11.0.15|
 |Maven|Tooling|Local, Dev, Test, Staging|Delivery Tool|version >= 3.8.5|
 |GitHub Actions|Tooling|Dev, Test, Staging|Delivery Tool| |
@@ -139,7 +140,8 @@ The current status of technology already in the analysis stream give a general v
 | INTEGRATION INFRASTRUCTURE | APIs Gateway & Management | Gravitee.io | `WIN` | | | HTTP Reverse Proxy, CYBNITY API access control, API documentation/management/analytics/administration/design for User Interface Layer access (e.g reverse proxy, load balancing, access policies) and external APIs connections management |
 | INTEGRATION INFRASTRUCTURE | Remote Services Integration | Resilience4J | `ALT WITHOUT SERVER-SIDE API GATEWAY` | | | Embedded library for integration with external APIs without APIs Gateway support (circuit breaker, rate limiting for executions/period, bulkhead for concurrent execution limitation, automatic retry of failed executions, timeout handling, successful result caching, fallback to result failures; add-on for Spring, Vert.x) |
 | INDEXING INFRASTRUCTURE | Contents Indexing & Search | Apache Solr | `ALT` | | | Lucene indexing and query of time series contents (e.g logs, backups), documents (e.g pdf) |
-| PERSISTENCE INFRASTRUCTURE | Domains data Management & Search | [ArangoDB](https://arangodb.com/) | `WIN` | | | Graph data platform as knowledge database for efficient query (read optimized) of application domains's data |
+| PERSISTENCE INFRASTRUCTURE | Knowledge Repository & Search | [JanusGraph](https://janusgraph.org/) | `WIN` | | | Graph data platform as application domain knowledge database for efficient query (read optimized) of application domains's data |
+| PERSISTENCE INFRASTRUCTURE | Domains data Management | [Cassandra](https://cassandra.apache.org/) | `WIN` | | | NoSQL distributed database as data storage system for support of domains data management |
 | PERSISTENCE INFRASTRUCTURE | Activity / Event Logs Store | [InfluxDB](https://www.influxdata.com/) | `WIN` | | | Time series data platform as NoSQL database for efficient storage (write optimized) of systems' metrics, traces, events, and logs |
 | PERSISTENCE INFRASTRUCTURE | Streams State Async Backup | MongoDB | `WIN` | | | Autonomous dynamic backup/recovery of distributed data, collection-oriented repository |
 | PERSISTENCE INFRASTRUCTURE | In-Memory Data Grid (Cluster Manager) | Infinispan | `ALT` | | | In-memory distributed data store storing, managing, and processing data; [Doc](https://infinispan.org/) |
@@ -220,6 +222,7 @@ The criteria checked about advantages (ADV) are:
 
 | CANDIDATE TECHNOLOGY | Description | Comments | ANALYSIS RESULT |
 | :--- | :--- | :--- | :--- |
+| Janus Graph |Distributed, open source and scalable graph database <br>**ADV01:** Apache 2.0 license<br>**ADV02:** Docker<br>**ADV03:** [JanusGraph framework online documentation](https://docs.janusgraph.org/); multiple datastorage solution supported like HBase, Cassandra, in-memory storage; indexing via ElasticSearch, Solr; version 1.0 [tested compatibility](https://github.com/JanusGraph/janusgraph/releases/tag/v1.0.0)| |`OK`|
 | Clair |Static analysis of Docker image contents for security vulnerability detection<br>**ADV01:** Apache 2 license<br>**ADV03:** [GitHub project](https://github.com/quay/clair)| | |
 | [Firewalld](https://firewalld.org/) |Dynamic managed firewall defining the trust level of network connections or interfaces<br>**ADV02:** [Concept documentation](https://firewalld.org/documentation/concepts.html); IPv4 and IPv6 settings supported; changes immediately applied in the runtime environment without need of service restart<br>**ADV03:** Firewall zones (predefined list, services, icmptypes); port forwarding, timed firewall rules in zones; [Kubernetes on Linux with Firewalld tutorial[(https://medium.com/platformer-blog/kubernetes-on-centos-7-with-firewalld-e7b53c1316af)]<br>**ADV04:** default firewall management tool of RHE, CentOS, Fedora, SUSE|**Disadvantage:** small and based on service daemon (full support in virtualized environment?); none information found on license model and sustainability by community|`KO`|
 | [Snort](https://snort.org/) |IPS real-time traffic analysis and packet logging which use a series of rules that help define malicious network activity and uses those rules to find packets that match against them and generates alerts<br>**ADV01:** open source<br>**ADV02:** Fedora/CentOS/FreeBSD supported OS|**Disadvantage:** requiring subscription for latest exploits updates (incompatible with CYBNITY fully free approach for open source and deployable stack)|`KO`|
@@ -321,6 +324,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Keycloak |OK| |OK| | | | |
 | PostgreSQL |OK| |OK| | | | |
 | Apache Solr | | | | | | | |
+| JanusGraph | | | | | | | |
 | MongoDB | | | | | | | |
 | Telegraf Agent | | | | | | | |
 | Grafana | | | | | | | |
