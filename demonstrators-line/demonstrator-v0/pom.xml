@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.26.0</version>
+	<version>0.28.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -23,8 +23,10 @@
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
-		<junit-jupiter.version>5.9.2</junit-jupiter.version> <!-- 5.7.0 -->
+		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
+		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
+		<cucumber.version>7.12.1</cucumber.version>
 
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
 
@@ -95,6 +97,20 @@
 				<version>${junit-jupiter-platform.version}</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<!-- io.netty.resolver.dns.DnsServerAddressStreamProviders ignored about 'io.netty:netty-resolver-dns-native-macos" AVERTISSEMENT on Mac -->
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>[4.1.106.Final,)</version>
+				<scope>test</scope>
+			</dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 			<dependency>
 				<!-- Embedded Redis test server (https://github.com/signalapp/embedded-redis) -->
 				<groupId>org.signal</groupId>
@@ -170,6 +186,26 @@
 				<version>2.16.0</version>
 				<scope>import</scope>
 				<type>pom</type>
+			</dependency>
+			<!-- JanusGraph and Gremlin client connector approach -->
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-driver</artifactId>
+				<version>${janusgraph.driver}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<!-- Embedded in-memory graph -->
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-inmemory</artifactId>
+				<version>[1.0.0,)</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-test</artifactId>
+				<version>${janusgraph.driver}</version>
+				<scope>test</scope>
 			</dependency>
 			<!--
 			<dependency>
