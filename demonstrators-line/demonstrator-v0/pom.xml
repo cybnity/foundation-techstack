@@ -22,7 +22,7 @@
 		<junit.version>[4.13.1,)</junit.version>-->
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>4.4.6</vertx.version> <!-- [4.3.2,) -->
+		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
@@ -102,13 +102,6 @@
 				<groupId>io.netty</groupId>
 				<artifactId>netty-all</artifactId>
 				<version>[4.1.106.Final,)</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<!-- System environment variables auto-injection -->
-				<groupId>uk.org.webcompere</groupId>
-				<artifactId>system-stubs-jupiter</artifactId>
-				<version>[2.0.2,)</version>
 				<scope>test</scope>
 			</dependency>
             <dependency>
@@ -214,7 +207,6 @@
 				<version>${janusgraph.driver}</version>
 				<scope>test</scope>
 			</dependency>
-
 			<!--
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
