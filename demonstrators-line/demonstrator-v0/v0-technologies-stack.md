@@ -175,11 +175,11 @@ Presentation of the technologies and frameworks used for implementation of the C
 |Vert.x Kafka Client|Interactions with Kafka messaging system(s)|Client library for integration with Kafka broker(s)|Java, JSON|Vert.x Core|
 |Zookeeper Client|Interactions with Zookeeper directory|Client library for access to resources directory (e.g Kafka, Redis brokers)|Java|JVM|
 |Redis|Interactions between UI layer's service components|Broker of distributed events, persistence of shared data|Java, JSON|JVM|
-|JanusGraph / Solr|Application domain data management and query|Graph database|Java 8/11|JVM, Linux OS, Docker|
+|JanusGraph / Solr|Application domain data management and query|Graph database with indexing|Java 8/11|JVM, Linux OS, Docker|
 |Kafka|Interactions between application layer's service components|Broker of distributed events|Java, JSON|JVM|
 |Temurin JVM|Runtime of application service layers|Execution environment of Java components|Java|OS, Docker|
 |Zookeeper|Discovery and systems' access configurations management|Directory/broker of access informations to services components (e.g Kafka, Redis brokers)|Java|JVM|
-|Cassandra|Persistence of domain datas|NoSQL database|Cassandra Query Language (CQL)|Linux OS, Docker|
+|Cassandra|Persistence of domain data|NoSQL database|Cassandra Query Language (CQL)|Linux OS, Docker|
 |PostgreSQL|Persistence of SSO elements|Database of security elements regarding users' access controls|SQL|OS, Docker|
 |Linux Alpine|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
 |Linux Debian|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
