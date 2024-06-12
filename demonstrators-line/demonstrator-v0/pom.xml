@@ -5,6 +5,14 @@
 	<version>0.28.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
+	<description>Technology stack of CYBNITY defense platform solution</description>
+	<url>https://github.com/cybnity/foundation-techstack</url>
+	<licenses>
+		<license>
+		<name>The Apache Software License, Version 2.0</name>
+		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<!-- JAVA TOOLING -->
@@ -43,6 +51,12 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
+
 	<distributionManagement>
 		<repository>
 			<id>space-cybnity-open-source</id>
@@ -50,7 +64,7 @@
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
 			<layout>default</layout>
-    </repository>
+		</repository>
 	</distributionManagement>
 
 	<repositories>
