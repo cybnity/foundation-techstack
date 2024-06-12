@@ -7,6 +7,7 @@
 	<name>CYBNITY Official Standard Techstack</name>
 	<description>Technology stack of CYBNITY defense platform solution</description>
 	<url>https://github.com/cybnity/foundation-techstack</url>
+
 	<licenses>
 		<license>
 		<name>The Apache Software License, Version 2.0</name>
@@ -28,6 +29,9 @@
 		<lint.activation>deprecation</lint.activation>
 		<!--
 		<junit.version>[4.13.1,)</junit.version>-->
+
+		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
+		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
@@ -58,16 +62,18 @@
 	</scm>
 
 	<distributionManagement>
+		<!--
 		<repository>
 			<id>space-cybnity-open-source</id>
 			<name>CYBNITY OS Releases</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
 			<layout>default</layout>
-		</repository>
+		</repository>-->
 	</distributionManagement>
 
 	<repositories>
+		<!--
 		<repository>
     		<id>space-cybnity-open-source</id>
     		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
@@ -77,7 +83,7 @@
 				<releases>
 				    <enabled>true</enabled>
 				</releases>
-		</repository>
+		</repository>-->
 	</repositories>
 
 	<pluginRepositories></pluginRepositories>
@@ -315,6 +321,40 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<!-- Generate required resources and manage publication to Maven central repository -->
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.4.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<publishingServerId>central</publishingServerId>
+						<tokenAuth>true</tokenAuth>
+						<autoPublish>false</autoPublish>
+						<!--
+						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
+					</configuration>
+				</plugin>
+				<plugin>
+					<!-- Allow signature of components before to publish them in Maven repository -->
+					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.5</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+							<configuration>
+								<keyname>${gpg.keyname}</keyname>
+								<passphraseServerId>${gpg.keyname}</passphraseServerId>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.10.1</version>
@@ -520,13 +560,22 @@
 			<plugin>
 			  <artifactId>maven-install-plugin</artifactId>
 			  <configuration>
-					<!-- Generate checksum validated during deployment process -->
+				<!-- Generate checksum validated during deployment process -->
 			    <createChecksum>true</createChecksum>
 			  </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- Allow signature of components before to publish them in Maven repository -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
