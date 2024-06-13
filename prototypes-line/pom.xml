@@ -9,7 +9,7 @@
 
 	<groupId>org.cybnity.techstack.ref</groupId>
 	<artifactId>prototypes</artifactId>
-	<version>${proto-revision}</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Techstack prototypes line</name>
 
@@ -21,6 +21,5 @@
 	<properties>
 		<!-- CYBNITY prototype default revision number -->
 		<revision>1.0.0-SNAPSHOT</revision>
-		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
 	</properties>
 </project>

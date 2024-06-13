@@ -11,6 +11,5 @@
 	<artifactId>translator</artifactId>
 	<packaging>jar</packaging>
 	<name>  - Asset Control api translation library</name>
-	<!--<version>1.0.0-SNAPSHOT</version>-->
 
 </project>

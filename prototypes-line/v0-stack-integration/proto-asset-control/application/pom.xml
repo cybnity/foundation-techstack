@@ -11,7 +11,7 @@
 	<artifactId>application</artifactId>
 	<packaging>pom</packaging>
 	<name>Asset Control application</name>
-	<!--<version>1.0.0-SNAPSHOT</version>-->
+
 	<modules>
 		<!-- Domain application components projects-->
 		<module>ac-domain-model</module>

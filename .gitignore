@@ -34,3 +34,4 @@ prototypes-line/v0-stack-integration/proto-asset-control/application/ac-adapter/
 **/.idea
 prototypes-line/v0-stack-integration/proto-asset-control/proto-frontend-ui-server/frontend/package-lock.json
 /demonstrators-line/demonstrator-v0/target
+/target

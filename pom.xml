@@ -10,8 +10,8 @@
 
 	<licenses>
 		<license>
-		<name>The Apache Software License, Version 2.0</name>
-		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
 
@@ -53,29 +53,6 @@
 		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
-
-<!--
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<url>https://central.sonatype.com/service/local/staging/deploy/maven2/</url>
-			<uniqueVersion>false</uniqueVersion>
-			<layout>default</layout>
-		</repository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://central.sonatype.com</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>
-	</repositories>-->
 
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>

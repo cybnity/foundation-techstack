@@ -11,6 +11,5 @@
 	<artifactId>api</artifactId>
 	<packaging>jar</packaging>
 	<name>- AAP capabilities api</name>
-	<!--<version>1.0.0-SNAPSHOT</version>-->
 
 </project>

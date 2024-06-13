@@ -9,6 +9,7 @@
 
 	<groupId>org.cybnity.techstack.ref.prototypes</groupId>
 	<artifactId>specifications</artifactId>
+	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
 	<name>- CYBNITY Specifications MVF POC</name>
 	<modules>
