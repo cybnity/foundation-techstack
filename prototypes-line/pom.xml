@@ -23,7 +23,7 @@
 		<revision>1.0.0-SNAPSHOT</revision>
 		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
 	</properties>
-<!--
+
 	<distributionManagement>
 		<repository>
 			<id>central</id>
@@ -45,7 +45,7 @@
 				</releases>
 		</repository>
 	</repositories>
-	-->
+
 	<build>
 		<pluginManagement>
 			<plugins>
