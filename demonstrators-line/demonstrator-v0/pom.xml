@@ -289,9 +289,12 @@
 					<configuration>
 						<publishingServerId>central</publishingServerId>
 						<tokenAuth>true</tokenAuth>
-						<autoPublish>true</autoPublish>
 						<!-- no manual intervention is required, if a deployment is considered valid, to publish it -->
-						<waitUntil>published</waitUntil>
+						<autoPublish>true</autoPublish>
+						<!-- wait until uploaded only because CI can't wait the full validation duration from Sonatype to switch un published status -->
+						<waitUntil>uploaded</waitUntil>
+						<!-- Not add components that have already been published in the past to the bundle that will be uploaded and published -->
+						<ignorePublishedComponents>true</ignorePublishedComponents>
 						<!--
 						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
 					</configuration>
