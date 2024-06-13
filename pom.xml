@@ -35,11 +35,6 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
-	<!-- Generalized dependency versions -->
-	<dependencyManagement>
-		<dependencies></dependencies>
-	</dependencyManagement>
-
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
 		<dependency>

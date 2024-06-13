@@ -22,5 +22,14 @@
 		<!-- CYBNITY prototype default revision number -->
 		<revision>1.0.0-SNAPSHOT</revision>
 		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
+		<!-- Disable deployment to remote repository -->
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<url>https://central.sonatype.com/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>
