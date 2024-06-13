@@ -88,4 +88,6 @@ jobs:
         env:
             MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
             MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
+            MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
+            MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
             GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
