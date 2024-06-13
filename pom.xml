@@ -47,6 +47,13 @@
 		<name>CYBNITY</name>
 		<url>http://www.cybnity.org</url>
 	</organization>
+
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
+
 <!--
 	<distributionManagement>
 		<repository>
