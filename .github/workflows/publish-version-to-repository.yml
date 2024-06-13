@@ -36,13 +36,13 @@ jobs:
           token: ${{ github.token }}
           ref: ${{ inputs.config-path }}
 
-      - name: Set up Java for publishing to CYBNITY Maven Repository
+      - name: Set up Java for publishing to Maven Central Repository
         uses: actions/setup-java@v4
-        with:
+        with: # running setup-java again overwrites the settings.xml
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-          server-id: space-cybnity-open-source
+          server-id: central # Value of the distributionManagement/repository/id filed of the pom.xml
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
 
