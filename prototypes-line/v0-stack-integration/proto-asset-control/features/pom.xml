@@ -13,6 +13,7 @@
 	<name>Areas and Assets Protection capabilities</name>
 	<modules>
 		<module>aap-api</module>
-		<module>aap-impl</module>
+		<!--
+		<module>aap-impl</module>-->
 	</modules>
 </project>

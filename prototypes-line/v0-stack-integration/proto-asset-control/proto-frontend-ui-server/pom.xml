@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>org.cybnity.techstack.ref.prototypes.asset-control</groupId>
 	<artifactId>frontend-ui-server</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>  - Asset Control ui frontend system</name>
 
 </project>
