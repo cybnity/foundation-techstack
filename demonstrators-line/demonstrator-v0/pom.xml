@@ -59,22 +59,6 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
-	<repositories>
-		<!--
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>-->
-	</repositories>
-
-	<pluginRepositories></pluginRepositories>
-
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
 		<dependencies>

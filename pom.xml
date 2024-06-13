@@ -35,23 +35,6 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
-	<repositories>
-		<!--
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>-->
-	</repositories>
-
-	<pluginRepositories>
-	</pluginRepositories>
-
 	<!-- Generalized dependency versions -->
 	<dependencyManagement>
 		<dependencies></dependencies>
