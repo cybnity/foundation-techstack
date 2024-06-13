@@ -14,12 +14,12 @@ public enum CollaborationChannel {
 
 	/**
 	 * Entry point of capabilities domain regarding areas and assets protection
-	 * client->server
+	 * client to server
 	 */
 	aap_in("aap.in"),
 	/**
 	 * Output point of capabilities domain regarding areas and assets protection
-	 * server->client
+	 * server to client
 	 */
 	aap_out("aap.out");
 
