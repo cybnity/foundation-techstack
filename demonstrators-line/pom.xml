@@ -18,12 +18,12 @@
 	
 	<distributionManagement>
 		<repository>
-      <id>space-cybnity-open-source</id>
+			<id>space-cybnity-open-source</id>
 			<name>CYBNITY OS Releases</name>
 			<uniqueVersion>false</uniqueVersion>
-      <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
+			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
 			<layout>default</layout>
-    </repository>
+		</repository>
 	</distributionManagement>
 
 	<repositories>

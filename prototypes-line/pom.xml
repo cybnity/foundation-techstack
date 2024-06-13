@@ -23,26 +23,27 @@
 		<revision>1.0.0-SNAPSHOT</revision>
 		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
 	</properties>
-<!--
+
 	<distributionManagement>
 		<repository>
 			<id>central</id>
 			<url>https://central.sonatype.com/service/local/staging/deploy/maven2/</url>
+			<uniqueVersion>false</uniqueVersion>
+			<layout>default</layout>
 		</repository>
-	</distributionManagement>-->
+	</distributionManagement>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.0.0-M2</version>
-					<!-- Disable deployment to remote repository -->
-					<configuration>
-						<skip>true</skip>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+	<repositories>
+		<repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://central.sonatype.com</url>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+				<releases>
+				    <enabled>true</enabled>
+				</releases>
+		</repository>
+	</repositories>
+
 </project>
