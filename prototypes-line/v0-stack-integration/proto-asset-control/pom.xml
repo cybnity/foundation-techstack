@@ -20,7 +20,8 @@
 		<module>proto-rts-computation-unit-server</module>
 		<module>proto-domain-gateway-server</module>
 		<module>proto-backend-ui-server</module>
-		<module>proto-frontend-ui-server</module>
+		<!--
+		<module>proto-frontend-ui-server</module>-->
 	</modules>
 
 	<properties>
