@@ -35,6 +35,28 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<url>https://central.sonatype.com/service/local/staging/deploy/maven2/</url>
+			<uniqueVersion>false</uniqueVersion>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+    		<id>space-cybnity-open-source</id>
+    		<url>https://central.sonatype.com</url>
+				<snapshots>
+				    <enabled>false</enabled>
+				</snapshots>
+				<releases>
+				    <enabled>true</enabled>
+				</releases>
+		</repository>
+	</repositories>
+
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
 		<dependency>
