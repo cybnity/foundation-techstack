@@ -154,7 +154,7 @@ jobs:
   # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
   # Publish release of parent pom.xml and sub-projects (reusable by other development) that potentially replace previous equals version named
   publish_version_to_release_remote_repository:
-    name: Prototypes release publishing (remote repo)
+    name: Release prototypes publishing (remote repo)
     if: ${{ success() && needs.define_project_release_name.outputs.is_snapshot == 'false' }}
     needs: [define_project_release_name, prototypes_packaging]
     uses: ./.github/workflows/publish-version-to-repository.yml

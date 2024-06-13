@@ -15,7 +15,7 @@
 		<!-- CYBNITY demonstration line default revision number -->
 		<revision>1.0.0-SNAPSHOT</revision>
 	</properties>
-	
+	<!--
 	<distributionManagement>
 		<repository>
 			<id>space-cybnity-open-source</id>
@@ -38,5 +38,5 @@
 				</releases>
 		</repository>
 	</repositories>
-
+	-->
 </project>
