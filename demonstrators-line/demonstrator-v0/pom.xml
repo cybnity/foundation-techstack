@@ -289,7 +289,9 @@
 					<configuration>
 						<publishingServerId>central</publishingServerId>
 						<tokenAuth>true</tokenAuth>
-						<autoPublish>false</autoPublish>
+						<autoPublish>true</autoPublish>
+						<!-- no manual intervention is required, if a deployment is considered valid, to publish it -->
+						<waitUntil>published</waitUntil>
 						<!--
 						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
 					</configuration>

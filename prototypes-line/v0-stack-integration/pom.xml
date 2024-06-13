@@ -32,4 +32,5 @@
 		<module>proto-infrastructures</module>
 		<module>proto-asset-control</module>
 	</modules>
+
 </project>
