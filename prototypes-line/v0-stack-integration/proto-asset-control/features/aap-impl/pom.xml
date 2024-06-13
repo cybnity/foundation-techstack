@@ -4,8 +4,7 @@
 	<parent>
 		<groupId>org.cybnity.techstack.ref.prototypes.areas-assets-protection</groupId>
 		<artifactId>capabilities</artifactId>
-		<version>${proto-revision}</version>
-		<relativePath>..</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.cybnity.techstack.ref.prototypes.areas-assets-protection.capabilities</groupId>
 	<artifactId>impl</artifactId>

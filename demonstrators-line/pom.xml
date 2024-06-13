@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity.techstack.ref</groupId>
 	<artifactId>demonstrators</artifactId>
-	<version>${revision}</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY techstack demonstrators line</name>
 
@@ -11,8 +11,4 @@
 		<module>demonstrator-v0</module>
 	</modules>
 
-	<properties>
-		<!-- CYBNITY demonstration line default revision number -->
-		<revision>1.0.0-SNAPSHOT</revision>
-	</properties>
 </project>

@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack-ref</artifactId>
-	<version>${revision}</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY technologies stack prototypes line</name>
 
@@ -53,9 +53,6 @@
 
 		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
 		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
-
-		<!-- CYBNITY project revision -->
-		<revision>1.0.0-SNAPSHOT</revision>
 	</properties>
 
 	<modules>
@@ -334,4 +331,14 @@
 		<outputDirectory>target/site</outputDirectory>
 	</reporting>
 
+	<profiles>
+		<profile>
+			<!-- Developer workstation environment -->
+			<id>localhost</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+	</profiles>
 </project>

@@ -4,8 +4,7 @@
 	<parent>
 		<groupId>org.cybnity.techstack.ref.prototypes</groupId>
 		<artifactId>asset-control</artifactId>
-		<version>${proto-revision}</version>
-		<relativePath>..</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.cybnity.techstack.ref.prototypes.asset-control</groupId>
 	<artifactId>backend-ui-server</artifactId>
@@ -79,7 +78,7 @@
 		<dependency>
 			<groupId>org.cybnity.techstack.ref.prototypes.specifications.infrastructure.common</groupId>
 			<artifactId>event</artifactId>
-			<version>${proto-revision}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
@@ -89,7 +88,7 @@
 		<dependency>
 			<groupId>org.cybnity.techstack.ref.prototypes.areas-assets-protection.capabilities</groupId>
 			<artifactId>api</artifactId>
-			<version>${proto-revision}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>

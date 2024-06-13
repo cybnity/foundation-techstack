@@ -3,8 +3,7 @@
 	<parent>
 		<groupId>org.cybnity.techstack.ref.prototypes.infrastructure.dis</groupId>
 		<artifactId>adapter</artifactId>
-		<version>${proto-revision}</version>
-		<relativePath>..</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.ref.prototypes.infrastructure.dis.adapter</groupId>
@@ -52,7 +51,7 @@
 		<dependency>
 			<groupId>org.cybnity.techstack.ref.prototypes.infrastructure.dis.adapter</groupId>
 			<artifactId>api</artifactId>
-			<version>${proto-revision}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
