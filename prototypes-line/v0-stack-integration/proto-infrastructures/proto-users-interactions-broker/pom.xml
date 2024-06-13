@@ -11,6 +11,36 @@
 	<artifactId>users-interactions-broker</artifactId>
 	<packaging>pom</packaging>
 	<name>  - Users Interactions Broker</name>
+
+	<!-- Required informations for Maven Central Repository publishing -->
+	<description>Technology prototype</description>
+	<url>https://github.com/cybnity/foundation-techstack/prototypes-line/v0-stack-integration/proto-infrastructures/proto-users-interactions-broker</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@agnet.fr</email>
+			<organization>AG Net</organization>
+			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>Product Owner</role>
+				<role>Software Architect</role>
+				<role>Release Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 	<modules>
 		<module>adapter</module>
 	</modules>

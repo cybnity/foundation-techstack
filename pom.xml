@@ -5,15 +5,36 @@
 	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY technologies stack prototypes line</name>
+
+	<!-- Required informations for Maven Central Repository publishing -->
 	<description>Technology prototypes of CYBNITY</description>
 	<url>https://github.com/cybnity/foundation-techstack</url>
-
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@agnet.fr</email>
+			<organization>AG Net</organization>
+			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>Product Owner</role>
+				<role>Software Architect</role>
+				<role>Release Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 
 	<properties>
 		<maven.min-version>3.8.5</maven.min-version>
@@ -48,12 +69,6 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
-	<scm>
-		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
-		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
-		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
-	</scm>
-
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
 		<dependency>
@@ -87,23 +102,6 @@
 			<name>${project.name} users list</name>
 		</mailingList>
 	</mailingLists>
-
-	<!-- Contributors -->
-	<developers>
-		<developer>
-			<id>o.lemee</id>
-			<name>Olivier Lemee</name>
-			<email>olivier@agnet.fr</email>
-			<organization>AG Net</organization>
-			<organizationUrl>http://corp.agnet.fr</organizationUrl>
-			<timezone>FR</timezone>
-			<roles>
-				<role>Product Owner</role>
-				<role>Software Architect</role>
-				<role>Release Manager</role>
-			</roles>
-		</developer>
-	</developers>
 
 	<!-- Build chain configuration -->
 	<build>
