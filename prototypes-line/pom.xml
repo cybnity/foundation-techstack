@@ -22,14 +22,27 @@
 		<!-- CYBNITY prototype default revision number -->
 		<revision>1.0.0-SNAPSHOT</revision>
 		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
-		<!-- Disable deployment to remote repository -->
-		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
-
+<!--
 	<distributionManagement>
 		<repository>
 			<id>central</id>
 			<url>https://central.sonatype.com/service/local/staging/deploy/maven2/</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.0.0-M2</version>
+					<!-- Disable deployment to remote repository -->
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
