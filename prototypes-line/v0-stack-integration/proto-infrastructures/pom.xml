@@ -17,7 +17,8 @@
 		<module>proto-users-interactions-broker</module>
 		<module>proto-event-logging-server</module>
 		<module>proto-secret-mgt-server</module>
-		<module>proto-sso-server</module>
+		<!--
+		<module>proto-sso-server</module>-->
 		<module>proto-iam-server</module>
 	</modules>
 </project>
