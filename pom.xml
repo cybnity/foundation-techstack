@@ -5,6 +5,16 @@
 	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY technologies stack prototypes line</name>
+	<description>Technology prototypes of CYBNITY</description>
+	<url>https://github.com/cybnity/foundation-techstack</url>
+
+	<licenses>
+		<license>
+		<name>The Apache Software License, Version 2.0</name>
+		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
 	<properties>
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
@@ -20,6 +30,9 @@
 		<junit.version>[4.13.1,)</junit.version>
 		<javafx.version>13</javafx.version>
 
+		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
+		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
+
 		<!-- CYBNITY project revision -->
 		<revision>1.0.0-SNAPSHOT</revision>
 	</properties>
@@ -34,7 +47,7 @@
 		<name>CYBNITY</name>
 		<url>http://www.cybnity.org</url>
 	</organization>
-
+<!--
 	<distributionManagement>
 		<repository>
 			<id>central</id>
@@ -55,7 +68,7 @@
 				    <enabled>true</enabled>
 				</releases>
 		</repository>
-	</repositories>
+	</repositories>-->
 
 	<!-- Common and projects transversal dependencies -->
 	<dependencies>
@@ -139,6 +152,47 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<!-- Generate required resources and manage publication to Maven central repository -->
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.4.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<publishingServerId>central</publishingServerId>
+						<tokenAuth>true</tokenAuth>
+						<autoPublish>false</autoPublish>
+						<!--
+						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
+					</configuration>
+				</plugin>
+				<plugin>
+					<!-- Allow signature of components before to publish them in Maven repository -->
+					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.4</version>
+					<configuration>
+						<!-- Prevent gpg from using pinentry programs -->
+						<gpgArguments>
+							<arg>--pinentry-mode</arg>
+							<arg>loopback</arg>
+						</gpgArguments>
+					</configuration>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+							<configuration>
+								<keyname>${gpg.keyname}</keyname>
+								<passphraseServerId>${gpg.keyname}</passphraseServerId>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -242,6 +296,16 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- Allow signature of components before to publish them in Maven repository -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- Allow publish to Maven Central repository provided by Sonatype -->
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
