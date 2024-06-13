@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.29.0</version>
+	<version>0.30.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 	<description>Technology stack of CYBNITY defense platform solution</description>
@@ -27,8 +27,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
-		<!--
-		<junit.version>[4.13.1,)</junit.version>-->
 
 		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
 		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
@@ -62,29 +60,7 @@
 	</scm>
 
 	<distributionManagement>
-		<!--
-		<repository>
-			<id>space-cybnity-open-source</id>
-			<name>CYBNITY OS Releases</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-			<layout>default</layout>
-		</repository>-->
 	</distributionManagement>
-
-	<repositories>
-		<!--
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>-->
-	</repositories>
 
 	<pluginRepositories></pluginRepositories>
 
@@ -227,17 +203,6 @@
 				<version>${janusgraph.driver}</version>
 				<scope>test</scope>
 			</dependency>
-			<!--
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-			<version>2.15.0</version>--> <!-- 2.16.0-rc1 is buggued with other sub-dependencies run -->
-			<!--</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.datatype</groupId>
-				<artifactId>jackson-datatype-jsr310</artifactId>
-				<version>[2.13.2.1,)</version>
-			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
@@ -416,6 +381,11 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-changes-plugin</artifactId>
+					<version>2.12.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>3.0.0-M2</version>
 				</plugin>
@@ -558,6 +528,10 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+			</plugin>
+			<plugin>
 			  <artifactId>maven-install-plugin</artifactId>
 			  <configuration>
 				<!-- Generate checksum validated during deployment process -->
@@ -574,6 +548,7 @@
 				<artifactId>maven-gpg-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<!-- Allow publish to Maven Central repository provided by Sonatype -->
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
