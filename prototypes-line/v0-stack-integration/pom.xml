@@ -9,7 +9,7 @@
 
 	<groupId>org.cybnity.techstack.ref.prototypes</groupId>
 	<artifactId>integration</artifactId>
-	<version>${proto-revision}</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY V0 techstack integration POC</name>
 
@@ -43,10 +43,9 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
-
 	<properties>
 		<!-- CYBNITY prototype revision number -->
-		<proto-revision>0.1.0-SNAPSHOT</proto-revision>
+		<proto-revision>${{pom.version}}</proto-revision>
 	</properties>
 
 	<modules>

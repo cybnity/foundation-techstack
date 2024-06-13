@@ -9,7 +9,6 @@
 
 	<groupId>org.cybnity.techstack.ref.prototypes.specifications</groupId>
 	<artifactId>infrastructure</artifactId>
-	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY infrastructure</name>
 
