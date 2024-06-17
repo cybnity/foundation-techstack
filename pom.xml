@@ -42,7 +42,7 @@
 		<snapshotRepository>
 			<id>github</id>
 			<name>CYBNITY Snapshot Packages</name>
-			<uniqueVersion>true</uniqueVersion>
+			<uniqueVersion>false</uniqueVersion>
 			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
 		</snapshotRepository>
 		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository
