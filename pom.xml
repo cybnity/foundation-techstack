@@ -40,25 +40,19 @@
 	<distributionManagement>
 		<!-- GitHub Packages development artifacts distribution -->
 		<snapshotRepository>
-			<id>github</id>
-			<name>CYBNITY Snapshot Packages</name>
+			<id>central</id>
+			<name>GitHub snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
 		</snapshotRepository>
-		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository
-		<repository>
-			<id>central</id>
-			<name>Maven Central Repository supporting CYBNITY Releases</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://central.sonatype.com</url>
-			<layout>default</layout>
-		</repository>-->
+		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository (https://central.sonatype.com)-->
 	</distributionManagement>
+
 	<repositories>
 		<!-- Release are downloaded from Maven Central Repository (default) -->
 		<repository>
 			<id>github</id>
-			<name>GitHub Packages</name>
+			<name>GitHub releases repository</name>
 			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
 			<snapshots>
 				<enabled>true</enabled>
