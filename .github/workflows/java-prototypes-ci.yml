@@ -54,7 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
     outputs:
       release_name: ${{ env.release_name }}
       is_snapshot: ${{ env.is_snapshot }}
