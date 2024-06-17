@@ -7,6 +7,7 @@
 	<name>CYBNITY technologies stack prototypes line</name>
 
 	<!-- Required informations for Maven Central Repository publishing -->
+	<!-- See https://central.sonatype.org/publish-ea/publish-ea-guide/ for help -->
 	<description>Technology prototypes of CYBNITY</description>
 	<url>https://github.com/cybnity/foundation-techstack</url>
 	<licenses>

@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.30.3</version>
+	<version>0.30.4</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 	<description>Technology stack of CYBNITY defense platform solution</description>
@@ -491,6 +491,7 @@
 					<executions>
 						<execution>
 							<id>attach-sources</id>
+							<phase>verify</phase>
 							<goals>
 								<goal>jar-no-fork</goal>
 							</goals>
@@ -523,14 +524,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -584,11 +577,6 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<!-- Allow signature of components before to publish them in Maven repository -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<!-- Allow publish to Maven Central repository provided by Sonatype -->
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
@@ -606,6 +594,15 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable allowing resolution by developer -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
@@ -642,6 +639,26 @@
 					<value>commit</value>
 				</property>
 			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Add javasource in packaged jar -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
@@ -696,6 +713,21 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Add javasource in packaged jar -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>
