@@ -37,6 +37,47 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
+	<distributionManagement>
+		<!-- GitHub Packages development artifacts distribution -->
+		<snapshotRepository>
+			<id>github</id>
+			<name>CYBNITY Snapshot Packages</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
+		</snapshotRepository>
+		<!-- CYBNITY Open Source releases distribution -->
+		<repository>
+			<id>central</id>
+			<name>Maven Central Repository supporting CYBNITY Releases</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>https://central.sonatype.com</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>https://central.sonatype.com</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
 	<properties>
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
@@ -291,14 +332,6 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
@@ -316,16 +349,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<!-- Allow signature of components before to publish them in Maven repository -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<!-- Allow publish to Maven Central repository provided by Sonatype -->
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -339,6 +362,47 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<!-- Continuous Integration environment -->
+			<id>ci-deploy</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=dev-deploy) -->
+					<name>environment</name>
+					<value>dev-deploy</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Allow publish to Maven Central repository provided by Sonatype -->
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 	</profiles>

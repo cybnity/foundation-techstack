@@ -84,7 +84,7 @@ jobs:
       - name: Build and publish ${{ env.current_artifacts_revision_id }} version of artifacts to remote CYBNITY repository via Maven (phases validate, compile, test, package, verify, install, deploy)
         run: |
             cd ${{ inputs.pom-base-path }}
-            mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true deploy -Dmaven.test.skip=true
+            mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
         env:
             MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
             MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
