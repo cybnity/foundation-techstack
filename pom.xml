@@ -40,11 +40,17 @@
 	<distributionManagement>
 		<!-- GitHub Packages development artifacts distribution -->
 		<snapshotRepository>
-			<id>central</id>
+			<id>github</id>
 			<name>GitHub snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
 		</snapshotRepository>
+		<repository>
+			<id>central</id>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://central.sonatype.com</url>
+			<layout>default</layout>
+		</repository>
 		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository (https://central.sonatype.com)-->
 	</distributionManagement>
 
@@ -158,8 +164,9 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
+				<!--
 				<plugin>
-					<!-- Generate required resources and manage publication to Maven central repository -->
+					Generate required resources and manage publication to Maven central repository
 					<groupId>org.sonatype.central</groupId>
 					<artifactId>central-publishing-maven-plugin</artifactId>
 					<version>0.4.0</version>
@@ -167,16 +174,16 @@
 					<configuration>
 						<publishingServerId>central</publishingServerId>
 						<tokenAuth>true</tokenAuth>
-						<!-- no manual intervention is required, if a deployment is considered valid, to publish it -->
+						no manual intervention is required, if a deployment is considered valid, to publish it
 						<autoPublish>true</autoPublish>
-						<!-- wait until uploaded only because CI can't wait the full validation duration from Sonatype to switch un published status -->
+						wait until uploaded only because CI can't wait the full validation duration from Sonatype to switch un published status
 						<waitUntil>uploaded</waitUntil>
-						<!-- Not add components that have already been published in the past to the bundle that will be uploaded and published -->
+						Not add components that have already been published in the past to the bundle that will be uploaded and published
 						<ignorePublishedComponents>true</ignorePublishedComponents>
-						<!--
-						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
+
+						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
 					</configuration>
-				</plugin>
+				</plugin>-->
 				<plugin>
 					<!-- Allow signature of components before to publish them in Maven repository -->
 					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
