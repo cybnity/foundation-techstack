@@ -149,10 +149,6 @@ jobs:
           echo "Set the project artifacts version in pom files"
           mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.RELEASE_NAME }}
           mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.RELEASE_NAME }} --fail-fast --file pom.xml clean install -Dmaven.test.skip=true
-        env:
-            MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
-            MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
-            MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
   # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
   # Publish release of parent pom.xml and sub-projects (reusable by other development) that potentially replace previous equals version named
