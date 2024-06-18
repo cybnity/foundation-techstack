@@ -147,7 +147,8 @@
 						<waitUntil>uploaded</waitUntil>
 						<!--Not add components that have already been published in the past to the bundle that will be uploaded and published-->
 						<ignorePublishedComponents>true</ignorePublishedComponents>
-						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+						<!--
+						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
 					</configuration>
 				</plugin>
 				<plugin>

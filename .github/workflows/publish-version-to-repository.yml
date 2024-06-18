@@ -41,7 +41,7 @@ jobs:
           token: ${{ github.token }}
           ref: ${{ inputs.config-path }}
 
-      - name: Set up Java for publishing to Maven repository
+      - name: Settings.xml definition for publishing to repository
         uses: actions/setup-java@v4
         with: # running setup-java again overwrites the settings.xml
           java-version: '11'
@@ -92,6 +92,18 @@ jobs:
         run: |
             cd ${{ inputs.pom-base-path }}
             mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
+
+      - name: Settings.xml overwriting for deployment into Maven Central repository
+        uses: actions/setup-java@v4
+        with: # running setup-java again overwrites the settings.xml
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+          server-id: central # Value of the distributionManagement/repository/id filed of the pom.xml
+          server-username: ${{ secrets.MAVEN_OSS_REPO_USERNAME }} # env variable for OSS username in deploy
+          server-password: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }} # env variable for OSS token in deploy
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
 
       - name: Deploy ${{ env.current_artifacts_revision_id }} version to Maven Central repository
         if: ${{ contains(inputs.target_repository, 'RELEASE') }}
