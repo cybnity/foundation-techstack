@@ -54,12 +54,13 @@
 			<layout>default</layout>
 		</repository>
 
+		<!--
 		<repository>
 			<id>central</id>
 			<uniqueVersion>true</uniqueVersion>
 			<url>https://central.sonatype.com</url>
 			<layout>default</layout>
-		</repository>
+		</repository>-->
 		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository (https://central.sonatype.com)-->
 	</distributionManagement>
 
