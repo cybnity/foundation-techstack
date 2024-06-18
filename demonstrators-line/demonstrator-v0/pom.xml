@@ -92,14 +92,6 @@
 			<uniqueVersion>true</uniqueVersion>
 			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 		</repository>
-
-		<repository>
-			<!-- Sonatype official maven central repository providing CYBNITY releases -->
-			<id>central</id>
-			<name>Maven Central Repository</name>
-			<uniqueVersion>true</uniqueVersion>
-			<url>https://central.sonatype.com</url>
-		</repository>
 	</distributionManagement>
 
 	<!-- Tech stack official dependency versions -->
