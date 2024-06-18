@@ -37,36 +37,6 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
-	<repositories>
-		<!-- Release are downloaded from Maven Central Repository (default) -->
-
-		<repository>
-			<id>agnet-snapshots</id>
-			<!-- CYBNITY artefact snapshot versions provided -->
-			<name>AG Net snapshots repository</name>
-			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>agnet-releases</id>
-			<!-- CYBNITY artefact release versions provided -->
-			<name>AG Net releases repository</name>
-			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-	</repositories>
-
 	<properties>
 		<maven.min-version>3.8.5</maven.min-version>
 		<java.version>11</java.version>
@@ -350,6 +320,33 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<repositories>
+				<repository>
+					<id>agnet-snapshots</id>
+					<!-- CYBNITY artefact snapshot versions provided -->
+					<name>AG Net snapshots repository</name>
+					<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+				</repository>
+
+				<repository>
+					<id>agnet-releases</id>
+					<!-- CYBNITY artefact release versions provided -->
+					<name>AG Net releases repository</name>
+					<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+			</repositories>
 			<build>
 				<plugins>
 					<plugin>
@@ -404,6 +401,33 @@
 					<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 				</repository>
 			</distributionManagement>
+			<repositories>
+				<repository>
+					<id>agnet-snapshots</id>
+					<!-- CYBNITY artefact snapshot versions provided -->
+					<name>AG Net snapshots repository</name>
+					<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+				</repository>
+
+				<repository>
+					<id>agnet-releases</id>
+					<!-- CYBNITY artefact release versions provided -->
+					<name>AG Net releases repository</name>
+					<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</repository>
+			</repositories>
 			<build>
 				<plugins>
 					<plugin>

@@ -92,10 +92,6 @@ jobs:
         run: |
             cd ${{ inputs.pom-base-path }}
             mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
-        #env:
-        #    MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
-        #    MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
-        #    MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
       - name: Deploy ${{ env.current_artifacts_revision_id }} version to Maven Central repository
         if: ${{ contains(inputs.target_repository, 'RELEASE') }}
@@ -106,5 +102,3 @@ jobs:
             MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
             MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
             MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
-      #      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      #      GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
