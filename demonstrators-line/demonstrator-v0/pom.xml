@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.30.4</version>
+	<version>0.30.5</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 	<description>Technology stack of CYBNITY defense platform solution</description>
@@ -281,25 +281,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<!-- Generate required resources and manage publication to Maven central repository -->
-					<groupId>org.sonatype.central</groupId>
-					<artifactId>central-publishing-maven-plugin</artifactId>
-					<version>0.4.0</version>
-					<extensions>true</extensions>
-					<configuration>
-						<publishingServerId>central</publishingServerId>
-						<tokenAuth>true</tokenAuth>
-						<!-- no manual intervention is required, if a deployment is considered valid, to publish it -->
-						<autoPublish>true</autoPublish>
-						<!-- wait until uploaded only because CI can't wait the full validation duration from Sonatype to switch un published status -->
-						<waitUntil>uploaded</waitUntil>
-						<!-- Not add components that have already been published in the past to the bundle that will be uploaded and published -->
-						<ignorePublishedComponents>true</ignorePublishedComponents>
-						<!--
-						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>-->
-					</configuration>
-				</plugin>
-				<plugin>
 					<!-- Allow signature of components before to publish them in Maven repository -->
 					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
 					<groupId>org.apache.maven.plugins</groupId>
@@ -575,11 +556,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<!-- Allow publish to Maven Central repository provided by Sonatype -->
-				<groupId>org.sonatype.central</groupId>
-				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
