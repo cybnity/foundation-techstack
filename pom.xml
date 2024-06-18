@@ -43,14 +43,14 @@
 			<id>agnet-snapshots</id>
 			<name>AG Net snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>https://nexus.agnet.fr/repository/cybnity-snapshots/</url>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
 		</snapshotRepository>
 
 		<repository>
 			<id>agnet-releases</id>
 			<name>AG Net releases repository</name>
 			<uniqueVersion>true</uniqueVersion>
-			<url>https://nexus.agnet.fr/repository/cybnity-releases/</url>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 			<layout>default</layout>
 		</repository>
 
@@ -69,6 +69,7 @@
 
 		<repository>
 			<id>agnet-snapshots</id>
+			<!-- CYBNITY artefact snapshot versions provided -->
 			<name>AG Net snapshots repository</name>
 			<url>https://nexus.agnet.fr/repository/cybnity-snapshots/</url>
 			<snapshots>
@@ -81,6 +82,7 @@
 
 		<repository>
 			<id>agnet-releases</id>
+			<!-- CYBNITY artefact release versions provided -->
 			<name>AG Net releases repository</name>
 			<url>https://nexus.agnet.fr/repository/cybnity-releases/</url>
 			<snapshots>
