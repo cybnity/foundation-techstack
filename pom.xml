@@ -37,32 +37,6 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
-	<distributionManagement>
-		<!-- GitHub Packages development artifacts distribution -->
-		<snapshotRepository>
-			<id>agnet</id>
-			<name>AG Net snapshots repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://134.209.234.181/repository/cybnity-snapshots/</url>
-		</snapshotRepository>
-
-		<repository>
-			<id>agnet</id>
-			<name>AG Net releases repository</name>
-			<uniqueVersion>true</uniqueVersion>
-			<url>https://134.209.234.181/repository/cybnity-releases/</url>
-		</repository>
-
-		<!--
-		<repository>
-			<id>central</id>
-			<uniqueVersion>true</uniqueVersion>
-			<url>https://central.sonatype.com</url>
-			<layout>default</layout>
-		</repository>-->
-		<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository (https://central.sonatype.com)-->
-	</distributionManagement>
-
 	<repositories>
 		<!-- Release are downloaded from Maven Central Repository (default) -->
 
@@ -397,6 +371,31 @@
 					<value>dev-deploy</value>
 				</property>
 			</activation>
+			<distributionManagement>
+				<!-- GitHub Packages development artifacts distribution -->
+				<snapshotRepository>
+					<id>agnet</id>
+					<name>AG Net snapshots repository</name>
+					<uniqueVersion>false</uniqueVersion>
+					<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+				</snapshotRepository>
+
+				<repository>
+					<id>agnet</id>
+					<name>AG Net releases repository</name>
+					<uniqueVersion>true</uniqueVersion>
+					<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+				</repository>
+
+				<!--
+				<repository>
+					<id>central</id>
+					<uniqueVersion>true</uniqueVersion>
+					<url>https://central.sonatype.com</url>
+					<layout>default</layout>
+				</repository>-->
+				<!-- CYBNITY Open Source releases distribution are published in Maven Central Repository (https://central.sonatype.com)-->
+			</distributionManagement>
 			<build>
 				<plugins>
 					<plugin>
