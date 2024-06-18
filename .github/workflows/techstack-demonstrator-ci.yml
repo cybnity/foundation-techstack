@@ -164,7 +164,6 @@ jobs:
         env:
             MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
             MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
-            #MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
             MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
   # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
