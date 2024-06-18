@@ -32,6 +32,7 @@ jobs:
       MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
       MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
       MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
     steps:
       - name: Checkout source codes from branch to publish
         uses: actions/checkout@v3
