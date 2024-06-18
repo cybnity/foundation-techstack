@@ -41,7 +41,7 @@ jobs:
           token: ${{ github.token }}
           ref: ${{ inputs.config-path }}
 
-      - name: Set up Java for publishing to Maven Central Repository
+      - name: Set up Java for publishing to Maven repository
         uses: actions/setup-java@v4
         with: # running setup-java again overwrites the settings.xml
           java-version: '11'
@@ -53,15 +53,17 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value (without an modification than exported by the gpg --export-secret-keys command) of the GPG private key (33105BFD367D25B3) to import
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
 
-      - name: GitHub Environment Variables Action
+      - name: GitHub environment variables
         if: ${{ env.ARTIFACT_VERSION == '' }}
         uses: FranzDiebold/github-env-vars-action@v2.7.0
+
       - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>.<<commit time>>)
         if: ${{ env.ARTIFACT_VERSION == '' }}
         run: |
             echo "Git commit revision $CI_SHA_SHORT abbreviation based on 7 characters (default) maximum (origin based: $CI_SHA)"
             echo "commit_id=$CI_SHA_SHORT" >> $GITHUB_ENV
             echo "feature_name=$CI_ACTION_REF_NAME_SLUG" >> $GITHUB_ENV
+
       - name: Identify the origin release name
         if: ${{ env.ARTIFACT_VERSION == '' }}
         # Define a static version name because not received from input parameter
@@ -86,7 +88,7 @@ jobs:
             echo "Set the artifacts version in pom.xml files"
             echo "mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.current_artifacts_revision_id }}"
 
-      - name: Build and publish ${{ env.current_artifacts_revision_id }} version of packages to AGNet repository (phases validate, compile, test, package, verify, install, deploy)
+      - name: Build and deploy ${{ env.current_artifacts_revision_id }} version of packages to AGNet repository (phases validate, compile, test, package, verify, install, deploy)
         run: |
             cd ${{ inputs.pom-base-path }}
             mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
@@ -95,13 +97,14 @@ jobs:
         #    MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
         #    MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      #- name: Build and publish ${{ env.current_artifacts_revision_id }} version of artifacts to Maven Central repository
-      #  run: |
-      #      cd ${{ inputs.pom-base-path }}
-      #      mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
-      #  env:
-      #      MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
-      #      MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
-      #      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
+      - name: Deploy ${{ env.current_artifacts_revision_id }} version to Maven Central repository
+        if: ${{ contains(inputs.target_repository, 'RELEASE') }}
+        run: |
+            cd ${{ inputs.pom-base-path }}
+            mvn --batch-mode --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Dstage=central-deploy deploy -Dmaven.test.skip=true
+        env:
+            MAVEN_USERNAME: ${{ secrets.MAVEN_OSS_REPO_USERNAME }}
+            MAVEN_PASSWORD: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
+            MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_OSS_REPO_PASSWORD }}
       #      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       #      GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
