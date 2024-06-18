@@ -40,11 +40,20 @@
 	<distributionManagement>
 		<!-- GitHub Packages development artifacts distribution -->
 		<snapshotRepository>
-			<id>github</id>
-			<name>GitHub snapshots repository</name>
+			<id>agnet-snapshots</id>
+			<name>AG Net snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots/</url>
 		</snapshotRepository>
+
+		<repository>
+			<id>agnet-releases</id>
+			<name>AG Net releases repository</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases/</url>
+			<layout>default</layout>
+		</repository>
+
 		<repository>
 			<id>central</id>
 			<uniqueVersion>true</uniqueVersion>
@@ -56,12 +65,25 @@
 
 	<repositories>
 		<!-- Release are downloaded from Maven Central Repository (default) -->
+
 		<repository>
-			<id>github</id>
-			<name>GitHub releases repository</name>
-			<url>https://maven.pkg.github.com/cybnity/foundation-techstack</url>
+			<id>agnet-snapshots</id>
+			<name>AG Net snapshots repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+
+		<repository>
+			<id>agnet-releases</id>
+			<name>AG Net releases repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
 			</snapshots>
 			<releases>
 				<enabled>true</enabled>
@@ -380,11 +402,12 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 					</plugin>
+					<!--
 					<plugin>
-						<!-- Allow publish to Maven Central repository provided by Sonatype -->
+						 Allow publish to Maven Central repository provided by Sonatype
 						<groupId>org.sonatype.central</groupId>
 						<artifactId>central-publishing-maven-plugin</artifactId>
-					</plugin>
+					</plugin>-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
