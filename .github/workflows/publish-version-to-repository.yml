@@ -35,7 +35,7 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
     steps:
       - name: Checkout source codes from branch to publish
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           token: ${{ github.token }}

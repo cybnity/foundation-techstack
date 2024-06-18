@@ -336,6 +336,14 @@
 					<value>central-deploy</value>
 				</property>
 			</activation>
+			<distributionManagement>
+				<repository>
+					<id>central</id>
+					<name>Central Maven repository</name>
+					<uniqueVersion>true</uniqueVersion>
+					<url>https://central.sonatype.com</url>
+				</repository>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<!-- Continuous Integration environment -->
