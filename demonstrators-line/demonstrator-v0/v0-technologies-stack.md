@@ -68,7 +68,7 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.30.60
+- Version: 0.30.61
 - Released at: June, 18, 2024
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
@@ -80,7 +80,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.30.60</version>
+      <version>0.30.61</version>
     </parent>
 
     <repositories>
