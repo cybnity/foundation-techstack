@@ -1,42 +1,50 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.cybnity</groupId>
+		<artifactId>techstack-ref</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
 	<groupId>org.cybnity.techstack.ref</groupId>
 	<artifactId>demonstrators</artifactId>
-	<version>${revision}</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY techstack demonstrators line</name>
+
+	<!-- Required informations for Maven Central Repository publishing -->
+	<description>Technology demonstrators</description>
+	<url>https://github.com/cybnity/foundation-techstack/demonstrators-line</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@agnet.fr</email>
+			<organization>AG Net</organization>
+			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>Product Owner</role>
+				<role>Software Architect</role>
+				<role>Release Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 
 	<modules>
 		<!-- Rebuildable demonstrator implementing themselves their version name -->
 		<module>demonstrator-v0</module>
 	</modules>
-
-	<properties>
-		<!-- CYBNITY demonstration line default revision number -->
-		<revision>1.0.0-SNAPSHOT</revision>
-	</properties>
-	
-	<distributionManagement>
-		<repository>
-      <id>space-cybnity-open-source</id>
-			<name>CYBNITY OS Releases</name>
-			<uniqueVersion>false</uniqueVersion>
-      <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-			<layout>default</layout>
-    </repository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>
-	</repositories>
 
 </project>

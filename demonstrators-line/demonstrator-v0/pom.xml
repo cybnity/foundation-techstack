@@ -2,17 +2,42 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.29.0</version>
+	<version>0.30.61</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
+
+	<!-- Required informations for Maven Central Repository publishing -->
 	<description>Technology stack of CYBNITY defense platform solution</description>
-	<url>https://github.com/cybnity/foundation-techstack</url>
+	<url>https://github.com/cybnity/foundation-techstack/demonstrators-line/demonstrator-v0</url>
 	<licenses>
 		<license>
 		<name>The Apache Software License, Version 2.0</name>
 		<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@cybnity.org</email>
+			<organization>CYBNITY</organization>
+			<organizationUrl>http://www.cybnity.org</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>CYBNITY Founder</role>
+				<role>Product Leader</role>
+				<role>Product Designer</role>
+				<role>Software Designer</role>
+				<role>Software Developer</role>
+				<role>Software Reviewer</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 
 	<properties>
 		<!-- JAVA TOOLING -->
@@ -26,8 +51,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
-		<!--
-		<junit.version>[4.13.1,)</junit.version>-->
+
+		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
+		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
@@ -51,36 +77,50 @@
 		<url>http://www.cybnity.org</url>
 	</organization>
 
-	<scm>
-		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
-		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
-		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
-	</scm>
-
 	<distributionManagement>
-		<repository>
-			<id>space-cybnity-open-source</id>
-			<name>CYBNITY OS Releases</name>
+		<snapshotRepository>
+			<!-- AGNet repository providing latest CYBNITY snapshots -->
+			<id>agnet</id>
+			<name>AG Net snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-			<layout>default</layout>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<!-- AGNet repository providing official CYBNITY releases -->
+			<id>agnet</id>
+			<name>AG Net releases repository</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 		</repository>
 	</distributionManagement>
 
 	<repositories>
 		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
+			<id>agnet-snapshots</id>
+			<!-- CYBNITY artefact snapshot versions provided -->
+			<name>AG Net snapshots repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+
+		<repository>
+			<id>agnet-releases</id>
+			<!-- CYBNITY artefact release versions provided -->
+			<name>AG Net releases repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</repository>
 	</repositories>
-
-	<pluginRepositories></pluginRepositories>
 
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
@@ -221,17 +261,6 @@
 				<version>${janusgraph.driver}</version>
 				<scope>test</scope>
 			</dependency>
-			<!--
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-			<version>2.15.0</version>--> <!-- 2.16.0-rc1 is buggued with other sub-dependencies run -->
-			<!--</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.datatype</groupId>
-				<artifactId>jackson-datatype-jsr310</artifactId>
-				<version>[2.13.2.1,)</version>
-			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
@@ -261,26 +290,6 @@
 			<name>${project.name} users list</name>
 		</mailingList>
 	</mailingLists>
-
-	<!-- Contributors -->
-	<developers>
-		<developer>
-			<id>o.lemee</id>
-			<name>Olivier Lemee</name>
-			<email>olivier@cybnity.org</email>
-			<organization>CYBNITY</organization>
-			<organizationUrl>http://www.cybnity.org</organizationUrl>
-			<timezone>FR</timezone>
-			<roles>
-				<role>CYBNITY Founder</role>
-				<role>Product Leader</role>
-				<role>Product Designer</role>
-				<role>Software Designer</role>
-				<role>Software Developer</role>
-				<role>Software Reviewer</role>
-			</roles>
-		</developer>
-	</developers>
 
 	<!-- Build chain configuration -->
 	<build>
@@ -314,6 +323,33 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<!-- Allow signature of components before to publish them in Maven repository -->
+					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.4</version>
+					<configuration>
+						<!-- Prevent gpg from using pinentry programs -->
+						<gpgArguments>
+							<arg>--pinentry-mode</arg>
+							<arg>loopback</arg>
+						</gpgArguments>
+					</configuration>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+							<configuration>
+								<keyname>${gpg.keyname}</keyname>
+								<passphraseServerId>${gpg.keyname}</passphraseServerId>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -373,6 +409,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-changes-plugin</artifactId>
+					<version>2.12.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -467,6 +508,33 @@
 						-->
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.3.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.7.0</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -518,9 +586,13 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+			</plugin>
+			<plugin>
 			  <artifactId>maven-install-plugin</artifactId>
 			  <configuration>
-					<!-- Generate checksum validated during deployment process -->
+				<!-- Generate checksum validated during deployment process -->
 			    <createChecksum>true</createChecksum>
 			  </configuration>
 			</plugin>
@@ -541,6 +613,15 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable allowing resolution by developer -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
@@ -577,6 +658,26 @@
 					<value>commit</value>
 				</property>
 			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Add javasource in packaged jar -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
@@ -631,6 +732,21 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Add javasource in packaged jar -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>

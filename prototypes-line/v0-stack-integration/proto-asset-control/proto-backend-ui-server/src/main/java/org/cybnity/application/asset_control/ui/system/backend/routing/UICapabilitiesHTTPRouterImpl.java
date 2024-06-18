@@ -21,6 +21,7 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 
 	/**
 	 * Initialize all the routes supported by this routing service.
+	 * @param router Mandatory.
 	 */
 	static public void initRoutes(Router router) {
 		// Mount the handlers for all incoming requests at every path and HTTP method
@@ -38,8 +39,8 @@ public class UICapabilitiesHTTPRouterImpl extends RouterImpl {
 	/**
 	 * Simulate a JSON answer provided on HTTP protocol by an API service.
 	 * 
-	 * @param context
-	 * @param calledResourceName
+	 * @param context Mandatory.
+	 * @param calledResourceName Mandatory.
 	 */
 	static public void sendJSONUICapabilityResponse(RoutingContext context, String calledResourceName) {
 		// Get the address of the request

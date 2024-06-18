@@ -4,12 +4,40 @@
 	<parent>
 		<groupId>org.cybnity.techstack.ref.prototypes.asset-control</groupId>
 		<artifactId>application</artifactId>
-		<version>${proto-revision}</version>
-		<relativePath>..</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.cybnity.techstack.ref.prototypes.asset-control.application</groupId>
 	<artifactId>domain-model</artifactId>
 	<packaging>jar</packaging>
 	<name>  - Asset Control domain model layer</name>
-	<!--<version>1.0.0-SNAPSHOT</version>-->
+
+	<!-- Required informations for Maven Central Repository publishing -->
+	<description>Technology prototype</description>
+	<url>https://github.com/cybnity/foundation-techstack/prototypes-line/v0-integration/proto-asset-control/application/ac-domain-model</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@agnet.fr</email>
+			<organization>AG Net</organization>
+			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>Product Owner</role>
+				<role>Software Architect</role>
+				<role>Release Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 </project>

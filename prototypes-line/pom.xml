@@ -3,24 +3,47 @@
 	<parent>
 		<groupId>org.cybnity</groupId>
 		<artifactId>techstack-ref</artifactId>
-		<version>${revision}</version>
-		<relativePath>..</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.ref</groupId>
 	<artifactId>prototypes</artifactId>
-	<version>${proto-revision}</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Techstack prototypes line</name>
+
+	<!-- Required informations for Maven Central Repository publishing -->
+	<description>Technology prototype</description>
+	<url>https://github.com/cybnity/foundation-techstack/prototypes-line</url>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>o.lemee</id>
+			<name>Olivier Lemee</name>
+			<email>olivier@agnet.fr</email>
+			<organization>AG Net</organization>
+			<organizationUrl>http://corp.agnet.fr</organizationUrl>
+			<timezone>FR</timezone>
+			<roles>
+				<role>Product Owner</role>
+				<role>Software Architect</role>
+				<role>Release Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/cybnity/foundation-techstack.git</connection>
+		<developerConnection>scm:git:https://github.com:cybnity/foundation-techstack.git</developerConnection>
+		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
+	</scm>
 
 	<modules>
 		<!-- Prototyping modules -->
 		<module>v0-stack-integration</module>
 	</modules>
 
-	<properties>
-		<!-- CYBNITY prototype default revision number -->
-		<revision>1.0.0-SNAPSHOT</revision>
-		<proto-revision>0.0.1-SNAPSHOT</proto-revision>
-	</properties>
 </project>

@@ -68,8 +68,8 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.29.0
-- Released at: June, 12, 2024
+- Version: 0.30.61
+- Released at: June, 18, 2024
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
@@ -80,21 +80,24 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.29.0</version>
+      <version>0.30.61</version>
     </parent>
 
     <repositories>
-      <repository>
-        <id>space-cybnity-open-source</id>
-        <url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-      </repository>
-    </repositories>
+		<repository>
+			<id>agnet-releases</id>
+			<!-- CYBNITY artefact release versions -->
+			<name>AG Net releases repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
     ```
 
   - Tooling:

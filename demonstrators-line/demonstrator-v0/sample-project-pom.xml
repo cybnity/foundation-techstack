@@ -3,27 +3,14 @@
 	<parent>
 		<groupId>org.cybnity</groupId>
 		<artifactId>techstack</artifactId>
-		<version>0.29.0</version>
+		<version>0.30.10</version>
 	</parent>
 
 	<groupId>org.cybnity.techstack.quality</groupId>
 	<artifactId>sample-project</artifactId>
-	<version>0.7.0</version>
+	<version>0.8.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY ${revision} techstack project</name>
-
-	<repositories>
-		<repository>
-    		<id>space-cybnity-open-source</id>
-    		<url>https://maven.pkg.jetbrains.space/cybnity/p/cybnity-os/cybnity-open-source</url>
-				<snapshots>
-				    <enabled>false</enabled>
-				</snapshots>
-				<releases>
-				    <enabled>true</enabled>
-				</releases>
-		</repository>
-	</repositories>
 
 	<!-- Define all standard dependencies reusable by any type of project supported by this techstack version -->
 	<dependencies>
@@ -74,10 +61,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.arangodb</groupId>
-			<artifactId>arangodb-java-driver</artifactId>
 		</dependency>
 	</dependencies>
 

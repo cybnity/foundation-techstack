@@ -76,7 +76,7 @@ jobs:
       # Build specific release name because none tag is existing on GitHub project
       - name: Define reusable environment variables about current commit
         if: ${{ env.TAG_VERSION == '' }}
-        uses: FranzDiebold/github-env-vars-action@v2.7.0
+        uses: FranzDiebold/github-env-vars-action@v2.8.0
 
       - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>) regarding development release
         if: ${{ env.TAG_VERSION == '' }}
@@ -110,41 +110,50 @@ jobs:
       contents: read
     env:
       RELEASE_NAME: ${{ needs.define_project_release_name.outputs.release_name }}
+      MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
     outputs:
       release_name: ${{ env.RELEASE_NAME }}
     steps:
       - name: Checkout source codes from branch
         id: checkout_step
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           token: ${{ github.token }}
           ref: ${{ inputs.branch_name }}
 
       - name: Set up java runtime (Temurin JDK)
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-          # defined settings.xml values allowing use of CYBNITY Maven remote repository
-          server-id: space-cybnity-open-source
+          server-id: agnet # Value of the distributionManagement/repository/id filed of the pom.xml
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value (without an modification than exported by the gpg --export-secret-keys command) of the GPG private key (33105BFD367D25B3) to import
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+
+      - name: Install gpg secret key used for artefacts signing
+        run: |
+          # Install gpg secret key
+          cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
+          # Verify gpg secret key
+          gpg --list-secret-keys --keyid-format LONG
 
       - name: Build prototypes java code in their distributable formats (e.g JAR)
         run: |
           echo "Set the project artifacts version in pom files"
           mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.RELEASE_NAME }}
           mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.RELEASE_NAME }} --fail-fast --file pom.xml clean install -Dmaven.test.skip=true
-        env:
-            MAVEN_USERNAME: ${{ secrets.SPACE_CYBNITY_OS_REPO_USERNAME }}
-            MAVEN_PASSWORD: ${{ secrets.SPACE_CYBNITY_OS_REPO_PASSWORD }}
 
   # Prepare a release for remote repository installation (published in place of old equals release name in remote repository, reviewed or not)
   # Publish release of parent pom.xml and sub-projects (reusable by other development) that potentially replace previous equals version named
   publish_version_to_release_remote_repository:
-    name: Prototypes release publishing (remote repo)
+    name: Release prototypes publishing (remote repo)
     if: ${{ success() && needs.define_project_release_name.outputs.is_snapshot == 'false' }}
     needs: [define_project_release_name, prototypes_packaging]
     uses: ./.github/workflows/publish-version-to-repository.yml
