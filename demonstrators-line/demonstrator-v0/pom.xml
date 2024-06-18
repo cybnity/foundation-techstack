@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.30.8</version>
+	<version>0.30.10</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -93,6 +93,34 @@
 			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 		</repository>
 	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>agnet-snapshots</id>
+			<!-- CYBNITY artefact snapshot versions provided -->
+			<name>AG Net snapshots repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+
+		<repository>
+			<id>agnet-releases</id>
+			<!-- CYBNITY artefact release versions provided -->
+			<name>AG Net releases repository</name>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
 
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
