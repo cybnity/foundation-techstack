@@ -367,15 +367,6 @@
 					<value>central-deploy</value>
 				</property>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<!-- Allow publish to Maven Central repository provided by Sonatype -->
-						<groupId>org.sonatype.central</groupId>
-						<artifactId>central-publishing-maven-plugin</artifactId>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<profile>
 			<!-- Continuous Integration environment -->
