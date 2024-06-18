@@ -22,13 +22,16 @@ on:
 
 jobs:
   build_and_deploy_packages:
-    name: Build and deploy packages to remote repository
+    name: Build and deploy to remote repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     env:
       ARTIFACT_VERSION: ${{ inputs.package_release_name }}
+      MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     steps:
       - name: Checkout source codes from branch to publish
         uses: actions/checkout@v3
@@ -43,7 +46,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-          server-id: central # Value of the distributionManagement/repository/id filed of the pom.xml
+          server-id: agnet # Value of the distributionManagement/repository/id filed of the pom.xml
           server-username: MAVEN_USERNAME # env variable for username in deploy
           server-password: MAVEN_PASSWORD # env variable for token in deploy
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value (without an modification than exported by the gpg --export-secret-keys command) of the GPG private key (33105BFD367D25B3) to import
@@ -82,14 +85,14 @@ jobs:
             echo "Set the artifacts version in pom.xml files"
             echo "mvn -B -DgenerateBackupPoms=true -DprocessAllModules=true versions:set -DnewVersion=${{ env.current_artifacts_revision_id }}"
 
-      - name: Build and publish ${{ env.current_artifacts_revision_id }} version of artifacts to AGNet repository via Maven (phases validate, compile, test, package, verify, install, deploy)
+      - name: Build and publish ${{ env.current_artifacts_revision_id }} version of packages to AGNet repository (phases validate, compile, test, package, verify, install, deploy)
         run: |
             cd ${{ inputs.pom-base-path }}
             mvn --batch-mode --update-snapshots --show-version -Drevision=${{ env.current_artifacts_revision_id }} --file pom.xml -DcreateChecksum=true -Denvironment=dev-deploy deploy -Dmaven.test.skip=true
-        env:
-            MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
-            MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
-            MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        #env:
+        #    MAVEN_USERNAME: ${{ secrets.AGNET_REPO_USERNAME }}
+        #    MAVEN_PASSWORD: ${{ secrets.AGNET_REPO_PASSWORD }}
+        #    MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
       #- name: Build and publish ${{ env.current_artifacts_revision_id }} version of artifacts to Maven Central repository
       #  run: |

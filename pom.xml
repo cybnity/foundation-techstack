@@ -40,14 +40,14 @@
 	<distributionManagement>
 		<!-- GitHub Packages development artifacts distribution -->
 		<snapshotRepository>
-			<id>agnet-snapshots</id>
+			<id>agnet</id>
 			<name>AG Net snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
 		</snapshotRepository>
 
 		<repository>
-			<id>agnet-releases</id>
+			<id>agnet</id>
 			<name>AG Net releases repository</name>
 			<uniqueVersion>true</uniqueVersion>
 			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
