@@ -50,7 +50,6 @@
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
 		<junit.version>[4.13.1,)</junit.version>
-		<javafx.version>13</javafx.version>
 
 		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
 		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
@@ -75,17 +74,6 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!--
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>-->
 	</dependencies>
 
 	<!-- Lits of advise about project -->
@@ -132,25 +120,6 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<!--<plugin>
-					Generate required resources and manage publication to Maven central repository
-					<groupId>org.sonatype.central</groupId>
-					<artifactId>central-publishing-maven-plugin</artifactId>
-					<version>0.4.0</version>
-					<extensions>true</extensions>
-					<configuration>
-						<publishingServerId>central</publishingServerId>
-						<tokenAuth>true</tokenAuth>
-						no manual intervention is required, if a deployment is considered valid, to publish it
-						<autoPublish>true</autoPublish>
-						wait until uploaded only because CI can't wait the full validation duration from Sonatype to switch un published status
-						<waitUntil>uploaded</waitUntil>
-						Not add components that have already been published in the past to the bundle that will be uploaded and published
-						<ignorePublishedComponents>true</ignorePublishedComponents>
-
-						<centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
-					</configuration>
-				</plugin>-->
 				<plugin>
 					<!-- Allow signature of components before to publish them in Maven repository -->
 					<!-- See https://central.sonatype.org/publish/publish-maven/#gpg-signed-components documentation -->
