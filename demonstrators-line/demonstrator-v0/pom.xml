@@ -59,6 +59,22 @@
 		<url>http://github.com/cybnity/foundation-techstack/tree/main</url>
 	</scm>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>agnet</id>
+			<name>AG Net snapshots repository</name>
+			<uniqueVersion>false</uniqueVersion>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
+		</snapshotRepository>
+
+		<repository>
+			<id>agnet</id>
+			<name>AG Net releases repository</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
+		</repository>
+	</distributionManagement>
+
 	<!-- Tech stack official dependency versions -->
 	<dependencyManagement>
 		<dependencies>
