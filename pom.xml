@@ -43,14 +43,14 @@
 			<id>agnet</id>
 			<name>AG Net snapshots repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>https://nexus.agnet.fr/nexus/content/repositories/cybnity-snapshots/</url>
+			<url>https://nexus.agnet.fr/repository/cybnity-snapshots</url>
 		</snapshotRepository>
 
 		<repository>
 			<id>agnet</id>
 			<name>AG Net releases repository</name>
 			<uniqueVersion>true</uniqueVersion>
-			<url>https://nexus.agnet.fr/nexus/content/repositories/cybnity-releases/</url>
+			<url>https://nexus.agnet.fr/repository/cybnity-releases</url>
 		</repository>
 
 		<!--
