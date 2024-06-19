@@ -55,7 +55,7 @@ jobs:
 
       - name: GitHub environment variables
         if: ${{ env.ARTIFACT_VERSION == '' }}
-        uses: FranzDiebold/github-env-vars-action@v2.8.0
+        uses: FranzDiebold/github-env-vars-action@v2
 
       - name: Define an unique revision name (pattern <<feature branch name>>.<<commit id abbrev>>.<<commit time>>)
         if: ${{ env.ARTIFACT_VERSION == '' }}
