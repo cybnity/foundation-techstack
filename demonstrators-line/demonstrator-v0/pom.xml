@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.30.61</version>
+	<version>0.31.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -52,9 +52,6 @@
 		<!-- Activate warning about java deprecations (deprecation) or without (unchecked) -->
 		<lint.activation>deprecation</lint.activation>
 
-		<!-- Artefacts signature key name dedicated to CYBNITY components and available from https://keys.openpgpg.org-->
-		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
-
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
@@ -70,6 +67,9 @@
 
 		<!-- The stable Zookeeper (3.7.1) base image (see https://hub.docker.com/_/zookeeper), based on Temurin JVM -->
 		<docker.zookeeper.image.name>zookeeper:3.7.1-temurin</docker.zookeeper.image.name>
+
+		<!-- Public signature key name dedicated to CYBNITY components signing, and available from https://keys.openpgpg.org-->
+		<gpg.keyname>33105BFD367D25B3</gpg.keyname>
 	</properties>
 
 	<organization>
@@ -637,6 +637,46 @@
 		</profile>
 
 		<profile>
+			<!-- Maven Central Repository promotion stage -->
+			<id>central-deploy-environment</id>
+			<activation>
+				<property>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=central-deploy) -->
+					<name>environment</name>
+					<value>central-deploy</value>
+				</property>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<!-- Sonatype official maven central repository target for deployment of artefacts -->
+					<id>central</id>
+					<name>Central Maven repository</name>
+					<uniqueVersion>true</uniqueVersion>
+					<url>https://central.sonatype.com</url>
+				</repository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Allow signature of components before to publish them in Maven repository -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Add javasource in packaged jar -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<!-- Generate and include javadoc files in packaged deliverable -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
 			<!-- Test environment -->
 			<id>qa-environment</id>
 			<activation>
@@ -658,26 +698,6 @@
 					<value>commit</value>
 				</property>
 			</activation>
-
-			<build>
-				<plugins>
-					<plugin>
-						<!-- Allow signature of components before to publish them in Maven repository -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<!-- Add javasource in packaged jar -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<!-- Generate and include javadoc files in packaged deliverable -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 
 		<profile>
@@ -732,16 +752,6 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>
-					<plugin>
-						<!-- Allow signature of components before to publish them in Maven repository -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<!-- Add javasource in packaged jar -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
 					</plugin>
 					<plugin>
 						<!-- Generate and include javadoc files in packaged deliverable -->
