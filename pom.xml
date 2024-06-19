@@ -327,17 +327,18 @@
 			</build>
 		</profile>
 		<profile>
-			<!-- Maven central promotion stage -->
-			<id>central-deploy</id>
+			<!-- Maven Central Repository promotion stage -->
+			<id>central-deploy-environment</id>
 			<activation>
 				<property>
-					<!-- Activation based on -D system property (e.g command line with -Dstage=central-deploy) -->
-					<name>stage</name>
+					<!-- Activation based on -D system property (e.g command line with -Denvironment=central-deploy) -->
+					<name>environment</name>
 					<value>central-deploy</value>
 				</property>
 			</activation>
 			<distributionManagement>
 				<repository>
+					<!-- Sonatype official maven central repository target for deployment of artefacts -->
 					<id>central</id>
 					<name>Central Maven repository</name>
 					<uniqueVersion>true</uniqueVersion>
