@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.32.0</version>
+	<version>0.33.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -54,7 +54,9 @@
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.4.8</vertx.version> <!-- [4.3.2,) -->
+		<janusgraph.core>[1.1.0,)</janusgraph.core>
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
+		<janusgraph.inmemory>[1.1.0,)</janusgraph.inmemory>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 		<cucumber.version>7.12.1</cucumber.version>
@@ -241,6 +243,13 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+			<!-- JanusGraph core -->
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-core</artifactId>
+				<version>${janusgraph.core}</version>
+				<scope>compile</scope>
+			</dependency>
 			<!-- JanusGraph and Gremlin client connector approach -->
 			<dependency>
 				<groupId>org.janusgraph</groupId>
@@ -252,8 +261,8 @@
 				<!-- Embedded in-memory graph -->
 				<groupId>org.janusgraph</groupId>
 				<artifactId>janusgraph-inmemory</artifactId>
-				<version>[1.0.0,)</version>
-				<scope>test</scope>
+				<version>${janusgraph.inmemory}</version>
+				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.janusgraph</groupId>
