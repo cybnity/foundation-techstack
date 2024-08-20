@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.33.0</version>
+	<version>0.34.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -154,10 +154,10 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<!-- io.netty.resolver.dns.DnsServerAddressStreamProviders ignored about 'io.netty:netty-resolver-dns-native-macos" AVERTISSEMENT on Mac -->
+				<!-- io.netty.resolver.dns.DnsServerAddressStreamProviders ignored about 'io.netty:netty-resolver-dns-native-macos" NOTIFICATION on Mac -->
 				<groupId>io.netty</groupId>
 				<artifactId>netty-all</artifactId>
-				<version>[4.1.106.Final,)</version>
+				<version>[4.1.112.Final,)</version>
 				<scope>test</scope>
 			</dependency>
             <dependency>
