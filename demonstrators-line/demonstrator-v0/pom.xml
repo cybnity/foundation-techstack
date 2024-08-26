@@ -284,6 +284,7 @@
 				<groupId>org.keycloak</groupId>
 				<artifactId>keycloak-authz-client</artifactId>
 				<version>${keycloak.client}</version>
+				<scope>compile</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
