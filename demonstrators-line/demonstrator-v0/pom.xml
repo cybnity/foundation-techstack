@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.34.0</version>
+	<version>0.35.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -57,6 +57,7 @@
 		<janusgraph.core>[1.1.0,)</janusgraph.core>
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
 		<janusgraph.inmemory>[1.1.0,)</janusgraph.inmemory>
+		<keycloak.client>[25.0.4,)</keycloak.client>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 		<cucumber.version>7.12.1</cucumber.version>
@@ -269,6 +270,21 @@
 				<artifactId>janusgraph-test</artifactId>
 				<version>${janusgraph.driver}</version>
 				<scope>test</scope>
+			</dependency>
+			<!-- Keycloak SSO -->
+			<dependency>
+				<!-- Keycloak Admin API client -->
+				<groupId>org.keycloak</groupId>
+				<artifactId>keycloak-admin-client</artifactId>
+				<version>${keycloak.client}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<!-- Keycloak Auth API client -->
+				<groupId>org.keycloak</groupId>
+				<artifactId>keycloak-authz-client</artifactId>
+				<version>${keycloak.client}</version>
+				<scope>compile</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
