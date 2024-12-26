@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.38.0</version>
+	<version>0.39.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -234,7 +234,7 @@
 			<dependency>
 				<groupId>io.lettuce</groupId>
 				<artifactId>lettuce-core</artifactId>
-				<version>[6.2.0.RELEASE,)</version>
+				<version>[6.5.1.RELEASE,)</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>
