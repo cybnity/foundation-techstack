@@ -340,7 +340,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Terraform | | | | | | | |
 | MicroK8s | | | | | | | |
 | Kubernetes | | | | | | | |
-| Spinnaker |KO| | | | | |Partial installation success but lot of blocking point for integration with storage system (S3 MinIO) and operational status in K8S (RKE 2)|
+| Spinnaker |KO| | | | | |Partial installation with success, but lot of blocking points for integration with storage system (S3 MinIO) and no access to final operational status in K8S (RKE 2)|
 
 ## STEP 3 - Arbitration of the retained technologies set
 During this step, the final selection of the solutions set is performed between the accepted ideal or alternative eligible technologies.
