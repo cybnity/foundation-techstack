@@ -53,7 +53,7 @@
 		<lint.activation>deprecation</lint.activation>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>[4.5.22,)</vertx.version> <!-- [4.3.2,) --> <!-- 4.4.8 -->
+		<vertx.version>4.5.22</vertx.version> <!-- [4.3.2,) --> <!-- 4.4.8 -->
 		<janusgraph.core>[1.1.0,)</janusgraph.core>
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
 		<janusgraph.inmemory>[1.1.0,)</janusgraph.inmemory>
