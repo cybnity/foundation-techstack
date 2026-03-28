@@ -190,7 +190,7 @@ Presentation of the technologies and frameworks used for implementation of the C
 |Helm|Configuration management (resources definition) of repeatable application installation (via manifesto) of components into a Kubernetes cluster|Infrastructure-As-Code tool|Helm Chart|Kubernetes|
 |Docker Container|Server virtualization management of applicative/infrastructure systems|Templated system image instance and runtime|YAML file|Docker Runtime, Linux libraries|
 |Kubernetes Cluster|Orchestration management of services components and application nodes|Infrastructure-As-Code tool|Kubernetes|OS, Kubernetes orchestrator|
-|Terraform|Provisioning management of networking, load balancing, database, users, permissions and services values defining a runtime environment as Kubernetes cluster, and building configuration (Helm manifesto) of provisionable components|Infrastructure-As-Code tool|Terraform files|OS|
+|OpenTufu|Provisioning management of networking, load balancing, database, users, permissions and services values defining a runtime environment as Kubernetes cluster, and building configuration (Helm manifesto) of provisionable components|Infrastructure-As-Code tool|Terraform based files|OS|
 
 ### Physical Infrastructure Layer
 
