@@ -94,7 +94,7 @@ Presentation of the retained implementation stack resulting of the analysis step
 |Linux Debian|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure|version >= 10|
 |Docker|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= 20.10.17|
 |Helm|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Delivery Tool|version >= TBD|
-|Terraform|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
+|Opentofu|Web, Monitoring, Centralized Storage, Middlewares|Local, Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
 |Kubernetes Cluster|Web, Monitoring, Centralized Storage, Middlewares|Dev, Test, Staging, Production|Operating Infrastructure, Delivery Tool|version >= TBD|
 |MicroK8s|Web, Monitoring, Centralized Storage, Middlewares|Local|Operating Infrastructure, Delivery Tool|version >= TBD|
 |Minikube|Web, Monitoring, Centralized Storage, Middlewares|Local|Operating Infrastructure, Delivery Tool|version >= TBD|
@@ -179,7 +179,8 @@ The current status of technology already in the analysis stream give a general v
 | BUILD TOOL | Component Features Specification & Automated Testing | [Concordion](https://concordion.org/tutorial/java/markdown/) | `WIN` | | | Creation of living documentation (documenting, instrumenting, coding) regarding software features via a Behavior-Driven Design approach (specification of features and behavior scenario via markdown in files, instrumentation/automation of test case via Java fixture codes, and tests execution under JUnit via gradlew and/or IDE) allowing features development/maintenance through Test-Driven Design practices for system components features (e.g processes, feature unit test, integration test) |
 | BUILD TOOL | UI Features Automated Testing | [Cypress](https://www.cypress.io/features) | `WIN` | | | All-in-one testing framework, assertion library, with mocking and stubbing, all without Selenium installation. End-to-end testing of web UI features |
 | BUILD TOOL | Components Builder | [Maven](https://maven.apache.org/) | `WIN` | `WIN` | `WIN` | Build binaries (e.g application components) from VCS, install into local repository, and deploy to Artifacts Repository |
-| BUILD TOOL | Infrastructure-As-Code (IaC) | [Terraform](https://www.terraform.io/) | `WIN` | `WIN` | `X` | Provisioning management of networking, load balancer, database, users, permissions... and Kubernetes cluster (orchestration management); integration via providers (e.g OVH Cloud), with Docker (server templating) and Helm (configuration management as repeatable application installer), with Argo CD (assembly and installation management) |
+| BUILD TOOL | Infrastructure-As-Code (IaC) | [Terraform](https://www.terraform.io/) | `WIN` | `ALT` | `X` | Provisioning management of networking, load balancer, database, users, permissions... and Kubernetes cluster (orchestration management); integration via providers (e.g OVH Cloud), with Docker (server templating) and Helm (configuration management as repeatable application installer), with Argo CD (assembly and installation management) |
+| BUILD TOOL | Infrastructure-As-Code (IaC) | [Opentofu](https://github.com/opentofu/opentofu) | `WIN` | `WIN` | `X` | Provisioning management of networking, load balancer, database, users, permissions... based on Terraform (fork); integration via providers, with Docker (server templating) and Helm (configuration management as repeatable application installer). Fork of Terraform project who changed the license model |
 | BUILD TOOL | Components Builder | [Node.js & NPM](https://nodejs.org/en/) | `WIN` | `WIN` | `WIN` | JavaScript runtime built on Chrome's V8 JS engine for development/test of ReactJS application (e.g frontend web server components) |
 | BUILD TOOL | System Docker Images Builder | [Docker](https://www.docker.com/) | `WIN` | | | Build immutable containerized systems (e.g docker image template of packaged system ready for run), push and tag images into System Images Repository |
 | BUILD TOOL | Version Control System (VCS) | [GitHub](https://github.com/) Repository | `WIN` | | | Source codes repository with versioning management (e.g branches, tags, code reviews) |
@@ -339,6 +340,7 @@ The acceptance level per differentiation criteria is evaluated as:
 | Helm | | | | | | | |
 | Docker |OK| |OK| | | | |
 | Terraform | | | | | | | |
+| Opentofu | | | | | | | |
 | MicroK8s | | | | | | | |
 | Kubernetes | | | | | | | |
 | Spinnaker |KO| | | | | |Partial installation with success, but lot of blocking points for integration with storage system (S3 MinIO) and no access to final operational status in K8S (RKE 2)|
