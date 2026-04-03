@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.41.0</version>
+	<version>0.42.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -53,7 +53,7 @@
 		<lint.activation>deprecation</lint.activation>
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
-		<vertx.version>4.5.22</vertx.version> <!-- [4.3.2,) --> <!-- 4.4.8 -->
+		<vertx.version>4.5.24</vertx.version> <!-- [4.3.2,) --> <!-- 4.5.22 -->
 		<janusgraph.core>[1.1.0,)</janusgraph.core>
 		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
 		<janusgraph.inmemory>[1.1.0,)</janusgraph.inmemory>
@@ -157,8 +157,10 @@
 				<!-- io.netty.resolver.dns.DnsServerAddressStreamProviders ignored about 'io.netty:netty-resolver-dns-native-macos" NOTIFICATION on Mac -->
 				<groupId>io.netty</groupId>
 				<artifactId>netty-all</artifactId>
-				<version>[4.1.112.Final,)</version>
-				<scope>test</scope>
+				<!-- Fiexed version to support Lettuce usage by current Redis Adapter project -->
+				<!-- TODO: to re-align on superior version according to upgrade of Redis Adapter project and Lettuce Core usage -->
+				<version>4.2.12.Final</version>
+				<scope>compile</scope>
 			</dependency>
             <dependency>
                 <groupId>io.cucumber</groupId>
@@ -234,7 +236,24 @@
 			<dependency>
 				<groupId>io.lettuce</groupId>
 				<artifactId>lettuce-core</artifactId>
-				<version>[6.5.1.RELEASE,)</version>
+				<!-- Fixed version because next version removed classes with impact on Redis Adapter Impl project needing evolution -->
+				<version>6.5.1.RELEASE</version>
+				<exclusions>
+					<!-- FIX: removed classes (io.netty.channel.MultithreadEventLoopGroup and io.netty.channel.MultiThreadIoEventLoopGroup) from lettuce-core dependencies that are missing for RedisClient via Lettuce -->
+					<!-- TODO: evolution of Redis Client Adapter project with new Lettuce version -->
+					<exclusion>
+						<groupId>io.netty</groupId>
+						<artifactId>netty-transport</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>io.netty</groupId>
+						<artifactId>netty-common</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>io.netty</groupId>
+						<artifactId>netty-handler</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>

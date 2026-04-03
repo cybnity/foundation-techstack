@@ -68,8 +68,8 @@ Should allow definition and test of basic software factory implementation allowi
 None supervision requirements required regarding the step of the CYBNITY Foundation project.
 
 # CURRENT MPP OFFICIAL VERSION
-- Version: 0.41.0
-- Released at: Oct, 31, 2025
+- Version: 0.42.0
+- Released at: April, 3, 2026
 - Status: `RELEASED`
 - Documentation: [technologies-stack-analysis](technologies-stack-analysis.md)
 - Deliverables:
@@ -80,7 +80,7 @@ None supervision requirements required regarding the step of the CYBNITY Foundat
     <parent>
       <groupId>org.cybnity</groupId>
       <artifactId>techstack</artifactId>
-      <version>0.41.0</version>
+      <version>0.42.0</version>
     </parent>
 
     <repositories>
@@ -185,6 +185,7 @@ Presentation of the technologies and frameworks used for implementation of the C
 |Zookeeper|Discovery and systems' access configurations management|Directory/broker of access informations to services components (e.g Kafka, Redis brokers)|Java|JVM|
 |Cassandra|Persistence of domain data|NoSQL database|Cassandra Query Language (CQL)|Linux OS, Docker|
 |PostgreSQL|Persistence of SSO elements|Database of security elements regarding users' access controls|SQL|OS, Docker|
+|Traefik Proxy|API proxy & service routing|Application (Layer 7) load balancing & web proxy|Kubernetes IngressRoute, HTTPRoute|Kubernetes|
 |Linux Alpine|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
 |Linux Debian|Operating System of application/infrastructure components|Linux based operating system|Linux Kernel|Docker|
 |Helm|Configuration management (resources definition) of repeatable application installation (via manifesto) of components into a Kubernetes cluster|Infrastructure-As-Code tool|Helm Chart|Kubernetes|
