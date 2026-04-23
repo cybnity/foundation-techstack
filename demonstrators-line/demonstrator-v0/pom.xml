@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.45.0</version>
+	<version>0.46.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -54,9 +54,9 @@
 
 		<!-- TECHSTACK STANDARD TECHNOLOGIES -->
 		<vertx.version>4.5.26</vertx.version> <!-- [4.3.2,) --> <!-- 4.5.22 -->
-		<janusgraph.core>[1.1.0,)</janusgraph.core>
-		<janusgraph.driver>[1.1.0,)</janusgraph.driver>
-		<janusgraph.inmemory>[1.1.0,)</janusgraph.inmemory>
+		<janusgraph.core>1.1.1-20250608-090326.0289ebc</janusgraph.core>
+		<janusgraph.driver>1.1.1-20250608-090326.0289ebc</janusgraph.driver>
+		<janusgraph.inmemory>1.1.1-20250608-090326.0289ebc</janusgraph.inmemory>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version> <!-- 5.7.0 -->
 		<junit-jupiter-platform.version>[1.9.2,)</junit-jupiter-platform.version>
 		<cucumber.version>7.12.1</cucumber.version>
