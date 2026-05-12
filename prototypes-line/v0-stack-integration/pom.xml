@@ -48,4 +48,8 @@
 		<module>proto-asset-control</module>
 	</modules>
 
+	<properties>
+		<vertx.version>4.5.24</vertx.version>
+	</properties>
+
 </project>
