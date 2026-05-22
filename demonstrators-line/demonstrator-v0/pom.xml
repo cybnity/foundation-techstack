@@ -61,6 +61,7 @@
 		<testng.version>7.9.0</testng.version> <!-- For 7.9.0 JDK-11; else 7.5.1 for JDK-8 -->
 		<cucumber.version>7.34.3</cucumber.version> <!-- original version was 7.12.1-->
 		<assertj-bom.version>3.27.7</assertj-bom.version>
+
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
 
 		<!-- The JRE base image extended (based on https://hub.docker.com/_/eclipse-temurin description) including pre-installed Temurin JVM -->
@@ -173,7 +174,7 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-				<!-- Assert tool usable under Cucumber tests -->
+				<!-- Assert tool usable under Cucumber tests. See https://assertj.github.io/doc/ -->
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-bom</artifactId>
                 <version>${assertj-bom.version}</version>
