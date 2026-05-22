@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.48.0</version>
+	<version>0.49.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -60,7 +60,7 @@
 		<junit-bom.version>5.13.3</junit-bom.version> <!-- >=1.13.3 required by Cucumber (JUnit Jupiter 5.13.3) -->
 		<testng.version>7.9.0</testng.version> <!-- For 7.9.0 JDK-11; else 7.5.1 for JDK-8 -->
 		<cucumber.version>7.34.3</cucumber.version> <!-- original version was 7.12.1-->
-
+		<assertj-bom.version>3.27.7</assertj-bom.version>
 		<!-- Docker base images reusable by CYBNITY containerized modules -->
 
 		<!-- The JRE base image extended (based on https://hub.docker.com/_/eclipse-temurin description) including pre-installed Temurin JVM -->
@@ -169,6 +169,14 @@
                 <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-bom</artifactId>
                 <version>${cucumber.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+				<!-- Assert tool usable under Cucumber tests -->
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-bom</artifactId>
+                <version>${assertj-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
