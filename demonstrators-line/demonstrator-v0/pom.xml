@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cybnity</groupId>
 	<artifactId>techstack</artifactId>
-	<version>0.50.0</version>
+	<version>0.51.0</version>
 	<packaging>pom</packaging>
 	<name>CYBNITY Official Standard Techstack</name>
 
@@ -58,7 +58,6 @@
 		<janusgraph.driver>1.1.1-20250608-090326.0289ebc</janusgraph.driver>
 		<janusgraph.inmemory>1.1.1-20250608-090326.0289ebc</janusgraph.inmemory>
 		<junit-bom.version>5.13.3</junit-bom.version> <!-- >=1.13.3 required by Cucumber (JUnit Jupiter 5.13.3) -->
-		<testng.version>7.9.0</testng.version> <!-- For 7.9.0 JDK-11; else 7.5.1 for JDK-8 -->
 		<cucumber.version>7.34.3</cucumber.version> <!-- original version was 7.12.1-->
 		<assertj-bom.version>3.27.7</assertj-bom.version>
 
@@ -157,13 +156,6 @@
 				<!-- TODO: to re-align on superior version according to upgrade of Redis Adapter project and Lettuce Core usage -->
 				<version>4.2.12.Final</version>
 				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<!-- TestNG test plans management tool -->
-				<groupId>org.testng</groupId>
-				<artifactId>testng</artifactId>
-				<version>${testng.version}</version>
-				<scope>test</scope>
 			</dependency>
             <dependency>
 				<!-- Behaviour-Drivcen Development Test framework -->
